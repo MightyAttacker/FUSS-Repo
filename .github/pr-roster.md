@@ -11,7 +11,9 @@ The process for submitting PRs is to:
 1. update this list so that the next person is checked.
 
 ## Team members
-- [] Lachlan Klenk (Klen0010) (@groupmemberhandle)
-- [x] Jayden Putland (@groupmemberhandle)
-- [ ] Group member name (@groupmemberhandle)
-- [ ] Group member name (@groupmemberhandle)
+- [x] Jayden (@putl0014)
+- [ ] Edwin (@main0074)
+- [ ] Lachlan (@klen0010)
+- [ ] Thomas (@wach0035)
+- [ ] Liam (@mane0039)
+
