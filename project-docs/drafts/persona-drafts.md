@@ -27,7 +27,7 @@ Education: Graphical Design
 What Tech they have: iphone 12, Macbook Pro, iPad
 Hobbies: Digital Art
 Favourite Food: Pasta
-Grocability Items:
+Grokkability Items:
 Quotes about Persona:
 Personal Quote:
 Usage: Provider, helping with graphical design and drawing
