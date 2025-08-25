@@ -113,6 +113,7 @@ FUSS can take advantage of these weak points by partnering with student unions o
 ### Sitemap
 
 
+<img src="../imgs/Sitemap/Site Map.png">
 
 ### User Flow Diagrams
 #### Requesting a Service
