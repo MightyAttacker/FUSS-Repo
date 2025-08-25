@@ -1,5 +1,4 @@
-
-##Persona Details- putl0014
+## Persona Details- putl0014
 Student 1
 Name: Kaitlin Werner
 Gender: Female
@@ -18,7 +17,7 @@ Usage of site: Uses the site to get education relating to medicine to braoden th
 
 
 
-Lachlan (klen0010)
+## Persona Details- klen0010
 Name: Thomas Jacobs (Tom)
 Age: 24
 Gender: Male
@@ -36,7 +35,9 @@ Story:
 
 
 
-Edwin (main0074)
+
+
+## Persona Details- main0074
 
 
 
@@ -56,7 +57,7 @@ Edwin (main0074)
 
 
 
-## Persona Details - WACH0035
+## Persona Details- wach0035
 
 
 

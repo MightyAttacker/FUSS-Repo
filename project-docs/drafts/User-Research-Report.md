@@ -19,49 +19,19 @@ Research Methods
 
 User Persona #1
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Provider Example:
+<img src="./Images/UserPersonas/Matthew Jacob Persona.png">
 
 
 User Persona #2
 
+User Example:
+<img src="./Images/UserPersonas/Athena Werner Persona.png">
 
+User Person #3
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Admin Example:
+<img src="./Images/UserPersonas/Diego Martinez Persona.png">
 
 Competitor Analysis
 Direct competitor: Thinkswap.com 
@@ -73,23 +43,3 @@ Direct competitor: Timebanking.com.au
 Timebanking is essentially a free community program that offers people the chance to exchange skills or services, reflecting the needs and interests of people within the community. It operates in the same way as the FUSS application, where for every hour of service a person provides, they receive an hour back. Timebanking has a small user base and heavily relies on volunteer coordinators to operate.
 Timebanking differs from FUSS because it relies on creating connections through local community events and sharing skills. Registration for Timebanking is open to everyone; therefore,the services offered  can vary. This system can result in user verification and safety issues if proper systems of moderation are not implemented. Timebanking also struggles to build strong community engagement due to a lack of adoption or information. 
 FUSS can take advantage of these weak points by partnering with student unions or clubs to increase engagement and potentially embedding the platform into student workflows. FUSS is also more reliable due to its secure registration process and peer review system.  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
