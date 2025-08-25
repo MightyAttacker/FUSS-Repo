@@ -126,19 +126,19 @@ FUSS can take advantage of these weak points by partnering with student unions o
 
 ### Wire Frames
 #### Admin Dashboard
-<img src="../imgs/Wireframes/AdminDashboardWireframe.png">
+<img src="../imgs/AnnotatedWireframes/AnnotatedAdminDashboard.png">
 
 #### Creating a Request
-<img src="../imgs/Wireframes/CreateRequestWireframe.png">
+<img src="../imgs/AnnotatedWireframes/AnnotatedServiceRequest.png">
 
 #### Editing a Profile
-<img src="../imgs/Wireframes/EditProfileWireframe.png">
+<img src="../imgs/AnnotatedWireframes/AnnotatedManageProfile.png">
 
 #### Sign-In Page
-<img src="../imgs/Wireframes/SignInWireframe.png">
+<img src="../imgs/AnnotatedWireframes/AnnotatedSignIn.png">
 
 #### Student Dashboard
-<img src="../imgs/Wireframes/StudentDashboardWireframe.png">
+<img src="../imgs/AnnotatedWireframes/AnnotatedDashboard.png ">
 
 ### Storyboards
 
