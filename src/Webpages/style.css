@@ -1,0 +1,60 @@
+html,body{
+    margin: 0; /* remove default margin around edge of browser*/
+}
+.header{
+    display: flex; /* required for justify content*/
+    justify-content: space-between; /* evenly spaces everything within header*/
+    align-items: center;
+}
+.userprofile{
+    display:flex;
+    align-items: center; /* display:flex and align item:right to make everything centered vertically*/
+    gap:15px; /* gap between the user icon, username and logout button*/
+    margin-right:20px; /* margin on right so log out button isnt on edge of screen*/
+}
+/* Flinder logo*/
+#logo{
+    padding-top:10px;
+    padding-left:10px;
+    width:200px;
+}
+/* User icon image*/
+#userIcon{
+    height:50px;
+    width:50px;
+}
+
+/* class for div that navbar is in to extend background to length of page */
+.navbar{
+    width:200px;
+    background-color: #002F60;
+    height:100%;
+    position:fixed;
+}
+/* remove bullet point, margin and padding so it fits nicer */
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding-left:10px;
+    padding: 0px;
+    width: 200px;
+    background-color: #002F60;
+}
+/* show which page your currently on*/
+li a.active{
+    background-color: #FFD300;
+    color: black;
+}
+/* for every list item thats a hyperlink*/
+li a{
+    /* makes the whole area of the list item clickable*/
+    display: block;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+/* change colour when hovering over*/
+li a:hover{
+    background-color: #FFD300;
+    color:black;
+}
