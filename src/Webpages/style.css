@@ -1,5 +1,6 @@
 html,body{
     margin: 0; /* remove default margin around edge of browser*/
+    padding:0;
 }
 .header{
     display: flex; /* required for justify content*/
@@ -25,21 +26,17 @@ html,body{
 }
 
 /* class for div that navbar is in to extend background to length of page */
+
 .navbar{
-    width:200px;
-    background-color: #002F60;
-    height:100%;
-    position:fixed;
-}
-/* remove bullet point, margin and padding so it fits nicer */
-ul{
     list-style-type: none;
     margin: 0;
-    padding-left:10px;
     padding: 0px;
     width: 200px;
     background-color: #002F60;
+    position:absolute;
+    min-height:100%;
 }
+
 /* show which page your currently on*/
 li a.active{
     background-color: #FFD300;
