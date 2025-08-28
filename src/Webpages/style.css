@@ -1,17 +1,22 @@
 html,body{
     margin: 0; /* remove default margin around edge of browser*/
-    padding:0;
+    padding: 0;
 }
+
 .header{
+    background-color:#002F60;
     display: flex; /* required for justify content*/
     justify-content: space-between; /* evenly spaces everything within header*/
-    align-items: center;
+    align-items: middle;
+    padding:20px 20px 20px 0px;
 }
+/* this encases just the usericon, username and logout button*/
 .userprofile{
     display:flex;
     align-items: center; /* display:flex and align item:right to make everything centered vertically*/
     gap:15px; /* gap between the user icon, username and logout button*/
-    margin-right:20px; /* margin on right so log out button isnt on edge of screen*/
+     /* margin on right so log out button isnt on edge of screen*/
+    color:white;
 }
 /* Flinder logo*/
 #logo{
@@ -25,18 +30,17 @@ html,body{
     width:50px;
 }
 
-/* class for div that navbar is in to extend background to length of page */
-
+/* navigation bar formating*/
 .navbar{
     list-style-type: none;
     margin: 0;
     padding: 0px;
-    width: 200px;
+    width: 220px;
     background-color: #002F60;
     position:absolute;
     min-height:100%;
-}
 
+}
 /* show which page your currently on*/
 li a.active{
     background-color: #FFD300;
@@ -44,8 +48,7 @@ li a.active{
 }
 /* for every list item thats a hyperlink*/
 li a{
-    /* makes the whole area of the list item clickable*/
-    display: block;
+    display: block; /* makes the whole area of the list item clickable*/
     color: white;
     padding: 8px 16px;
     text-decoration: none;
@@ -54,4 +57,19 @@ li a{
 li a:hover{
     background-color: #FFD300;
     color:black;
+}
+/* container holding each graph*/
+.container{
+    margin-left: 220px; /* prevent items from going behind navbar*/
+    display:grid;       /* setup grid layout*/
+    grid-template-columns: auto auto;   /* grid template: 2 columns wide*/
+    padding:20px; /* gap between all other elements*/
+    gap:20px;   /* gap between each box on grid*/
+    height:500px;   /* height of each item*/
+    
+}
+/* formatting for divs within conatainer*/
+.container > div{
+    background-color:grey;
+    text-align:center;
 }
