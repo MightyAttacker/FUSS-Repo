@@ -1,1 +1,3 @@
 /.vscode
+/.notes.txt
+.devcontainer/docker-compose.yml
