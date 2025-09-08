@@ -1,16 +1,19 @@
-body{
-    font-family: Helvetica, Arial, sans-serif;
-    background-color: #f0f0f0;
-    background-image: url(./imgs/tonsleyBuilding.jpg);
-    background-repeat: no-repeat;
-    background-position: center center;
+body {
+    background: url('./imgs/tonsleyBuilding.jpg') no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    background-position-y: -100px;
-    height: 100vh;
-    margin: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    background-position: center center;
+      
 }
-
+.login{
+    background-color: #002F60;
+    border: 5px;
+    color: #ffd300;
+    border-color: black;
+    border-style: ridge;
+    text-align: center;
+}
 
 #topBanner{
     background-color: #002F60;
@@ -20,7 +23,10 @@ body{
     align-items: center;
     justify-content: left;
     display: block;
-     
+    margin-top: -15px;
+    margin-left: -10px;
+    width:100vw;
+    
 }
 
 #flindersLogo{
@@ -51,8 +57,13 @@ h2{
     padding: 30px;
     margin: 60px auto;
     width: 400px;
-    background-color: #fff;
+    background-color:ghostwhite;
     border: 1px solid #d2d2d2;
+    border-radius: 5px;
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+    margin: 0;
 }
 
 .form-card {
@@ -67,17 +78,35 @@ h2{
     padding: 10px;
     margin: 5px 10px 5px 0px;
     border: 1px solid #373434;
+    border-radius: 5px;
     display: block;
-    width: 100%;
+    width: 300px;
     box-sizing: border-box;
+    font-size: 16px;
+}
+
+#submitButtons{
+    display: block;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .button{
-    margin-left: 60px;
     padding: 10px 25px;
     font-weight: bold;
     text-transform: uppercase;
     color: #ffD300;
     border: none;
+    border-radius: 5px;
     background-color: #002F60;
+   
+}
+#loginButton{
+    margin-right: 25px;  
+}
+
+#showPassword{
+    font-weight: 500;
+    font-size: 15px;
 }

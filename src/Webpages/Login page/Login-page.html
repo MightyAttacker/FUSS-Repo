@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="login.css">
+    <script src="./login.js"> </script>
     <title>FUSS Login Page</title>
 </head>
 
@@ -18,20 +19,28 @@
   <div id="loginCard">
       <form action="/login" method="post" id="loginForm">
       <div class="form-card">
-        <h2>Login</h2>
+        <h2>Student Login</h2>
+        <h4> Please use your '@flinders.edu.au' email </h4>
           <div>
             <label for="email">Email:</label>
-            <input class="form-item" type="text" id="email" name="email" required>
+            <input class="form-item" type="email" id="email" name="email" pattern="^.+@flinders\.edu\.au$" title="Please use an @flinders.edu.au email address" required>
         </div>
         <br>
         <div>
             <label for="password">Password:</label>
             <input class="form-item" type="password" id="password" name="password" required>
+             
+            <div id="showPassword">
+                <input class="showPassword" id="showPassword" type="checkbox" onclick="myFunction()">
+                <label id="passwordText" for="password">Show Password</label>
+          </div>
         </div>
         <br>
         </div>
-        <button id="login" type="submit" class="button">Login</button>
-      <button id="register" type="submit" class="button">Register</button>
+        <div id="submitButtons">
+        <button id="loginButton" type="submit" class="button">Login</button>
+        <button id="registerButton" type="submit" class="button">Register</button>
+        </div>
     </form>
     </div>
     </main>
