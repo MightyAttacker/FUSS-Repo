@@ -8,24 +8,32 @@
 </head>
 
 <body>
- <div class="login">
-    <form action="/login" method="post">
+  <div id="topBanner">
+    <div id="flindersLogo">
+      <img src="./imgs/flindersLogo.png" alt="Logo for Flinders University" id="flindersLogo">
+    </div>
+      <header><h1>Flinders University Skill Share</h1> <header>
+  </div>
+  <main>
+  <div id="loginCard">
+      <form action="/login" method="post" id="loginForm">
+      <div class="form-card">
         <h2>Login</h2>
-        <div>
+          <div>
             <label for="email">Email:</label>
-            <input type="text" id="email" name="email" required>
+            <input class="form-item" type="text" id="email" name="email" required>
         </div>
         <br>
         <div>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <input class="form-item" type="password" id="password" name="password" required>
         </div>
         <br>
-      <button id="login" type="submit">Login</button>
-      <button id="register" type="submit">Register</button>
-    
+        </div>
+        <button id="login" type="submit" class="button">Login</button>
+      <button id="register" type="submit" class="button">Register</button>
     </form>
-    <br>
-  </div>
+    </div>
+    </main>
 </body>
 </html>

@@ -1,0 +1,83 @@
+body{
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: #f0f0f0;
+    background-image: url(./imgs/tonsleyBuilding.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position-y: -100px;
+    height: 100vh;
+    margin: 0;
+}
+
+
+#topBanner{
+    background-color: #002F60;
+    color: #f0f0f0;
+    padding: 10px 5px 50px 10px;
+    text-align: justify;
+    align-items: center;
+    justify-content: left;
+    display: block;
+     
+}
+
+#flindersLogo{
+    width: 100px;
+    display: block;
+    float: left;
+}
+header{
+
+}
+
+main{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -240px; 
+}
+
+h2{
+    display: flex;
+    justify-content: center;
+
+}
+
+#loginForm{
+    font-weight: bold;
+    padding: 30px;
+    margin: 60px auto;
+    width: 400px;
+    background-color: #fff;
+    border: 1px solid #d2d2d2;
+}
+
+.form-card {
+
+    min-height: 250px;
+    text-align: left;
+
+}
+
+.form-item{
+
+    padding: 10px;
+    margin: 5px 10px 5px 0px;
+    border: 1px solid #373434;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.button{
+    margin-left: 60px;
+    padding: 10px 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffD300;
+    border: none;
+    background-color: #002F60;
+}
