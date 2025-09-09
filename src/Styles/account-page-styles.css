@@ -1,0 +1,51 @@
+:root {
+    background-color: #bbb;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 6fr 1fr 6fr 1fr 22fr 1fr;
+}
+
+.text-input {
+    background-color: #aaa;
+}
+
+#sidebar {
+    position: static;
+    background-color: gray;
+}
+
+a {
+    color: black;
+}
+
+.skill-btn {
+    padding: 10px;
+    background-color: yellow;
+}
+
+#academic-skills {
+    background-color: chocolate;
+    max-width: 25%;
+}
+
+#availability-popup {
+    position: absolute;
+    background-color: #efb435;
+    padding: 20px;
+}
+
+div.popup {
+    position: relative;
+    display: inline-block;
+}
+
+button.popup {
+    width: 100px;
+    background-color: red;
+}
+
+.hidden {
+    display: none !important;
+}

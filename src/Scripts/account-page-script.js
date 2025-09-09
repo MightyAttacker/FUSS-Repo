@@ -7,8 +7,7 @@ var userAcademicSkills = [];
 
 function list_contains(list, value) {
     for (let i = 0; i < list.length; i++) {
-        const element = list[i];
-        if (element === value) {
+        if (list[i] === value) {
             return true;
         }
     }
@@ -18,7 +17,6 @@ function list_contains(list, value) {
 academicSkills.addEventListener("change", () => {
     if (academicSkills.value !== "") {
         if (!list_contains(userAcademicSkills, academicSkills.value)) {
-            // New note: JS is retarded; 'in' does not check string values -- it checks indices
             userAcademicSkills.push(academicSkills.value);
             const newSkill = document.createElement("button");
             const id = document.createAttribute("id");
@@ -27,7 +25,7 @@ academicSkills.addEventListener("change", () => {
 
             id.value = academicSkills.value;
             form.value = "";
-            elementClass.value = "skill-btn academic-skill-btn"
+            elementClass.value = "skill-btn academic-skill-btn";
             newSkill.setAttributeNode(id);
             newSkill.setAttributeNode(form);
             newSkill.setAttributeNode(elementClass);
@@ -36,11 +34,12 @@ academicSkills.addEventListener("change", () => {
             selectedAcademicSkills_div.appendChild(newSkill);
 
             newSkill.addEventListener("click", () => {
-                userAcademicSkills.splice(
-                    userAcademicSkills.indexOf(academicSkills.value),
+                var test = id.value; // Stores the value of the id once the block is out of scope
+                newSkill.remove();
+                userAcademicSkills.splice( // Remove skill from the list of skills
+                    userAcademicSkills.indexOf(test), // was userAcademicSkills.indexOf(academicSkills.value). Turns out that updates the value as the page changes. If it couldn't be found, the last element would be deleted
                     1
                 );
-                newSkill.remove();
             });
         }
     }
