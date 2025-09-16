@@ -72,7 +72,7 @@ const academicSkills = document.getElementById("askills"); // Dropdown with all 
 
 const selectedAcademicSkills_div = document.getElementById("academic-skills"); // Div to put the buttons in
 
-var userAcademicSkills = []; // List to store current academic skills
+export var userAcademicSkills = []; // List to store current academic skills
 
 
 academicSkills.addEventListener("change", () => {
@@ -89,7 +89,7 @@ const selectedNonAcademicSkills_div = document.getElementById(
     "non-academic-skills"
 );
 
-var userNonAcademicSkills = [];
+export var userNonAcademicSkills = [];
 nonAcademicSkillsDropdown.addEventListener("change", () => {
     if (nonAcademicSkillsDropdown.value !== "") {
         createButton(nonAcademicSkillsDropdown.value, false);
