@@ -25,9 +25,8 @@ a {
     background-color: yellow;
 }
 
-#academic-skills {
+#academic-skills, #non-academic-skills {
     background-color: chocolate;
-    max-width: 25%;
 }
 
 #availability-popup {

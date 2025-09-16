@@ -19,7 +19,7 @@
             // from https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event
         </script>
         <script src="../Scripts/account-page-availability.js" defer> </script>
-        <link rel="stylesheet" href="../Styles/styles.css">
+        <link rel="stylesheet" href="../Styles/account-page-styles.css">
         <?php
         require_once "../inc/dbconn.inc.php";
 
@@ -60,7 +60,6 @@
             id="form"
             class="form">
 
-
             <p>My Course:</p>
             <input
                 type="text"
@@ -68,7 +67,15 @@
                 name="course"
                 class="text-input input"
                 id="course"
-                value=<?php echo "Test2"; ?>>
+                value=<?php
+                        $sql = "SELECT course FROM users WHERE id = \"testuser1\"";
+                        if ($result = mysqli_query($conn, $sql)) {
+                            foreach ($result as $k => $v) {
+                                echo $v["course"];
+                            }
+                            mysqli_free_result($result);
+                        }
+                        ?>>
             <br>
             <br>
 
@@ -79,7 +86,15 @@
                 class="textarea input text-input"
                 id="about"
                 rows=10
-                cols=30><?php echo "Default Value"; ?></textarea>
+                cols=30><?php
+                        $sql = "SELECT about FROM users WHERE id = \"testuser1\"";
+                        if ($result = mysqli_query($conn, $sql)) {
+                            foreach ($result as $k => $v) {
+                                echo $v["about"];
+                            }
+                            mysqli_free_result($result);
+                        }
+                        ?></textarea>
             <br>
             <br>
 
@@ -88,32 +103,36 @@
                 class="dropdown input"
                 id="askills">
                 <?php
-                $skills = array(
-                    "Select skills",
-                    "skill0",
-                    "skill1",
-                    "skill2",
-                    "skill3",
-                    "skill4",
-                    "skill5",
-                    "skill6",
-                    "skill7",
-                    "skill8",
-                    "skill9",
-                );
-                foreach ($skills as $s) {
-                    if ($s == "Select skills") {
-                        echo "<option value=\"\">Select Skills</option>";
-                    } else {
-                        echo "<option value=\"$s\">$s</option>";
+                echo "<option value=\"\">Select Skills</option>";
+
+                $sql = "SELECT skill FROM skills WHERE academic = 1";
+                if ($result = mysqli_query($conn, $sql)) {
+                    foreach ($result as $k => $v) {
+                        $a = $v["skill"];
+                        echo "<option value=\"$a\">$a</option>";
                     }
+                    mysqli_free_result($result);
                 }
                 ?>
             </select>
             <br>
             <br>
             <div id="academic-skills">
-
+                <?php
+                $sql = "SELECT skills.skill
+                FROM skills JOIN userskills u on skills.skill = u.skill 
+                WHERE academic = 1 AND userid = \"testuser1\"";
+                if ($result = mysqli_query($conn, $sql)) {
+                    foreach ($result as $k => $v) {
+                        $b = implode($v);
+                        // Could combine all calls into one script. Only needs to be done if there is spare time
+                        echo "<script type=\"module\"> 
+                        import {createButton} from \"../Scripts/account-page-script.js\";
+                        createButton(\"$b\", true); </script>";
+                    }
+                    mysqli_free_result($result);
+                }
+                ?>
             </div>
 
             <p>My Non-Academic Skills</p>
@@ -122,17 +141,39 @@
                 id="naskills">
 
                 <?php
-                $skills = array("Select skills", "Cooking", "Tech Support");
-                foreach ($skills as $s) {
-                    if ($s == "Select skills") {
-                        echo "<option value=\"\">Select Skills</option>";
-                    } else {
-                        echo "<option value=\"$s\">$s</option>";
+                echo "<option value=\"\">Select Skills</option>";
+                $sql = "SELECT skill FROM skills WHERE academic = 0";
+                if ($result = mysqli_query($conn, $sql)) {
+                    foreach ($result as $k => $v) {
+                        $a = $v["skill"];
+                        echo "<option value=\"$a\">$a</option>";
                     }
+                    mysqli_free_result($result);
                 }
                 ?>
             </select>
-            <div id="non-academic-skills"></div>
+            <br>
+            <br>
+            <div id="non-academic-skills">
+
+                <?php
+                $sql = "SELECT skills.skill
+                FROM skills JOIN userskills u on skills.skill = u.skill 
+                WHERE academic = 0 AND userid = \"testuser1\"";
+                if ($result = mysqli_query($conn, $sql)) {
+                    foreach ($result as $k => $v) {
+                        $b = implode($v);
+                        // echo "$b";
+                        echo "<script type=\"module\"> 
+                        import {createButton} from \"../Scripts/account-page-script.js\";
+                        createButton(\"$b\", false); </script>";
+                    }
+                    mysqli_free_result($result);
+                }
+                ?>
+                <!-- TODO: create objects on page load for user's current skills -->
+
+            </div>
 
             <br>
             <br>
