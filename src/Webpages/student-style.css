@@ -39,13 +39,39 @@ html,body{
     background-color: #002F60;
     position:absolute;
     min-height:100%;
-
 }
+
+.credit{
+    list-style-type: none;
+    margin: 0;
+    margin-bottom: -20px;
+    right: 0px;
+    top: 200px;
+    width: 200px;
+    position:absolute;
+}
+
+.credits{
+    list-style-type: none;
+    margin: 0;
+    margin-bottom: -20px;
+    right: 0px;
+    top: 215px;
+    width: 200px;
+    position:absolute;
+}
+
 /* show which page your currently on*/
 li a.active{
     background-color: #FFD300;
     color: black;
 }
+
+/* show which page your currently on*/
+li a.activeCredit{
+    color: black;
+}
+
 /* for every list item thats a hyperlink*/
 li a{
     display: block; /* makes the whole area of the list item clickable*/
