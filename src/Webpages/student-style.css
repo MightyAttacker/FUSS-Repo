@@ -64,9 +64,10 @@ li a:hover{
     margin-right: 220px; /* prevent items from going all the way to the right*/
     display:grid;       /* setup grid layout*/
     grid-template-columns: auto;   /* grid template: 2 columns wide*/
-    padding:20px; /* gap between all other elements*/
-    gap:20px;   /* gap between each box on grid*/
-    height: 150px;   /* height of each item*/
+    padding-left:20px; /* gap on left of elements*/
+    padding-bottom:10px; /* gap between bottom of elements*/
+    gap:0px;   /* gap between each box on grid*/
+    height: 120px;   /* height of each item*/
     
 }
 /* formatting for divs within conatainer*/
