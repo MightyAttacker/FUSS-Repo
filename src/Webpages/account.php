@@ -14,10 +14,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>My Account</title>
-        <script src="../Scripts/account-page-script.js" defer>
-            // TODO: Use beforeunload
-            // from https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event
-        </script>
+        <script type="module" src="../Scripts/account-page-script.js" defer> </script>
         <script type="module" src="../Scripts/account-page-availability.js" defer> </script>
         <script type="module" src="../Scripts/account-page-submit.js" defer> </script>
         <link rel="stylesheet" href="../Styles/account-page-styles.css">

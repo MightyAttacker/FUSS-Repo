@@ -1,4 +1,5 @@
-//TODO: When finished, duplicate everything for non-academic skills
+// from https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event
+
 function list_contains(list, value) {
     for (let i = 0; i < list.length; i++) {
         if (list[i] === value) {
@@ -38,7 +39,12 @@ export function createButton(skillname, academic) {
             });
         }
     } else {
-        if (!list_contains(userNonAcademicSkills, nonAcademicSkillsDropdown.value)) {
+        if (
+            !list_contains(
+                userNonAcademicSkills,
+                nonAcademicSkillsDropdown.value
+            )
+        ) {
             userNonAcademicSkills.push(skillname);
             const newSkill = document.createElement("button");
             const id = document.createAttribute("id");
@@ -73,7 +79,6 @@ const academicSkills = document.getElementById("askills"); // Dropdown with all 
 const selectedAcademicSkills_div = document.getElementById("academic-skills"); // Div to put the buttons in
 
 export var userAcademicSkills = []; // List to store current academic skills
-
 
 academicSkills.addEventListener("change", () => {
     if (academicSkills.value !== "") {

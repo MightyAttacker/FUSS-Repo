@@ -48,3 +48,23 @@ button.popup {
 .hidden {
     display: none !important;
 }
+
+table,
+td {
+    border: 1px black solid;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+}
+
+[id*="start"] {
+    background-color: aquamarine;
+}
+
+[id*="end"] {
+    background-color: crimson;
+}
