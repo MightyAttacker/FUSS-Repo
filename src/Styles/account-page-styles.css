@@ -62,9 +62,13 @@ table {
 }
 
 [id*="start"] {
-    background-color: aquamarine;
+    background-color: rgb(190, 145, 209);
 }
 
 [id*="end"] {
-    background-color: crimson;
+    background-color: rgb(109, 121, 181);
+}
+
+[id*="more"] {
+    width: 100%;
 }

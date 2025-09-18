@@ -1,4 +1,4 @@
-<?php // TODO: find out how to get userid automatically without sending it in POST
+<?php
 require_once "../inc/dbconn.inc.php";
 
 // Get POST data
