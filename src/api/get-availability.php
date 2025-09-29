@@ -1,8 +1,8 @@
 <?php
 require_once "../inc/dbconn.inc.php";
 header('Content-type: application/json');
-// Usage http://localhost:8010/Webpages/get-availability.php?startdate=2025-09-15
-// Usage http://localhost:8010/Webpages/get-availability.php?startdate={YYYY-MM-DD}
+// Usage http://localhost:8010/Webpages/get-availability.php?startdate=2025-09-15&userid=testuser1
+// Usage http://localhost:8010/Webpages/get-availability.php?startdate={YYYY-MM-DD}&userid={id}
 // Prepare statement
 $stmt = $conn->prepare("SELECT userid, dayindex, starttime, endtime
                         FROM recurringAvailability

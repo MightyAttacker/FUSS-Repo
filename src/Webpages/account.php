@@ -1,11 +1,5 @@
 <!DOCTYPE html>
-
-<head>
-    <!--Files to include in project:
-- Flinders logo
-- Default account image
-
-- Place to upload profile pictures-->
+<!-- Place to upload profile pictures-->
     <!DOCTYPE html>
     <!--<meta> -->
     <html lang="en">
@@ -14,10 +8,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>My Account</title>
-        <script type="module" src="../Scripts/account-page-script.js" defer> </script>
-        <script type="module" src="../Scripts/account-page-availability.js" defer> </script>
-        <script type="module" src="../Scripts/account-page-submit.js" defer> </script>
-        <link rel="stylesheet" href="../Styles/account-page-styles.css">
+        <script type="module" src="/Scripts/account-page-script.js" defer> </script>
+        <script type="module" src="/Scripts/account-page-availability.js" defer> </script>
+        <script type="module" src="/Scripts/account-page-submit.js" defer> </script>
+        <link rel="stylesheet" href="/Styles/account-page-styles.css">
         <?php
         require_once "../inc/dbconn.inc.php";
         ?>
@@ -25,7 +19,7 @@
 
 <body>
     <div id="sidebar">
-        <a href="../index.php">Test</a>
+        <a href="/index.php">Test</a>
     </div>
 
     <div class="spacing"></div>
@@ -98,7 +92,7 @@
                     $b = implode($v);
                     // Could combine all calls into one script. Only needs to be done if there is spare time
                     echo "<script type=\"module\"> 
-                        import {createButton} from \"../Scripts/account-page-script.js\";
+                        import {createButton} from \"/Scripts/account-page-script.js\";
                         createButton(\"$b\", true); </script>";
                 }
                 mysqli_free_result($result);
@@ -136,7 +130,7 @@
                     $b = implode($v);
                     // echo "$b";
                     echo "<script type=\"module\"> 
-                        import {createButton} from \"../Scripts/account-page-script.js\";
+                        import {createButton} from \"/Scripts/account-page-script.js\";
                         createButton(\"$b\", false); </script>";
                 }
                 mysqli_free_result($result);

@@ -29,7 +29,7 @@ export function createButton(skillname, academic) {
             selectedAcademicSkills_div.appendChild(newSkill);
 
             newSkill.addEventListener("click", () => {
-                var test = id.value; // Stores the value of the id once the block is out of scope
+                const test = id.value; // Stores the value of the id once the block is out of scope
                 newSkill.remove();
                 userAcademicSkills.splice(
                     // Remove skill from the list of skills
@@ -62,7 +62,7 @@ export function createButton(skillname, academic) {
             selectedNonAcademicSkills_div.appendChild(newSkill);
 
             newSkill.addEventListener("click", () => {
-                var test = id.value; // Stores the value of the id once the block is out of scope
+                const test = id.value; // Stores the value of the id once the block is out of scope
                 newSkill.remove();
                 userNonAcademicSkills.splice(
                     // Remove skill from the list of skills
@@ -74,7 +74,7 @@ export function createButton(skillname, academic) {
     }
 }
 
-const academicSkills = document.getElementById("askills"); // Dropdown with all of the skills
+const academicSkills = document.getElementById("askills"); // Dropdown with all the skills
 
 const selectedAcademicSkills_div = document.getElementById("academic-skills"); // Div to put the buttons in
 
