@@ -149,6 +149,13 @@ main{
     cursor: pointer;   
 
 }
+#submitButtons{
+    display: block;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+}
 .dateAndTime{
     width: 250px;
 }
