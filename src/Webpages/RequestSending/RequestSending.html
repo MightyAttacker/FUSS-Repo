@@ -1,26 +1,30 @@
 <!DOCTYPE html>
-<html lang="en-AU"> 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <script src="./login.js"> </script>
-    <title>FUSS Request Page</title>
+<html lang="en-AU">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="./login.js"> </script>
+  <title>FUSS Request Page</title>
 </head>
 
 <body>
   <div id="topBanner">
     <div id="flindersLogo">
-     <img id="imgLogo" src="../images/Logo_Flinders_white.png" alt="Logo for Flinders University" id="flindersLogo">
+      <img id="imgLogo" src="../images/Logo_Flinders_white.png" alt="Logo for Flinders University" id="flindersLogo">
     </div>
-    <div id="title">  
-    <header><h1>Flinders University Skill Share</h1> </header>
+    <div id="title">
+      <header>
+        <h1>Flinders University Skill Share</h1>
+      </header>
     </div>
-        <div id="logoutButton">
-          <input id="logButton" class="button" type="button" onclick="location.href='../studentLoginPage/studentLoginPage.html';" value="Logout" />
-          </div>
+    <div id="logoutButton">
+      <input id="logButton" class="button" type="button"
+        onclick="location.href='../studentLoginPage/studentLoginPage.html';" value="Logout" />
+    </div>
   </div>
-  
+
   <div id="sideBar">
     <ul class="sidebar">
       <li> <a href="#home">Home</a> </li>
@@ -28,65 +32,70 @@
       <li> <a href="#ViewRequests">View My Requests</a> </li>
       <li> <a href="#BrowseRequests">Browse Requests</a> </li>
       <li> <a href="#ManageProfile">Manage Profile</a> </li>
-      <li> <a href="#History">History</a> </li>  
+      <li> <a href="#History">History</a> </li>
     </ul>
   </div>
-  
-    <main>
-      <div id="Header">
-        Create Service Request
-      </div>
-      <div id="requestForm"> 
-        <form> 
-        <div id="Title" class="requestFormItem"> 
-            <label for="Title">Title</label> <br>
-            <input class="requestFormItem" id="Title" type="text" name="Title" placeholder="Title">
+
+  <main>
+    <div id="Header">
+      Create Service Request
+    </div>
+    <div id="requestForm">
+      <form>
+        <div id="Title" class="requestFormItem">
+          <label for="Title">Title</label> <br>
+          <input class="requestFormItem" id="Title" type="text" name="Title" placeholder="Title">
         </div>
-        
-        <div id="Providername" class="requestFormItem"> 
+
+        <div id="Providername" class="requestFormItem">
           <p>Provider: <b> Grab Name </b></p>
         </div>
-          
-        <div id="dateAndTime">
-          
-          <input class="dateAndTime" type="date">
-          <input class="dateAndTime" type="time">
-          
-        </div>
-          
-        <div id="credits" class="requestFormItem"> 
-          
-            <label for="offered_Credits">Credits Offered</label> <br>
-            <input class="requestFormItem" id="offered_Credits" type="number" name="offered_Credits" placeholder="1">
-            Current Credit Balance
+
+        <div id="dateAndTime" class="requestFormItem">
+          <label for="datetimelocal"> Date and Time </label> <br>
+          <input class="dateAndTime" type="datetime-local" id="datetimelocal"> <br>
           
         </div>
-        <div id="notes" class="requestFormItem"> 
-            <label for="Notes">Notes</label> <br>
-            <input class="requestFormItem" id="Notes" type="text" name="Notes" placeholder="Notes...">
+
+        <div id="credits" class="requestFormItem">
+
+          <label for="offered_Credits">Credits Offered</label> <br>
+          <input class="requestFormItem" id="offered_Credits" type="number" name="offered_Credits" placeholder="1">
+          Current Credit Balance
+
         </div>
-        <div id="CourseSection" class="requestFormItem"> 
-          <div id="CourseRelated" class="requestFormItem"> 
-            
-              <input class="requestFormItem" type="radio" id="courseRelated" name="CourseChoice" value="Course Related">
-              <label for="CourseRelated"> Course Related </label> <br>
-              <input class="requestFormItem" type="radio" id="notCourseRelated" name="CourseChoice" value="Not Course Related">
-              <label for="notCourseRelated"> Not Course Related </label> <br>
-            
+        <div id="notes" class="requestFormItem">
+          <label for="Notes">Notes</label> <br>
+          <input class="requestFormItem" id="Notes" type="text" name="Notes" placeholder="Notes...">
+        </div>
+        <div id="CourseSection">
+          <div id="CourseRelated">
+            <div>
+              <input type="radio" class="courseRadioButton" name="CourseChoice" value="Course Related" id="Radio">
+              <label for="CourseChoice">Course Related </label> <br>
+            </div>
+            <div>
+              <input type="radio" class="courseRadioButton" name="CourseChoice" value="Not Course Related"
+                id="nonRadio">
+              <label for="noCourseRelated">Not Course Related </label><br>
+            </div>
           </div>
-          <div id="CourseSelection" class="requestFormItem"> 
+
+          <div id="CourseSelection" class="requestFormItem">
 
           </div>
-          <div id="submitButtons">
-        <button id="submit" type="submit" class="button"> Submit Request</button>
-        <button id="Clear" type="reset" class="button"> Clear</button>
         </div>
+        <div id="submitButtons">
+          <button id="submit" type="submit" class="button"> Submit Request</button>
+          <button id="Clear" type="reset" class="button"> Clear</button>
         </div>
+
       </form>
-      </div>
-      <div id="calanderWidget">
-        Calander goes here
-      </div>
-    </main>
+    </div>
+    <div id="calanderWidget">
+      Calander goes here
+    </div>
+  </main>
 </body>
+
 </html>
