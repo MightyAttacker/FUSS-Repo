@@ -12,16 +12,16 @@ $stmt = $conn->prepare("SELECT userid, dayindex, starttime, endtime
 // Selects latest date which is on or before the supplied date
 
 // Choose variable names and types for prepared statement
-$stmt->bind_param("sss", $id, $startdate, $id2);
+$stmt->bind_param("sss", $id, $weekstartdate, $id2);
 
 // Set variables
-$startdate = $_GET["startdate"];
-$id = $_GET["id"];
-$id2 = $_GET["id"];
+$weekstartdate = $_GET["weekstartdate"];
+$id = $_GET["userid"];
+$id2 = $_GET["userid"]; // TODO: use named sql arguments
 // Run query
 $stmt->execute();
 
-$result = ["weekstartdate" => $startdate, "days" => []];
+$result = ["weekstartdate" => $weekstartdate, "days" => []];
 
 foreach (mysqli_stmt_get_result($stmt) as $key => $value) {
     $result["days"][$key] = $value;

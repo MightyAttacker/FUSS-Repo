@@ -12,8 +12,7 @@ function toMonday($date) {
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-// https://www.php.net/manual/en/function.http-response-code.php
-// https://www.php.net/manual/en/function.preg-match.php
+
 
 $currentDate = $data['weekstartdate'];
 if (!preg_match("/^\d{4}-\d{2}-\d{2}$/m", $currentDate)) { // currentDate must have format yyyy-mm-dd
@@ -24,7 +23,7 @@ $currentDate = toMonday($currentDate);
 
 
 $days = $data['days'];
-foreach ($days as $day) {
+foreach ($days as $day) { // Look into transactions to prevent double loop
     $index = $day["dayindex"];
     if ($index < 0 || $index > 6) {
         http_response_code(400);

@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <!-- Place to upload profile pictures-->
-    <!DOCTYPE html>
-    <!--<meta> -->
-    <html lang="en">
+<!--<meta> -->
+<html lang="en">
 
     <head>
         <meta charset="UTF-8">
@@ -12,6 +11,7 @@
         <script type="module" src="/Scripts/account-page-availability.js" defer> </script>
         <script type="module" src="/Scripts/account-page-submit.js" defer> </script>
         <link rel="stylesheet" href="/Styles/account-page-styles.css">
+        <link rel="icon" href="data:,">
         <?php
         require_once "../inc/dbconn.inc.php";
         ?>
@@ -33,7 +33,7 @@
             class="text-input input"
             id="course"
             value=<?php
-                    $sql = "SELECT course FROM users WHERE id = \"testuser1\"";
+                    $sql = "SELECT course FROM users WHERE id = 'testuser1'";
                     if ($result = mysqli_query($conn, $sql)) {
                         foreach ($result as $k => $v) {
                             echo $v["course"];
@@ -52,7 +52,7 @@
             id="about"
             rows=10
             cols=30><?php
-                    $sql = "SELECT about FROM users WHERE id = \"testuser1\"";
+                    $sql = "SELECT about FROM users WHERE id = 'testuser1'";
                     if ($result = mysqli_query($conn, $sql)) {
                         foreach ($result as $k => $v) {
                             echo $v["about"];
@@ -86,7 +86,7 @@
             <?php
             $sql = "SELECT skills.skill
                 FROM skills JOIN userskills u on skills.skill = u.skill 
-                WHERE academic = 1 AND userid = \"testuser1\"";
+                WHERE academic = 1 AND userid = 'testuser1'";
             if ($result = mysqli_query($conn, $sql)) {
                 foreach ($result as $k => $v) {
                     $b = implode($v);
@@ -124,7 +124,7 @@
             <?php
             $sql = "SELECT skills.skill
                 FROM skills JOIN userskills u on skills.skill = u.skill 
-                WHERE academic = 0 AND userid = \"testuser1\"";
+                WHERE academic = 0 AND userid = 'testuser1'";
             if ($result = mysqli_query($conn, $sql)) {
                 foreach ($result as $k => $v) {
                     $b = implode($v);

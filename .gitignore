@@ -1,3 +1,4 @@
 /.vscode
 /.notes.txt
 .devcontainer/docker-compose.yml
+/src/test.side

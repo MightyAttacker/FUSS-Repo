@@ -55,6 +55,7 @@ td {
     border-collapse: collapse;
     table-layout: fixed;
     text-align: center;
+    height: 1%; /* A bit of a hack, but it works */
 }
 
 table {
@@ -69,6 +70,8 @@ table {
     background-color: rgb(109, 121, 181);
 }
 
-[id*="more"] {
+[class*="more"] {
     width: 100%;
+    height: 100%;
+    background-color: darkolivegreen;
 }
