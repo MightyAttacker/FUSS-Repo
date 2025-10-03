@@ -23,14 +23,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Start the session and redirect to the dashboard or home page
             session_start();
             $_SESSION['email'] = $email;
-            header("Location: dashboard.php"); /*Change to appropraite page */ 
+            header( "Location: ../../student-homepage.html");  
             exit();
         } else {
-            $message = "Incorrect password";
+            $message = "Incorrect Password";
             
         }
     } else {
-        $message = "Email not found";
+        $message = "Email Not Found";
         
     }
 
@@ -60,8 +60,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
   </div>
   <main>
+    <?php if ($message): ?> 
+      <div id="message"> <?php echo $message; ?> </div>
+      <?php endif; ?>
   <div id="loginCard">
-      <form action="/login" method="post" id="loginForm">
+      <form action="" method="post" id="loginForm">
       <div class="form-card">
         <h2>Student Login</h2>
         <h4> Please use your '@flinders.edu.au' email </h4>
@@ -83,10 +86,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div id="submitButtons">
         <button id="loginButton" type="submit" class="button">Login</button>
-        <button id="registerButton" type="submit" class="button">Register</button>
         </div>
         <div>
-          <p id="pswdForgot">Forgot Password? </p>
+          <p> <a href="../registerLoginPage/register.php" style="text-decoration:none;" >Create an Account </a> or <a href="../forgottenPassword/forgottenPassword.php" style="text-decoration:none;">Forgot Password?</a> </p>
         </div>
     </form>
     </div>
