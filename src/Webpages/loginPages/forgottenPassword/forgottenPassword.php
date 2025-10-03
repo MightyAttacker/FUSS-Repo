@@ -3,35 +3,32 @@ include 'src/inc/dbconn.inc.php';
 
 $message = "";
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $username = $_POST['username'];
-  $email = $_POST['email'];
-  $password = $_POST['password'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirmPassword'];
 
-  // Check if email already exists
-  $checkEmailStmt = $conn->prepare("SELECT email FROM userdata WHERE email = ?");
-  $checkEmailStmt->bind_param("s", $email);
-  $checkEmailStmt->execute();
-  $checkEmailStmt->store_result();
+    if ($password === $confirmPassword) {
+        // Prepare and execute
+        $stmt = $conn->prepare("UPDATE userdata SET password = ? WHERE email = ?");
+        $stmt->bind_param("ss", $password, $email);
 
-  if ($checkEmailStmt->num_rows > 0) {
-    $message = "Email ID already exists";
-  } else {
-    // Prepare and bind
-    $stmt = $conn->prepare("INSERT INTO userdata (username, email, password) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $username, $email, $password);
+        if ($stmt->execute()) {
+            $message = "Password updated successfully";
+            
+        } else {
+            $message = "Error updating password";
+            
+        }
 
-    if ($stmt->execute()) {
-      $message = "Account created successfully";
+        $stmt->close();
     } else {
-      $message = "Error: " . $stmt->error;
+        $message = "Passwords do not match";
+        
     }
 
-    $stmt->close();
-  }
-
-  $checkEmailStmt->close();
-  $conn->close();
+    $conn->close();
 }
 ?>
 
@@ -44,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="stylesheet" href="login.css">
   <meta name="author" content="Jayden">
   <script src="./login.js"> </script>
-  <title>FUSS Register Page</title>
+  <title>FUSS Forgotten Password</title>
 </head>
 
 <body>
@@ -63,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="loginCard">
       <form action="/login" method="post" id="loginForm">
         <div class="form-card">
-          <h2>Create Your Account</h2>
+          <h2>Reset Your Password</h2>
           <h4> Please use your '@flinders.edu.au' email </h4>
           <div>
             <label for="email">Email:</label>
@@ -72,7 +69,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <br>
           <div>
             <label for="password">Password:</label>
-            <input class="form-item" type="password" id="password" name="password" required>
+            <input class="form-item" type="password" id="password" name="password" required> <br>
+            
+
+            <label for="password">Confirm Password:</label>
+            <input class="form-item" type="password" id="confirmPassword" name="confirmPassword" required>
 
             <div id="showPassword">
               <input class="showPassword" id="showPassword" type="checkbox" onclick="myPassword()">
@@ -82,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <br>
         </div>
         <div id="submitButtons">
-          <button id="loginButton" type="submit" class="button">Create Account</button>
+          <button id="loginButton" type="submit" class="button">Reset Password</button>
         </div>
       </form>
     </div>
