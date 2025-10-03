@@ -1,0 +1,77 @@
+:root {
+    background-color: #bbb;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 6fr 1fr 6fr 1fr 22fr 1fr;
+}
+
+.text-input {
+    background-color: #aaa;
+}
+
+#sidebar {
+    position: static;
+    background-color: gray;
+}
+
+a {
+    color: black;
+}
+
+.skill-btn {
+    padding: 10px;
+    background-color: yellow;
+}
+
+#academic-skills, #non-academic-skills {
+    background-color: chocolate;
+}
+
+#availability-popup {
+    position: absolute;
+    background-color: #efb435;
+    padding: 20px;
+}
+
+div.popup {
+    position: relative;
+    display: inline-block;
+}
+
+button.popup {
+    width: 100px;
+    background-color: red;
+}
+
+.hidden {
+    display: none !important;
+}
+
+table,
+td {
+    border: 1px black solid;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: center;
+    height: 1%; /* A bit of a hack, but it works */
+}
+
+table {
+    width: 100%;
+}
+
+[class*="start"] {
+    background-color: rgb(190, 145, 209);
+}
+
+[class*="end"] {
+    background-color: rgb(109, 121, 181);
+}
+
+[class*="more"] {
+    width: 100%;
+    height: 100%;
+    background-color: darkolivegreen;
+}
