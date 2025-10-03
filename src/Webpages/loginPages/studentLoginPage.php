@@ -4,21 +4,18 @@ include '../../inc/dbconn.inc.php';
 $message = "";
 $email = "";
 $password = "";
+
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
 }
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-  $email = test_input($_POST["email"]);
-  $password = test_input($_POST["password"]);
-
-
-
-
+    $email = test_input($_POST["email"]);
+    $password = test_input($_POST["password"]);
+     
+  
     // Prepare and execute
     $stmt = $conn->prepare("SELECT password FROM userdata WHERE email = ?");
     $stmt->bind_param("s", $email);
@@ -29,13 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_result($db_password);
         $stmt->fetch();
 
-        if ($password === $db_password) {
+        if (password_verify($password, $db_password)) {
             $message = "Login successful";
             
             // Start the session and redirect to the dashboard or home page
             session_start();
             $_SESSION['email'] = $email;
-            header( "Location: ../student-homepage.html");  
+            header( "Location: ../admin-dashboard.html");  
             exit();
         } else {
             $message = "Incorrect Password";

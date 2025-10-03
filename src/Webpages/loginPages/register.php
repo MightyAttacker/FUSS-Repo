@@ -4,6 +4,7 @@ include '../../inc/dbconn.inc.php';
 $message = "";
 $email = "";
 $password = "";
+$hashed_password = "";
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -14,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
   $email = test_input($_POST["email"]);
   $password = test_input($_POST["password"]);
-
+  $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 
   
@@ -29,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
     // Prepare and bind
     $stmt = $conn->prepare("INSERT INTO userdata (email, password) VALUES (?, ?)");
-    $stmt->bind_param("ss", $email, $password);
+    $stmt->bind_param("ss", $email, $hashed_password);
 
     if ($stmt->execute()) {
       $message = "Account created successfully";

@@ -5,7 +5,7 @@ $message = "";
 $email = "";
 $password = "";
 $confirmPassword = "";
-
+$hashed_password = "";
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -19,13 +19,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password = test_input($_POST["password"]);
   $confirmPassword = test_input($_POST["confirmPassword"]);
 
-
+  $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     
 
     if ($password === $confirmPassword) {
         // Prepare and execute
         $stmt = $conn->prepare("UPDATE userdata SET password = ? WHERE email = ?");
-        $stmt->bind_param("ss", $password, $email);
+        $stmt->bind_param("ss", $hashed_password, $email);
 
         if ($stmt->execute()) {
             $message = "Password updated successfully";

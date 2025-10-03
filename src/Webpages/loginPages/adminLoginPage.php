@@ -4,6 +4,7 @@ include '../../inc/dbconn.inc.php';
 $message = "";
 $email = "";
 $password = "";
+
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -12,10 +13,8 @@ function test_input($data) {
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = test_input($_POST["email"]);
-  $password = test_input($_POST["password"]);
-  
-
-
+    $password = test_input($_POST["password"]);
+          
     // Prepare and execute
     $stmt = $conn->prepare("SELECT password FROM userdata WHERE email = ?");
     $stmt->bind_param("s", $email);
@@ -26,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_result($db_password);
         $stmt->fetch();
 
-        if ($password === $db_password) {
+        if (password_verify($password, $db_password)) {
             $message = "Login successful";
             
             // Start the session and redirect to the dashboard or home page
