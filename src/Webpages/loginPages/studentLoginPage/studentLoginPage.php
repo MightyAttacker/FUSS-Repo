@@ -1,3 +1,44 @@
+<?php
+include 'src/inc/dbconn.inc.php';
+
+$message = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Prepare and execute
+    $stmt = $conn->prepare("SELECT password FROM userdata WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($db_password);
+        $stmt->fetch();
+
+        if ($password === $db_password) {
+            $message = "Login successful";
+            
+            // Start the session and redirect to the dashboard or home page
+            session_start();
+            $_SESSION['email'] = $email;
+            header("Location: dashboard.php"); /*Change to appropraite page */ 
+            exit();
+        } else {
+            $message = "Incorrect password";
+            
+        }
+    } else {
+        $message = "Email not found";
+        
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en-AU"> 
   <head>
