@@ -1,5 +1,5 @@
 <?php
-include '../../../inc/dbconn.inc.php';
+include '../../inc/dbconn.inc.php';
 
 $message = "";
 
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Start the session and redirect to the dashboard or home page
             session_start();
             $_SESSION['email'] = $email;
-            header( "Location: ../../student-homepage.html");  
+            header( "Location: ../student-homepage.html");  
             exit();
         } else {
             $message = "Incorrect Password";
@@ -44,19 +44,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login.css">
-    <script src="./login.js"> </script>
+    <link rel="stylesheet" href="loginStyle.css">
+    <meta name="author" content="Jayden">
+    <script src="login.js"> </script>
     <title>FUSS Login Page</title>
 </head>
 
 <body>
   <div id="topBanner">
     <div id="flindersLogo">
-      <img src="./imgs/flindersLogo.png" alt="Logo for Flinders University" id="flindersLogo">
+      <img src="../images/flindersLogo.png" alt="Logo for Flinders University" id="flindersLogo">
     </div>
       <header><h1>Flinders University Skill Share</h1> <header>
         <div id="switchButton">
-          <input id="swapButton" class="button" type="button" onclick="location.href='../adminLoginPage/adminLoginPage.php';" value="Admin Login" />
+          <input id="swapButton" class="button" type="button" onclick="location.href='adminLoginPage.php';" value="Admin Login" />
           </div>
   </div>
   <main>
@@ -88,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button id="loginButton" type="submit" class="button">Login</button>
         </div>
         <div>
-          <p> <a href="../registerLoginPage/register.php" style="text-decoration:none;" >Create an Account </a> or <a href="../forgottenPassword/forgottenPassword.php" style="text-decoration:none;">Forgot Password?</a> </p>
+          <p> <a href="register.php" style="text-decoration:none;" >Create an Account </a> or <a href="forgottenPassword.php" style="text-decoration:none;">Forgot Password?</a> </p>
         </div>
     </form>
     </div>

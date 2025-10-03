@@ -1,5 +1,6 @@
 body {
-    background: url('./imgs/tonsleyBuilding.jpg') no-repeat;
+    background: url('../images/tonsleyBuilding.jpg') no-repeat;
+    background-size: cover;
     background-size: cover;
     background-attachment: fixed;
     font-family: Helvetica, Arial, sans-serif;
@@ -119,8 +120,21 @@ h2{
     cursor: pointer;   
 }
 
+#loginButton{
+    margin-right: 25px;  
+}
+
 #showPassword{
     font-weight: 500;
     font-size: 15px;
 }
 
+#pswdForgot{
+    position: relative;
+    top: 30px;
+    left: 180px;
+}
+#account{
+    border: none;
+    text-align: center;
+}

@@ -1,5 +1,5 @@
 <?php
-include '../../../inc/dbconn.inc.php';
+include '../../inc/dbconn.inc.php';
 
 $message = "";
 
@@ -23,14 +23,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Start the session and redirect to the dashboard or home page
             session_start();
             $_SESSION['email'] = $email;
-            header("Location: dashboard.php"); /*Change to appropraite page */ 
+            header( "Location: ../admin-dashboard.html");  
             exit();
         } else {
-            $message = "Incorrect password";
+            $message = "Incorrect Password";
             
         }
     } else {
-        $message = "Email not found";
+        $message = "Email Not Found";
         
     }
 
@@ -39,31 +39,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en-AU"> 
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="loginStyle.css">
     <meta name="author" content="Jayden">
-    <script src="./login.js"> </script>
+    <script src="login.js"> </script>
     <title>FUSS Admin Login Page</title>
 </head>
 
 <body>
   <div id="topBanner">
     <div id="flindersLogo">
-      <img src="./imgs/flindersLogo.png" alt="Logo for Flinders University" id="flindersLogo">
+      <img src="../images/flindersLogo.png" alt="Logo for Flinders University" id="flindersLogo">
     </div>
       <header><h1>Flinders University Skill Share</h1> <header>
         <div id="switchButton">
-         <input id="swapButton" class="button" type="button" onclick="location.href='../studentLoginPage/studentLoginPage.php';" value="Student Login" />
+         <input id="swapButton" class="button" type="button" onclick="location.href='studentLoginPage.php';" value="Student Login" />
           </div>
   </div>
   <main>
+    <?php if ($message): ?> 
+      <div id="message"> <?php echo $message; ?> </div>
+      <?php endif; ?>
   <div id="loginCard">
-      <form action="/login" method="post" id="loginForm">
+      <form action="" method="post" id="loginForm">
       <div class="form-card">
         <h2>Administrator Login</h2>
         <h4> Please use your '@flinders.edu.au' email </h4>
