@@ -2,6 +2,9 @@
 include '../../inc/dbconn.inc.php';
 
 $message = "";
+$email = "";
+$password = "";
+$confirmPassword = "";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

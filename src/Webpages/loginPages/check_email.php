@@ -1,5 +1,7 @@
 <?php
 include 'src/inc/dbconn.inc.php';
+$email = "";
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = test_input($_POST["email"]);
