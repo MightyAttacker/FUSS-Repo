@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
       <header><h1>Flinders University Skill Share</h1> <header>
         <div id="switchButton">
-          <input id="swapButton" class="button" type="button" onclick="location.href='../adminLoginPage/adminLoginPage.html';" value="Admin Login" />
+          <input id="swapButton" class="button" type="button" onclick="location.href='../adminLoginPage/adminLoginPage.php';" value="Admin Login" />
           </div>
   </div>
   <main>
