@@ -30,12 +30,12 @@
         * Must be later than or equal to startdate
         * Results include both ends
     * Returns
+      * userid: string
       * startdate: string
         * The same value as was passed in
       * enddate: string
         * The same value as was passed in
       * days[]
-        * userid: string
         * date: string
           * Will be between or equal to the ends
         * starttime: string
@@ -67,13 +67,13 @@
     * naskills
       * list of strings; valid values are in skills table with academic = 0
   * #### update-daily-availability.php 
+    * userid: string
     * startdate: string
       * Must be in format YYYY-MM-DD
     * enddate: string
       * Must be in format YYYY-MM-DD
       * Must be later than startdate
     * days[]
-      * userid: string
       * date: string
           * Must be between or equal to the ends
       * starttime: string

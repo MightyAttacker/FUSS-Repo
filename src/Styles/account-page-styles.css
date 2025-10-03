@@ -62,11 +62,11 @@ table {
     width: 100%;
 }
 
-[id*="start"] {
+[class*="start"] {
     background-color: rgb(190, 145, 209);
 }
 
-[id*="end"] {
+[class*="end"] {
     background-color: rgb(109, 121, 181);
 }
 
