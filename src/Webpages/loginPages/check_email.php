@@ -2,16 +2,17 @@
 include 'src/inc/dbconn.inc.php';
 $email = "";
 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = test_input($_POST["email"]);
-
-  function test_input($data) {
+function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = test_input($_POST["email"]);
+
+  
     $stmt = $conn->prepare("SELECT email FROM userdata WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();

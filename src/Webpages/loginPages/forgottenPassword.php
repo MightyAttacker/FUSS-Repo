@@ -6,18 +6,20 @@ $email = "";
 $password = "";
 $confirmPassword = "";
 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $email = test_input($_POST["email"]);
-  $password = test_input($_POST["password"]);
-  $confirmPassword = test_input($_POST["confirmPassword"]);
-
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  
+  $email = test_input($_POST["email"]);
+  $password = test_input($_POST["password"]);
+  $confirmPassword = test_input($_POST["confirmPassword"]);
+
+
     
 
     if ($password === $confirmPassword) {

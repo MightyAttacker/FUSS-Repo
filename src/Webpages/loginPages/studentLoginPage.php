@@ -4,6 +4,12 @@ include '../../inc/dbconn.inc.php';
 $message = "";
 $email = "";
 $password = "";
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -11,12 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password = test_input($_POST["password"]);
 
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
+
 
     // Prepare and execute
     $stmt = $conn->prepare("SELECT password FROM userdata WHERE email = ?");
