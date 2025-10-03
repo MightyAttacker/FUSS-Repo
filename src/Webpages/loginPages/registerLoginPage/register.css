@@ -59,6 +59,14 @@ h2{
     justify-content: center;
 
 }
+#message{
+    text-align: center;
+    color: #ffD300;
+    background-color: #002F60;
+    border: 1px solid #002F60;
+    border-radius: 5px;
+    font-weight: bold;
+}
 
 #loginForm{
     font-weight: bold;
@@ -124,4 +132,8 @@ h2{
     position: relative;
     top: 30px;
     left: 180px;
+}
+#account{
+    border: none;
+    text-align: center;
 }

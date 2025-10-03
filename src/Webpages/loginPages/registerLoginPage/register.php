@@ -4,7 +4,6 @@ include '../../../inc/dbconn.inc.php';
 $message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $username = $_POST['username'];
   $email = $_POST['email'];
   $password = $_POST['password'];
 
@@ -18,8 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = "Email ID already exists";
   } else {
     // Prepare and bind
-    $stmt = $conn->prepare("INSERT INTO userdata (username, email, password) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $username, $email, $password);
+    $stmt = $conn->prepare("INSERT INTO userdata (email, password) VALUES (?, ?)");
+    $stmt->bind_param("ss", $email, $password);
 
     if ($stmt->execute()) {
       $message = "Account created successfully";
@@ -41,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="register.css">
   <meta name="author" content="Jayden">
   <script src="./login.js"> </script>
   <title>FUSS Register Page</title>
@@ -60,8 +59,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
   </div>
   <main>
+    <?php if ($message): ?> 
+      <div id="message"> <?php echo $message; ?> </div>
+      <?php endif; ?>
     <div id="loginCard">
-      <form action="/login" method="post" id="loginForm">
+      <form action="" method="post" id="loginForm">
         <div class="form-card">
           <h2>Create Your Account</h2>
           <h4> Please use your '@flinders.edu.au' email </h4>
@@ -84,6 +86,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div id="submitButtons">
           <button id="loginButton" type="submit" class="button">Create Account</button>
         </div>
+        <div id="account" class="form-item">
+          Already have an Account? <a href="../studentLoginPage/studentLoginPage.php"> Login </a>
+          </div>
       </form>
     </div>
   </main>
