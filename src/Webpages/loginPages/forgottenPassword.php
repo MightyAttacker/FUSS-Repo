@@ -5,9 +5,17 @@ $message = "";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $confirmPassword = $_POST['confirmPassword'];
+  $email = test_input($_POST["email"]);
+  $password = test_input($_POST["password"]);
+  $confirmPassword = test_input($_POST["confirmPassword"]);
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+    
 
     if ($password === $confirmPassword) {
         // Prepare and execute
