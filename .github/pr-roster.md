@@ -13,7 +13,9 @@ The process for submitting PRs is to:
 ## Team members
 - [ ] Jayden (@putl0014)
 - [ ] Edwin (@main0074)
-- [x] Lachlan (@klen0010)
+- [ ] Lachlan (@klen0010)
+- [ ] Edwin (@main0074)
+- [ ] Lachlan (@klen0010)
 - [ ] Thomas (@wach0035)
 - [ ] Liam (@mane0039)
 
