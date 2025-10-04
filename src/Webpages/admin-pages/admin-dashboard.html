@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <title>Admin Dashboard</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="./js/admin-graphs.js"></script>
 </head>
 <body>
     <div class="header">
@@ -19,7 +22,6 @@
     <div class="navbarContainer">
          <ul class="navbar">
             <li><a class="active"href="admin-dashboard.html">Home</a></li>
-            <li><a href="browse-request.html">Browse Request</a></li>
             <li><a href="profile.html">Profile</a></li>
             <li><a href="view-students.html">View Students</a></li>
             <li><a href="manage-skill-list.html">Manage Skill List</a></li>
@@ -28,17 +30,21 @@
     </div>
 
     <div class="container">
-        <div class="inlinebox">
-            Active user graph
+        <div id="lineChart">
+            <h3>Active users</h3>
+            <div id="lineChartContent"></div>
+            <a href="">View more</a>
+        </div>
+        <div id="pieChart">
+            <h3>Active Services</h3>
+            <div id="pieChartContent"></div>
+            <a href="">View more</a>
         </div>
         <div class="inlinebox">
-            Completed task graph
+            FUSSCredit distribution
         </div>
         <div class="inlinebox">
-            Credit distribution
-        </div>
-        <div class="inlinebox">
-            Report Graph
+            Popular Skills
         </div>
     </div>
 </body>

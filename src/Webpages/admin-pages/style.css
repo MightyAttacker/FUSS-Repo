@@ -63,7 +63,8 @@ li a:hover{
 .container{
     margin-left: 220px; /* prevent items from going behind navbar*/
     display:grid;       /* setup grid layout*/
-    grid-template-columns: auto auto;   /* grid template: 2 columns wide*/
+    grid-template-columns: 1fr 1fr;   /* grid template: 2 columns wide*/
+    grid-template-rows: 1fr 1fr;
     padding:20px; /* gap between all other elements*/
     gap:20px;   /* gap between each box on grid*/
     height:500px;   /* height of each item*/
@@ -72,7 +73,6 @@ li a:hover{
 /* formatting for divs within conatainer*/
 .container > div{
     background-color:grey;
-    text-align:center;
 }
 /* formatting for div used for the body of each page (every page except the dashboard*/
 .body{
@@ -84,4 +84,22 @@ li a:hover{
     text-align: left;
     padding:20px;
     height:100vh;
+}
+#lineChart{
+    text-align: center;
+}
+#lineChart > a{
+    display: block;
+    text-align:right;
+    padding-right:20px;
+    padding-bottom: 20px;
+}
+#pieChart{
+    text-align: center;
+}
+#pieChart > a{
+    display:block;
+    text-align:right;
+    padding-right:20px;
+    padding-bottom: 20px;
 }
