@@ -1,5 +1,6 @@
 body {
-    background: url('./imgs/tonsleyBuilding.jpg') no-repeat;
+    background: url('../images/tonsleyBuilding.jpg') no-repeat;
+    background-size: cover;
     background-size: cover;
     background-attachment: fixed;
     font-family: Helvetica, Arial, sans-serif;
@@ -34,8 +35,16 @@ body {
     display: block;
     float: left;
 }
-header{
+#switchButton{
+    position: absolute;
+    right: 0px;
+    top: 90px;
+    align-items: center;
+}
 
+#swapButton{
+    background-color: #ffD300;
+    color: #002F60;
 }
 
 main{
@@ -50,6 +59,14 @@ h2{
     display: flex;
     justify-content: center;
 
+}
+#message{
+    text-align: center;
+    color: #ffD300;
+    background-color: #002F60;
+    border: 1px solid #002F60;
+    border-radius: 5px;
+    font-weight: bold;
 }
 
 #loginForm{
@@ -100,8 +117,9 @@ h2{
     border: none;
     border-radius: 5px;
     background-color: #002F60;
-   
+    cursor: pointer;   
 }
+
 #loginButton{
     margin-right: 25px;  
 }
@@ -109,4 +127,14 @@ h2{
 #showPassword{
     font-weight: 500;
     font-size: 15px;
+}
+
+#pswdForgot{
+    position: relative;
+    top: 30px;
+    left: 180px;
+}
+#account{
+    border: none;
+    text-align: center;
 }
