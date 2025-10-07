@@ -1,18 +1,14 @@
-@ -1,41 +0,0 @@
 <?php
 include '../../inc/dbconn.inc.php';
 header('Content-Type: application/json');
 
-if (!$conn) {
-    http_response_code(500);
-    echo json_encode(['error' => 'Database connection failed']);
-    exit;
-}
+
 
 // Initialize response array
 $response = [
     'totalUsers' => null,
-    'activeUsers' => null
+    'activeUsers' => null,
+    'services' => []
 ];
 
 // Get total users
@@ -20,10 +16,6 @@ $totalResult = mysqli_query($conn, "SELECT COUNT(*) AS total FROM users");
 if ($totalResult) {
     $totalRow = mysqli_fetch_assoc($totalResult);
     $response['totalUsers'] = $totalRow['total'];
-} else {
-    http_response_code(500);
-    echo json_encode(['error' => 'Failed to fetch total users']);
-    exit;
 }
 
 // Get active users in last 30 days
@@ -31,11 +23,14 @@ $activeResult = mysqli_query($conn, "SELECT COUNT(*) AS active FROM users WHERE 
 if ($activeResult) {
     $activeRow = mysqli_fetch_assoc($activeResult);
     $response['activeUsers'] = $activeRow['active'];
-} else {
-    http_response_code(500);
-    echo json_encode(['error' => 'Failed to fetch active users']);
-    exit;
+} 
+// get services and their statuses
+$services = [];
+$servicesResult = mysqli_query($conn, "SELECT service_name, status FROM services");
+while($row = mysqli_fetch_assoc($servicesResult)) {
+    $services[] = $row;
 }
+ $response['services'] = $services;
 
 // Return JSON response
 echo json_encode($response);

@@ -1,56 +1,89 @@
-@ -4,6 +4,9 @@
+<!DOCTYPE html>
+<html>
+<head>
     <meta charset="UTF-8" />
     <title>Admin Dashboard</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 
-    <script src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="./js/admin-graphs.js"></script>
 </head>
 <body>
     <div class="header">
-@ -27,13 +30,15 @@
+        <img id="logo" src="../admin-pages/images/Logo_Flinders_white.png" alt="Flinders University Logo">
+        <div class="userprofile">
+            <img id="userIcon" src="../admin-pages/images/usericon.png" alt="User Icon">
+            <p>User name</p>
+            <a href="../Webpages/Login Page/Login-Page.html"><button>Log out</button></a>
+        </div>
+        
+    </div>
+
+    <div class="navbarContainer">
+         <ul class="navbar">
+            <li><a class="active"href="admin-dashboard.html">Home</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="view-students.html">View Students</a></li>
+            <li><a href="manage-skill-list.html">Manage Skill List</a></li>
+            <li><a href="view-reports.html">View Reports</a></li>
+        </ul>
     </div>
 
     <div class="container">
         <div id="users">
-        <div id="lineChart">
             <h3>Active users</h3>
             <p>Total users: <span id="totalUsers"></span></p>
             <p>Active users in the last 30 days: <span id="activeUsers"></span></p>
-            <div id="lineChartContent"></div>
-            <a href="">View more</a>
         </div>
-        <div id="services">
-        <div id="pieChart">
-            <h3>Active Services</h3>
-            <div id="pieChartContent"></div>
-            <a href="">View more</a>
-        </div>
+    <div id="servicesSection">
+      <h3>Services</h3>
+      <table id="servicesTable">
+        <thead>
+          <tr>
+            <th>Service Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="servicesBody">
+        </tbody>
+      </table>
+    </div>
         <div class="inlinebox">
             FUSSCredit distribution
-@ -42,25 +47,5 @@
+        </div>
+        <div class="inlinebox">
             Popular Skills
         </div>
     </div>
     <script>
-fetch('../admin-pages/admin-dashboard-data.php')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log(data);
-    document.getElementById('totalUsers').textContent = data.totalUsers ?? 'Error';
-    document.getElementById('activeUsers').textContent = data.activeUsers ?? 'Error';
-  })
-  .catch(error => {
-    console.error('Fetch error:', error);
-    document.getElementById('totalUsers').textContent = 'Error';
-    document.getElementById('activeUsers').textContent = 'Error';
-  });
+      fetch('admin-dashboard-data.php')
+        .then(response => response.json())
+        .then(data => {
+          // Update total users
+          document.getElementById('totalUsers').textContent = data.totalUsers;
+          document.getElementById('activeUsers').textContent = data.activeUsers;
 
-</script>
+          // Populate services table
+          const tbody = document.getElementById('servicesBody');
+
+          data.services.forEach(service => {
+            const row = document.createElement('tr');
+
+            const nameCell = document.createElement('td');
+            nameCell.textContent = service.service_name;
+            row.appendChild(nameCell);
+
+            const statusCell = document.createElement('td');
+            statusCell.textContent = service.status;
+            statusCell.className = service.status === 'active' ? 'active' : 'inactive';
+            row.appendChild(statusCell);
+
+            tbody.appendChild(row);
+          });
+        })
+        .catch(error => {
+          console.error('Fetch error:', error);
+          const tbody = document.getElementById('servicesBody');
+          tbody.innerHTML = '<tr><td colspan="2">Error loading services</td></tr>';
+        });
+    </script>
 </body>
 </html>
