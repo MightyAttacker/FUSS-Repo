@@ -1,0 +1,111 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+          
+}
+.login{
+    background-color: #002F60;
+    border: 5px;
+    color: #ffd300;
+    border-color: black;
+    border-style: ridge;
+    text-align: center;
+}
+
+#topBanner{
+    background-color: #002F60;
+    color: #000000;
+    padding: 10px 5px 10px 10px;
+    text-align: justify;
+    align-items: center;
+    justify-content: left;
+    display: block;
+    margin-top: -15px;
+    margin-left: -10px;
+    width: 100%;
+    height: 100vh;
+    max-height: 130px;
+    
+}
+
+#flindersLogo{
+    display: block;
+    float: left;
+}
+
+#imgLogo{
+    height: 120px;
+    width: 400px;
+}
+
+#title{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 1px;
+    align-items: center;
+    color: #ffD300;
+
+}
+
+#logoutButton{
+    position: absolute;
+    right: 10px;
+    top: 80px;
+    align-items: center;
+}
+
+#logButton{
+    background-color: #ffD300;
+    padding: 10px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #002F60;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;  
+}
+#logButton:hover{
+    background-color: #555555;
+    color: white;
+}
+
+.sidebar {
+  list-style-type: none;
+  margin-left: -10px;
+  margin-top: -0px;
+  padding: 0;
+  width: 200px;
+  background-color: #002F60;
+  height: 100vh;
+  position: fixed;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: #ffD300;
+  padding: 15px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Change the link and background color on hover */
+.sidebar a:hover {
+  background-color: #555555;
+  color: white;
+}
+
+.sidebar .active {
+  background-color: #ffD300;
+  color: #002F60;
+}
+
+main{
+    position: relative;
+    margin-left: 200px;
+}
+#Header{
+    text-align: center;
+}
+
+

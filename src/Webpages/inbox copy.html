@@ -1,0 +1,108 @@
+<!--<?php
+
+
+session_start();
+
+if(!isset($_SESSION['email'])){
+
+session_unset();
+session_destroy();
+
+header('location: ./loginPages/studentLoginPage.php');
+
+}else{
+// session logged
+}
+
+include '../inc/dbconn.inc.php';
+
+$email =$_SESSION['email'];
+
+$stmt = $conn->prepare("SELECT * FROM mailbox WHERE sentto=? ORDER BY created DESC");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$stmt->store_result();
+
+
+?> -->
+ 
+<!DOCTYPE html>
+<html lang="en-AU"> 
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="messagesStyle.css">
+    <meta name="author" content="Jayden">
+    <script src="login.js"> </script>
+    <title>FUSS Messages Page</title>
+</head>
+
+<body>
+  <div id="topBanner">
+    <div id="flindersLogo">
+      <img id="imgLogo" src="./images/Logo_Flinders_white.png" alt="Logo for Flinders University" id="flindersLogo">
+    </div>
+    <div id="title">
+      <header>
+        <h1>Flinders University Skill Share</h1>
+      </header>
+    </div>
+    <div id="logoutButton">
+      <input id="logButton" class="button" type="button"
+        onclick="location.href='./loginPages/studentLoginPage.php';" value="Logout" />
+    </div>
+  </div>
+
+  <div id="sideBar">
+    <ul class="sidebar">
+      <li> <a href="#home">Home</a> </li>
+      <li> <a class="active" href="#Requests"> Make A Request</a> </li>
+      <li> <a href="#ViewRequests">View My Requests</a> </li>
+      <li> <a href="#BrowseRequests">Browse Requests</a> </li>
+      <li> <a href="#ManageProfile">Manage Profile</a> </li>
+      <li> <a href="#History">History</a> </li>
+    </ul>
+  </div>
+
+  <main>
+<div id="Header">
+    <h1>Inbox</h1>
+</div>
+
+<div id="inboxContainer">
+    <div id="inboxMessages">
+        <table id="inboxTable">
+            <tr>
+                <th>From</th>
+                <th>Subject</th>
+                <th>Date</th>
+            </tr>
+            <?php
+            if($stmt->num_rows > 0){
+                $stmt->bind_result($id, $sentto, $sentby, $subject, $message, $created);
+                while($stmt->fetch()){
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($sentfrom) . "</td>";
+                    echo "<td>" . htmlspecialchars($subject) . "</td>";
+                    echo "<td>" . htmlspecialchars($created) . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='3'>No messages found.</td></tr>";
+            }
+            $stmt->close();
+            $conn->close();
+            ?>
+        </table>
+    </div>
+        
+
+
+
+
+
+
+
+
+
+  </main>
