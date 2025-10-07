@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 07, 2025 at 08:58 AM
+-- Generation Time: Oct 07, 2025 at 01:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,27 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admindata`
---
-
-DROP TABLE IF EXISTS `admindata`;
-CREATE TABLE `admindata` (
-  `id` int(11) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `admindata`
---
-
-INSERT INTO `admindata` (`id`, `email`, `password`) VALUES
-(1, 'putl0014@flinders.edu.au', '$2y$10$ds4ha4PtWZZZ2Xk9G.4pRuKwAcJSeKQczEOYZDqMIjimGrtasegtG'),
-(2, 'bob@flinders.edu.au', '$2y$10$ds4ha4PtWZZZ2Xk9G.4pRuKwAcJSeKQczEOYZDqMIjimGrtasegtG');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `mailbox`
 --
 
@@ -57,6 +36,13 @@ CREATE TABLE `mailbox` (
   `sentto` varchar(45) NOT NULL,
   `created` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `mailbox`
+--
+
+INSERT INTO `mailbox` (`id`, `Subject`, `message`, `sentby`, `sentto`, `created`) VALUES
+(1, 'test', 'test', 'bob@flinders.edu.au', 'putl0014@flinders.edu.au', '2025-10-07');
 
 -- --------------------------------------------------------
 
@@ -88,16 +74,20 @@ DROP TABLE IF EXISTS `userdata`;
 CREATE TABLE `userdata` (
   `id` int(11) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `firstName` varchar(80) NOT NULL,
+  `lastName` varchar(80) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `admin` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `userdata`
 --
 
-INSERT INTO `userdata` (`id`, `email`, `password`) VALUES
-(1, 'putl0014@flinders.edu.au', '$2y$10$ds4ha4PtWZZZ2Xk9G.4pRuKwAcJSeKQczEOYZDqMIjimGrtasegtG'),
-(2, 'bob@flinders.edu.au', '$2y$10$FhUF0v/ZyEzPw6GLdOuwEONmeEuBpzZxrFQ8VqGk6JJuytP.G.RQ6');
+INSERT INTO `userdata` (`id`, `email`, `firstName`, `lastName`, `password`, `admin`) VALUES
+(1, 'putl0014@flinders.edu.au', 'Jayden', 'Putland', '$2y$10$ds4ha4PtWZZZ2Xk9G.4pRuKwAcJSeKQczEOYZDqMIjimGrtasegtG', 1),
+(2, 'bob@flinders.edu.au', 'Bob', 'Test', '$2y$10$FhUF0v/ZyEzPw6GLdOuwEONmeEuBpzZxrFQ8VqGk6JJuytP.G.RQ6', 1),
+(3, 'test@flinders.edu.au', 'First', 'Last', '$2y$10$mmiNWdOSqK0HWZaRtcNHe.yjyoB3khBe.Ickx8DG3Rs4mrYIwj1r6', 0);
 
 -- --------------------------------------------------------
 
@@ -114,21 +104,23 @@ CREATE TABLE `user_mailbox` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Indexes for dumped tables
+-- Dumping data for table `user_mailbox`
 --
 
+INSERT INTO `user_mailbox` (`id`, `user`, `mailbox`, `message_id`) VALUES
+(1, 'bob@flinders.edu.au', 'Out', 1),
+(2, 'putl0014@flinders.edu.au', 'In', 1);
+
 --
--- Indexes for table `admindata`
+-- Indexes for dumped tables
 --
-ALTER TABLE `admindata`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_UNIQUE` (`id`);
 
 --
 -- Indexes for table `mailbox`
 --
 ALTER TABLE `mailbox`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `messages`
@@ -147,23 +139,19 @@ ALTER TABLE `userdata`
 -- Indexes for table `user_mailbox`
 --
 ALTER TABLE `user_mailbox`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `Message ID` (`message_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `admindata`
---
-ALTER TABLE `admindata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `mailbox`
 --
 ALTER TABLE `mailbox`
-  MODIFY `id` int(45) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(45) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -175,13 +163,23 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `userdata`
 --
 ALTER TABLE `userdata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user_mailbox`
 --
 ALTER TABLE `user_mailbox`
-  MODIFY `id` int(45) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(45) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `user_mailbox`
+--
+ALTER TABLE `user_mailbox`
+  ADD CONSTRAINT `Message ID` FOREIGN KEY (`message_id`) REFERENCES `mailbox` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
