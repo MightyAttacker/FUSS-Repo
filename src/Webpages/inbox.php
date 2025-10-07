@@ -102,6 +102,6 @@ $user = $stmt3->get_result()->fetch_assoc()['firstName'];
           ?>
         </table>
       </div>
-
+    </div>
 
   </main>
