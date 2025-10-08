@@ -87,10 +87,10 @@ $getUserBioStmt->close();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="studentProfile.css">
+  <link rel="stylesheet" href="studentProfileEdit.css">
   <meta name="author" content="Jayden">
   
-  <title>FUSS Your Profile Page</title>
+  <title>FUSS Edit Your Profile Page</title>
 </head>
 
 <body>
@@ -128,8 +128,18 @@ $getUserBioStmt->close();
         <h2 id="header">Your Profile </h2>
         <div class="profileContainer">
         <div class="profileDetails">
+            
+        
             <img id="profilePic" src="<?php echo $imagePath ?>" alt="<?php echo $imageAlt ?>"> <br>
-            <div id="pesonalInfo"></div>
+            
+            <form action="imageUpload.php" method="post" enctype="multipart/form-data">
+            <label for="imageUpload"><h3>Select Image:</h3></label>
+            <input type="file" name="imageUpload" id="imageUpload" accept="image/*" required>
+            
+            <input class="button"type="submit" value="Upload Image" name="submit">
+            </form>
+            <form action="" method="post" id="editProfileForm">
+            <div id="personalInfo">
             
             <h3 id="name" class="profileItem"> Name: <?php echo $firstName. " ". $lastName ?> </h3> 
             <h3 id="adademicYear" class="profileItem"> Academic Year: <?php echo $userYear ?> </h3>
@@ -201,7 +211,7 @@ $getUserBioStmt->close();
             </div>
         </div>
         <div class="editProfile">
-            <button id="editProfileButton" class="button" onclick="location.href='./editProfile.php';"> Edit Profile</button>
+            <button id="editProfileButton" type="submit" class="button" onclick="location.href='./studentProfile.php';"> Confirm Edit</button>
         </div>
         </div>
     </div>

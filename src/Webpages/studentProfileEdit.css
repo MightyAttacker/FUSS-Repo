@@ -2,7 +2,8 @@ body {
     font-family: Helvetica, Arial, sans-serif;
 
 }
-.login{
+
+.login {
     background-color: #002F60;
     border: 5px;
     color: #ffd300;
@@ -11,7 +12,7 @@ body {
     text-align: center;
 }
 
-#topBanner{
+#topBanner {
     background-color: #002F60;
     color: #000000;
     padding: 10px 5px 10px 10px;
@@ -28,40 +29,40 @@ body {
     top: 0;
 }
 
-#flindersLogo{
+#flindersLogo {
     display: block;
     float: left;
 }
 
-#imgLogo{
+#imgLogo {
     height: 120px;
     width: 400px;
 }
 
-#title{
-    width: 90%; 
-    text-align: center;    
+#title {
+    width: 90%;
+    text-align: center;
     color: #ffD300;
     padding-top: 80px;
 
 }
 
-#UserDetails{
-  position: absolute;
-   top: 100px;
-   right: 106px;
-   color: #ffD300;
+#UserDetails {
+    position: absolute;
+    top: 100px;
+    right: 106px;
+    color: #ffD300;
 }
 
 
-#logoutButton{
+#logoutButton {
     position: absolute;
     right: 10px;
     top: 106px;
     align-items: center;
 }
 
-#logButton{
+#logButton {
     background-color: #ffD300;
     padding: 10px 10px;
     font-weight: bold;
@@ -69,63 +70,66 @@ body {
     color: #002F60;
     border: none;
     border-radius: 5px;
-    cursor: pointer;  
+    cursor: pointer;
 }
-#logButton:hover{
+
+#logButton:hover {
     background-color: #555555;
     color: white;
 }
 
 .sidebar {
-  list-style-type: none;
-  margin-left: -10px;
-  margin-top: -0px;
-  padding: 0;
-  width: 200px;
-  background-color: #002F60;
-  height: 100vh;
-  position: fixed;
-  overflow: auto;
+    list-style-type: none;
+    margin-left: -10px;
+    margin-top: -0px;
+    padding: 0;
+    width: 200px;
+    background-color: #002F60;
+    height: 100vh;
+    position: fixed;
+    overflow: auto;
 }
 
 .sidebar a {
-  display: block;
-  color: #ffD300;
-  padding: 15px 16px;
-  text-decoration: none;
-  font-weight: bold;
+    display: block;
+    color: #ffD300;
+    padding: 15px 16px;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 /* Change the link and background color on hover */
 .sidebar a:hover {
-  background-color: #555555;
-  color: white;
+    background-color: #555555;
+    color: white;
 }
 
 .sidebar .active {
-  background-color: #ffD300;
-  color: #002F60;
+    background-color: #ffD300;
+    color: #002F60;
 }
 
-main{
+main {
     margin-left: 200px;
 }
-#header{
+
+#header {
     text-align: center;
 }
 
-#profileLink{
+#profileLink {
     color: #ffD300;
     text-decoration: none;
 }
-#submitButtons{
+
+#submitButtons {
     display: block;
     text-align: center;
     align-items: center;
     justify-content: center;
 }
 
-.button{
+.button {
     padding: 10px 25px;
     font-weight: bold;
     text-transform: uppercase;
@@ -133,49 +137,60 @@ main{
     border: none;
     border-radius: 5px;
     background-color: #002F60;
-    cursor: pointer;   
+    cursor: pointer;
 }
 
-#profilePic{
+#profilePic {
     height: 150px;
     width: 150px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid #002F60;
     margin-bottom: 10px;
-    left: 50%;
+    left: 32%;
     position: relative;
 }
 
-.profileContainer{
+.profileContainer {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-
     gap: 50px;
     padding: 20px;
 }
-#profileDetails{
+
+.profileDetails {
     justify-content: center;
+    left: 40%;
+    vertical-align: middle;
+    position: absolute;
+    width: 37%;
 }
-#personalInfo{
+
+#personalInfo {
     position: relative;
     left: 20px;
     text-align: left;
     max-width: 400px;
 
 }
-#skillsList{
-    padding-top: 170px;
+
+#skillsList {
+    left: 53%;
+    position: absolute;
+    top: 51%;
     list-style-type: disc;
     padding-left: 20px;
 
 }
-#mainContent{
+
+#mainContent {
     justify-content: space-around;
     display: grid;
     align-items: baseline;
 }
-#editProfileButton{
-   
+
+#editProfileButton {
+    bottom: 60px;
+    position: absolute;
 }
