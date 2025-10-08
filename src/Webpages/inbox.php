@@ -35,9 +35,9 @@ $user = $stmt3->get_result()->fetch_assoc()['firstName'];
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="messagesStyle.css">
+  <link rel="stylesheet" href="inboxStyle.css">
   <meta name="author" content="Jayden">
-  <script src="login.js"> </script>
+  <script src="inbox.js"> </script>
   <title>FUSS Messages Page</title>
 </head>
 
@@ -73,11 +73,12 @@ $user = $stmt3->get_result()->fetch_assoc()['firstName'];
 
   <main>
     <div id="Header">
-      <h2> <Button class="button">Inbox</Button> <Button class="button">Send Message</Button> <Button class="button">Outbox</Button> </h2>
+      <h2> <Button onclick="showInbox()" class="button">Inbox</Button> <Button class="button" onclick="showMessage()">Send Message</Button> <Button onclick="showOutbox()" class="button" >Outbox</Button> </h2>
     </div>
 
-    <div id="inboxContainer">
-      <div id="inboxMessages">
+    <div id="mailboxContainer">
+      <div id="inbox">
+        <h3 class="currentMailbox">Inbox</h3>
         <table id="inboxTable">
           <tr>
             <th>From</th>
@@ -98,10 +99,57 @@ $user = $stmt3->get_result()->fetch_assoc()['firstName'];
             echo "<h3>"."No Messages Found"."</h3>";
                   }
           $stmt->close();
-          $conn->close();
+          
           ?>
         </table>
       </div>
+      <div id="sendMessage">
+        <h3 class="currentMailbox">Sending Message</h3>
+        <form action="../inc/sendMessage.inc.php" method="post" id="messageForm">
+          <div class="form-card">
+          <div class="form-section">
+          <label for="toEmail">To </label><br>
+          <input class=".form-item" type="email" id="toEmail" name="toEmail" required><br>
+          </div>
+          <div class="form-section">
+          <label for="subject">Subject:</label><br>
+          <input class=".form-item" type="text" id="subject" name="subject" required><br>
+          </div>
+          <div class="form-section">
+          <label for="message">Message:</label><br>
+          <textarea id="message" name="message" rows="4" cols="50" required></textarea><br>
+          </div>
+          <input id="submitButtons" class="button" type="submit" value="Send">
+          <input id="submitButtons" class="button" type="reset" value="Clear">
+          </div>
+      </div>
+      <div id="outbox">
+        <h3 class="currentMailbox">Outbox</h3>
+        <table id="outboxTable">
+          <tr>
+            <th>To</th>
+            <th>Subject</th>
+            <th>Message</th>
+            <th>Date</th>
+          </tr>
+          <?php
+          $stmt4 = $conn->prepare("SELECT Subject, sentto, message, DATE_FORMAT(created,'%d/%m/%Y') FROM user_mailbox INNER JOIN mailbox ON mailbox.id = user_mailbox.message_id WHERE user_mailbox.user =? AND user_mailbox.mailbox = 'Out';");
+          $stmt4->bind_param("s", $email);
+          $stmt4->execute();
+          $result = $stmt4->get_result();
+           if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<td>". $row["sentto"] . "</td>" . "<td>". $row["Subject"] . "</td>" . "<td>". $row["message"] . "</td>" ."<td>". $row["DATE_FORMAT(created,'%d/%m/%Y')"]. "</td>" . "<br>";
+            }
+        } else {
+            echo "<h3>"."No Messages Found"."</h3>";
+                  }
+          $stmt4->close();
+          
+          ?>
+        </table>
+      </div>
+
     </div>
 
   </main>
