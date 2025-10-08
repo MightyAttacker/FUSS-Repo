@@ -62,8 +62,9 @@ $user = $stmt3->get_result()->fetch_assoc()['firstName'];
 
   <div id="sideBar">
     <ul class="sidebar">
-      <li> <a href="#home">Home</a> </li>
-      <li> <a class="active" href="#Requests"> Make A Request</a> </li>
+      <li> <a href="./student-homepage.html">Home</a> </li>
+      <li> <a class="active" href="./inbox.php"> Inbox</a> </li>
+      <li> <a href="#Requests"> Make A Request</a> </li>
       <li> <a href="#ViewRequests">View My Requests</a> </li>
       <li> <a href="#BrowseRequests">Browse Requests</a> </li>
       <li> <a href="#ManageProfile">Manage Profile</a> </li>
@@ -87,13 +88,18 @@ $user = $stmt3->get_result()->fetch_assoc()['firstName'];
             <th>Date</th>
           </tr>
           <?php
-          $stmt = $conn->prepare("SELECT Subject, sentby, message, DATE_FORMAT(created,'%d/%m/%Y') FROM user_mailbox INNER JOIN mailbox ON mailbox.id = user_mailbox.message_id WHERE user_mailbox.user =? AND user_mailbox.mailbox = 'In';");
+          $stmt = $conn->prepare("SELECT Subject, sentby, message, DATE_FORMAT(created,'%T %d/%m/%Y') FROM user_mailbox INNER JOIN mailbox ON mailbox.id = user_mailbox.mailbox_id WHERE user_mailbox.user =? AND user_mailbox.mailbox = 'In' ORDER BY created DESC;");
           $stmt->bind_param("s", $email);
           $stmt->execute();
           $result = $stmt->get_result();
            if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                echo "<td>". $row["sentby"] . "</td>" . "<td>". $row["Subject"] . "</td>" . "<td>". $row["message"] . "</td>" ."<td>". $row["DATE_FORMAT(created,'%d/%m/%Y')"]. "</td>" . "<br>";
+                echo "<tr>";
+                echo "<td>". $row["sentby"] . "</td>";
+                echo "<td>". $row["Subject"] . "</td>";
+                echo "<td>". $row["message"] . "</td>"; 
+                echo "<td>". $row["DATE_FORMAT(created,'%T %d/%m/%Y')"]. "</td>";
+                echo "</tr>";
             }
         } else {
             echo "<h3>"."No Messages Found"."</h3>";
@@ -108,18 +114,20 @@ $user = $stmt3->get_result()->fetch_assoc()['firstName'];
         <form action="../inc/sendMessage.inc.php" method="post" id="messageForm">
           <div class="form-card">
           <div class="form-section">
-          <label for="toEmail">To </label><br>
-          <input class=".form-item" type="email" id="toEmail" name="toEmail" required><br>
+          <label for="user">To </label><br>
+          <input class=".form-item" type="text" id="user" name="user" required><br>
           </div>
           <div class="form-section">
           <label for="subject">Subject:</label><br>
-          <input class=".form-item" type="text" id="subject" name="subject" required><br>
+          <input class=".form-item" type="text" id="Subject" name="Subject" required><br>
           </div>
           <div class="form-section">
-          <label for="message">Message:</label><br>
-          <textarea id="message" name="message" rows="4" cols="50" required></textarea><br>
+          <label for="message">Message:</label><span id="charNum"></span>
+          <br>
+          <textarea id="message" name="message" rows="4" cols="50" maxlength="255" onkeyup="limitText(this,255)" required></textarea>
+          <br>
           </div>
-          <input id="submitButtons" class="button" type="submit" value="Send">
+          <input id="submitButtons" class="button" type="submit" value="Send" href="../inc/sendMessage.inc.php"> 
           <input id="submitButtons" class="button" type="reset" value="Clear">
           </div>
       </div>
@@ -133,13 +141,19 @@ $user = $stmt3->get_result()->fetch_assoc()['firstName'];
             <th>Date</th>
           </tr>
           <?php
-          $stmt4 = $conn->prepare("SELECT Subject, sentto, message, DATE_FORMAT(created,'%d/%m/%Y') FROM user_mailbox INNER JOIN mailbox ON mailbox.id = user_mailbox.message_id WHERE user_mailbox.user =? AND user_mailbox.mailbox = 'Out';");
+          $stmt4 = $conn->prepare("SELECT Subject, sentto, message, DATE_FORMAT(created,'%T %d/%m/%Y') FROM user_mailbox INNER JOIN mailbox ON mailbox.id = user_mailbox.mailbox_id WHERE user_mailbox.user =? AND user_mailbox.mailbox = 'Out' ORDER BY created DESC;");
           $stmt4->bind_param("s", $email);
           $stmt4->execute();
           $result = $stmt4->get_result();
            if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                echo "<td>". $row["sentto"] . "</td>" . "<td>". $row["Subject"] . "</td>" . "<td>". $row["message"] . "</td>" ."<td>". $row["DATE_FORMAT(created,'%d/%m/%Y')"]. "</td>" . "<br>";
+                echo "<tr>";
+                echo "<td>". $row["sentto"] . "</td>";
+                echo "<td>". $row["Subject"] . "</td>";
+                echo "<td>". $row["message"] . "</td>"; 
+                echo "<td>". $row["DATE_FORMAT(created,'%T %d/%m/%Y')"]. "</td>";
+                echo "</tr>";
+                
             }
         } else {
             echo "<h3>"."No Messages Found"."</h3>";
