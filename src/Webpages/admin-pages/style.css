@@ -1,6 +1,7 @@
 html,body{
     margin: 0; /* remove default margin around edge of browser*/
     padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 .header{
@@ -38,7 +39,7 @@ html,body{
     width: 220px;
     background-color: #002F60;
     position:absolute;
-    min-height:100%;
+    min-height:100vh;
 
 }
 /* show which page your currently on*/
@@ -62,7 +63,8 @@ li a:hover{
 .container{
     margin-left: 220px; /* prevent items from going behind navbar*/
     display:grid;       /* setup grid layout*/
-    grid-template-columns: auto auto;   /* grid template: 2 columns wide*/
+    grid-template-columns: 1fr 1fr;   /* grid template: 2 columns wide*/
+    grid-template-rows: 1fr 1fr;
     padding:20px; /* gap between all other elements*/
     gap:20px;   /* gap between each box on grid*/
     height:500px;   /* height of each item*/
@@ -71,5 +73,46 @@ li a:hover{
 /* formatting for divs within conatainer*/
 .container > div{
     background-color:grey;
-    text-align:center;
+}
+/* formatting for div used for the body of each page (every page except the dashboard*/
+.body{
+    margin-left: 220px;
+    padding:20px;
+}
+.body > div{
+    background-color:grey;
+    text-align: left;
+    padding:20px;
+    height:100vh;
+}
+#users > a{
+    text-align:right;
+    padding-right:20px;
+    padding-bottom: 20px;
+}
+#services > a{
+    text-align:right;
+    padding-right:20px;
+    padding-bottom: 20px;
+}
+table {
+    border-collapse: collapse;
+    width: 60%;
+    margin: 20px auto;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: #f0f0f0;
+}
+.active {
+    color: green;
+    font-weight: bold;
+}
+.inactive {
+    color: red;
+    font-weight: bold;
 }
