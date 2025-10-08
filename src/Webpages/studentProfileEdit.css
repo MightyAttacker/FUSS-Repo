@@ -49,7 +49,7 @@ body {
 
 #UserDetails {
     position: absolute;
-    top: 100px;
+    top: 63px;
     right: 106px;
     color: #ffD300;
 }
@@ -161,27 +161,20 @@ main {
 
 .profileDetails {
     justify-content: center;
-    left: 40%;
+    left: -3%;
     vertical-align: middle;
     position: absolute;
-    width: 37%;
+    width: 44%;
 }
 
 #personalInfo {
     position: relative;
     left: 20px;
-    text-align: left;
-    max-width: 400px;
 
 }
 
 #skillsList {
-    left: 53%;
-    position: absolute;
-    top: 51%;
     list-style-type: disc;
-    padding-left: 20px;
-
 }
 
 #mainContent {
@@ -193,4 +186,87 @@ main {
 #editProfileButton {
     bottom: 60px;
     position: absolute;
+}
+
+.collapsible {
+    background-color: #002F60;
+    color: #ffD300;
+    cursor: pointer;
+    padding: 10px;
+    width: 50%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+
+.active,
+.collapsible:hover {
+    background-color: #ffD300;
+    color: #002F60;
+}
+
+
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+#InfoSection {
+    height: 450px;
+    width: 90%;
+    left: 257px;
+    position: absolute;
+}
+
+#editPic {
+    left: 432px;
+    top:20px;
+    position: absolute;
+}
+
+#nameYearEdit {
+    display: flex;
+    flex-direction: column;
+    width:301px;
+    top:0px;
+    position: absolute;
+}
+
+#collegeBioEdit {
+    display: flex;
+    flex-direction: column;
+    width:301px;
+    left:344px;
+    top:0px;
+    position: absolute;
+}
+
+#academicEdit {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 750px;
+    top: -170px;
+    width:301px;
+}
+#otherEdit {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0px;
+    left: 750px;
+    width:350px;
+}
+
+#skillsEdit {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: -170px;
+    left: 1150px;
+    width:301px;
 }
