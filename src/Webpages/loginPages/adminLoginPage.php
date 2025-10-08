@@ -4,6 +4,7 @@ include '../../inc/dbconn.inc.php';
 $message = "";
 $email = "";
 $password = "";
+$id = "";
 
 function test_input($data)
 {
