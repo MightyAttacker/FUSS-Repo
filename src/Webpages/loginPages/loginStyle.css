@@ -103,7 +103,7 @@ h2{
 }
 
 #submitButtons{
-    display: block;
+    margin-right: 100px;
     text-align: center;
     align-items: center;
     justify-content: center;
