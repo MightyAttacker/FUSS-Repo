@@ -39,7 +39,7 @@ html,body{
     width: 220px;
     background-color: #002F60;
     position:absolute;
-    min-height:100vh;
+    height:100vh;
 
 }
 /* show which page your currently on*/
@@ -67,12 +67,14 @@ li a:hover{
     grid-template-rows: 1fr 1fr;
     padding:20px; /* gap between all other elements*/
     gap:20px;   /* gap between each box on grid*/
-    height:500px;   /* height of each item*/
+    height:100vh;   /* height of each item*/
+    background-color: #FFD300
     
 }
 /* formatting for divs within conatainer*/
 .container > div{
-    background-color:grey;
+    background-color:white;
+    padding:20px;
 }
 /* formatting for div used for the body of each page (every page except the dashboard*/
 .body{
@@ -80,7 +82,7 @@ li a:hover{
     padding:20px;
 }
 .body > div{
-    background-color:grey;
+    background-color:white;
     text-align: left;
     padding:20px;
     height:100vh;
@@ -95,18 +97,18 @@ li a:hover{
     padding-right:20px;
     padding-bottom: 20px;
 }
-table {
-    border-collapse: collapse;
+table,th,tr {
+    border-color: lightgrey;
     width: 60%;
     margin: 20px auto;
 }
 th, td {
-    border: 1px solid #ccc;
     padding: 10px;
     text-align: left;
 }
 th {
-    background-color: #f0f0f0;
+    background-color: #002F60;
+    color:white;
 }
 .active {
     color: green;
@@ -115,4 +117,7 @@ th {
 .inactive {
     color: red;
     font-weight: bold;
+}
+h3{
+    text-align: center;
 }

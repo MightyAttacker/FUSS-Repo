@@ -8,7 +8,8 @@ header('Content-Type: application/json');
 $response = [
     'totalUsers' => null,
     'activeUsers' => null,
-    'services' => []
+    'services' => [],
+    'topSkills' => []
 ];
 
 // Get total users
@@ -31,6 +32,14 @@ while($row = mysqli_fetch_assoc($servicesResult)) {
     $services[] = $row;
 }
  $response['services'] = $services;
+
+//get top 5 skills and their counts
+$skills = [];
+$skillsResult = mysqli_query($conn, "SELECT skill, COUNT(*) AS count FROM userskills GROUP BY skill ORDER BY count DESC LIMIT 5");
+while($row = mysqli_fetch_assoc($skillsResult)) {
+    $skills[] = $row;
+}
+$response['topSkills'] = $skills;
 
 // Return JSON response
 echo json_encode($response);
