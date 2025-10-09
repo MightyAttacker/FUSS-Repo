@@ -49,7 +49,7 @@ body {
 
 #UserDetails {
     position: absolute;
-    top: 63px;
+    top: 85px;
     right: 106px;
     color: #ffD300;
 }
@@ -186,6 +186,7 @@ main {
 #editProfileButton {
     bottom: 60px;
     position: absolute;
+    left:410px;
 }
 
 .collapsible {
@@ -250,23 +251,50 @@ main {
     flex-direction: column;
     position: absolute;
     left: 750px;
-    top: -170px;
-    width:301px;
+    top: -116px;
+    width:350px;
 }
 #otherEdit {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 0px;
     left: 750px;
+    top: -116px;
     width:350px;
+    display: none;
 }
 
-#skillsEdit {
+#requestedEdit {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: -170px;
-    left: 1150px;
-    width:301px;
+    left: 750px;
+    top: -116px;
+    width:350px;
+    display: none;
+}
+
+#outbox{
+    display: none;
+}
+#sendMessage{
+    display: none;
+}
+#swapButtons{
+    top: -190px;
+    left: 610px;
+    vertical-align: middle;
+    position: absolute;
+    width: 530px;
+}
+#picUpload{
+    left: 6px;
+    top: 105px;
+    position: absolute;
+}
+.addList{
+    margin-bottom: 20px;
+}
+.removeList{
+    margin-bottom: 20px;
 }

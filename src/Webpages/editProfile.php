@@ -105,8 +105,8 @@ $getUserBioStmt->close();
             </header>
         </div>
         <div id="UserDetails">
-            <h4 id="credits" class="profileItem"> FussCredits: <?php echo $userCredits ?></h4>
-            <h4> <a id="profileLink" href="./studentProfile.php"> <?php echo "Hello, " . $firstName ?> </a></h4>
+            <h4> <a id="profileLink" href="./studentProfile.php">
+                    <?php echo "Hello, " . $firstName . "<br>" . "You have " . $userCredits . " Credits!" ?> </a></h4>
 
         </div>
         <div id="logoutButton">
@@ -141,13 +141,14 @@ $getUserBioStmt->close();
                         </label>
                         <input type="file" name="imageUpload" id="imageUpload" accept="image/*" required>
 
-                        <input class="button" type="submit" value="Upload Image" name="submit">
+                        <input class="button" type="submit" value="Upload Image" name="submit" id="picUpload">
                     </form>
 
-                    <form action="" method="post" id="editProfileForm">
-                        <div id="InfoSection">
-                            <div id="personalInfo">
-                                <div id="nameYearEdit">
+                    <div id="InfoSection">
+                        <div id="personalInfo">
+                            <div id="nameYearEdit">
+
+                                <form action="updateProfile.php" method="post" id="editNameForm">
                                     <h3 id="name" class="profileItem"> Name: <?php echo $firstName . " " . $lastName ?>
                                     </h3>
                                     <button type="button" class="collapsible" onclick="">Edit Name</button>
@@ -161,21 +162,27 @@ $getUserBioStmt->close();
                                         <input type="text" id="lastName" name="lastName"
                                             value="<?php echo htmlspecialchars($lastName); ?>" required><br><br>
 
-                                        <button type="submit" class="button" name="updateName">Update Name</button>
+                                        <button type="submit" class="button" name="updateName"
+                                            href="updateProfile.php">Update Name</button>
                                     </div>
+                                </form>
+                                <form action="updateProfile.php" method="post" id="editYearForm">
                                     <h3 id="adademicYear" class="profileItem"> Academic Year: <?php echo $userYear ?>
                                     </h3>
                                     <button type="button" class="collapsible" onclick="">Edit Academic Year</button>
                                     <div class="content">
                                         <label for="academicYear">Academic Year:</label>
 
-                                        <input type="number" id="academicYear" name="academicYear"
+                                        <input type="number" id="academicYear" name="academicYear" min="1" max="10"
                                             value="<?php echo htmlspecialchars($userYear); ?>" required><br> <br>
 
-                                        <button type="submit" class="button" name="updateYear">Update Year</button>
+                                        <button href="updateProfile.php" type="submit" class="button"
+                                            name="updateYear">Update Year</button>
                                     </div>
-                                </div>
-                                <div id="collegeBioEdit">
+                                </form>
+                            </div>
+                            <div id="collegeBioEdit">
+                                <form action="updateProfile.php" method="post" id="editCollegeForm">
                                     <h3 id="college" class="profileItem"> College: <?php echo $userCollege ?></h3>
 
                                     <button type="button" class="collapsible" onclick="">Edit College</button>
@@ -185,9 +192,12 @@ $getUserBioStmt->close();
                                         <input type="text" id="college" name="college"
                                             value="<?php echo htmlspecialchars($userCollege); ?>" required><br> <br>
 
-                                        <button type="submit" class="button" name="updateCollege">Update
+                                        <button href="updateProfile.php" type="submit" class="button"
+                                            name="updateCollege">Update
                                             College</button>
                                     </div>
+                                </form>
+                                <form action="updateProfile.php" method="post" id="editBioForm">
                                     <h3 id="BioTitle" class="profileItem"> Bio</h3>
                                     <p id="bioText" class="profileItem"> <?php echo $userBio ?> </p>
                                     <button type="button" class="collapsible" onclick="">Edit Bio</button>
@@ -198,12 +208,20 @@ $getUserBioStmt->close();
                                             onkeyup="limitText(this,255)"
                                             value="<?php echo htmlspecialchars($userBio); ?>" required></textarea>
 
-                                        <button type="submit" class="button" name="updateBio">Update Bio</button>
+                                        <button href="updateProfile.php" type="submit" class="button"
+                                            name="updateBio">Update Bio</button>
                                     </div>
-                                </div>
+                                </form>
                             </div>
+                        </div>
 
-                            <div id="academicEdit">
+                        <div id="swapButtons">
+                            <h2> <Button onclick="showAcademic()" class="button">Academic Skills</Button> <Button
+                                    class="button" onclick="showOther()">Other Skills</Button> <Button
+                                    onclick="showRequested()" class="button">Requested Skills</Button> </h2>
+                        </div>
+                        <div id="academicEdit">
+                            <form action="updateProfile.php" method="post" id="academicSkillsForm" name="academicSkillToAddForm">
                                 <h3> Academic Skills Offered: </h3>
 
                                 <?php
@@ -214,22 +232,73 @@ $getUserBioStmt->close();
                                 $academicSkills = $getAcademicSkillsStmt->get_result();
                                 if ($academicSkills->num_rows > 0) {
                                     echo "<ul>";
+                                    $userAcademicSkills = [];
                                     while ($row = $academicSkills->fetch_assoc()) {
                                         echo "<li>" . htmlspecialchars($row['skillName']) . "</li>";
+                                        $userAcademicSkills[] = $row['skillName'];
                                     }
                                     echo "</ul>";
                                 } else {
                                     echo "<p>No academic skills listed.</p>";
                                 }
+
+
                                 $getAcademicSkillsStmt->close();
                                 ?>
-                                <label for="academicSkillsOffered">Edit Academic Skills Offered:</label>
-                                <select id="academicSkillsOffered" name="academicSkillsOffered" class="" onclick="">
+
+                                <label for="academicSkillsOffered">Add Academic Skills Offered:</label>
+                                <select id="academicSkillsOffered" name="academicSkillsOffered" class="addList"
+                                    onclick="">
 
                                     <!-- fetch all academic skills from skills table -->
+                                    <?php
+                                    $getAcademicListStmt = $conn->prepare('SELECT skillName FROM skills WHERE academic =1 ORDER BY skillName ASC');
+                                    $getAcademicListStmt->execute();
+                                    $academicList = $getAcademicListStmt->get_result();
+                                    $hasSkill = true;
+                                    if ($academicList->num_rows > 0) {
+                                        while ($row = $academicList->fetch_assoc()) {
+                                            if (!in_array($row['skillName'], $userAcademicSkills)) {
+                                                echo "<option value='" . htmlspecialchars($row['skillName']) . "'>" . htmlspecialchars($row['skillName']) . "</option>";
+                                                $hasSkill = false;
+                                            }
+                                        }
+                                    } else {
+                                        echo "<option value=''>No skills available</option>";
+                                    }
+
+                                    $getAcademicListStmt->close();
+
+
+                                    ?>
                                 </select>
-                            </div>
-                            <div id="otherEdit">
+
+                                <button type="submit" class="button" name="addAcademicSkills">Add Academic
+                                    Skills</button>
+                            </form>
+                            <form action="updateProfile.php" method="post" id="removeAcademicSkillsForm">
+
+                                <br>
+                                <label for="academicSkillToRemove">Remove Academic Skill Offered:</label>
+                                <select id="academicSkillToRemove" name="academicSkillToRemove" class="removeList"
+                                    onclick="">
+                                    <?php
+                                    if (!empty($userAcademicSkills)) {
+                                        foreach ($userAcademicSkills as $academicSkill) {
+                                            echo "<option value='" . htmlspecialchars($academicSkill) . "'>" . htmlspecialchars($academicSkill) . "</option>";
+                                        }
+                                    } else {
+                                        echo "<option value=''>No skills to remove</option>";
+                                    }
+                                    ?>
+                                </select>
+
+                                <button type="submit" class="button" name="removeAcademicSkills">Remove Academic Skill</button>
+                            </form>
+                        </div>
+
+                        <div id="otherEdit">
+                            <form action="updateProfile.php" method="post" id="otherSkillsForm">
                                 <h3> Other Skills Offered: </h3>
                                 <?php
                                 // Fetch the user's other skills from the database
@@ -239,8 +308,10 @@ $getUserBioStmt->close();
                                 $otherSkills = $getOtherSkillsStmt->get_result();
                                 if ($otherSkills->num_rows > 0) {
                                     echo "<ul>";
+                                    $userOtherSkills = [];
                                     while ($row = $otherSkills->fetch_assoc()) {
                                         echo "<li>" . htmlspecialchars($row['skillName']) . "</li>";
+                                        $userOtherSkills[] = $row['skillName'];
                                     }
                                     echo "</ul>";
                                 } else {
@@ -248,46 +319,135 @@ $getUserBioStmt->close();
                                 }
                                 $getOtherSkillsStmt->close();
                                 ?>
-                                <label for="otherSkillsOffered">Edit Other Skills Offered:</label>
-                                <select id="otherSkillsOffered" name="otherSkillsOffered" class="" onclick="">
-                                    
-                                    <!-- fetch all non academic skills from skills table -->
-                                 </select>    
-                            </div>
 
-                            <div id="skillsEdit">
+                                <label for="otherSkillsOffered">Add Other Skills Offered:</label>
+                                <select id="otherSkillsOffered" name="otherSkillsOffered" class="addList" onclick="">
+
+                                    <!-- fetch all non academic skills from skills table -->
+                                    <?php
+                                    $getOtherListStmt = $conn->prepare('SELECT skillName FROM skills WHERE academic =0 ORDER BY skillName ASC');
+                                    $getOtherListStmt->execute();
+                                    $OtherList = $getOtherListStmt->get_result();
+                                    $hasSkill = true;
+                                    if ($OtherList->num_rows > 0) {
+                                        while ($row = $OtherList->fetch_assoc()) {
+                                            if (!in_array($row['skillName'], $userOtherSkills)) {
+                                                echo "<option value='" . htmlspecialchars($row['skillName']) . "'>" . htmlspecialchars($row['skillName']) . "</option>";
+                                                $hasSkill = false;
+                                            }
+                                        }
+                                    } else {
+                                        echo "<option value=''>No skills available</option>";
+                                    }
+                                    $getOtherListStmt->close()
+                                        ?>
+                                </select>
+                                <button type="submit" class="button" name="updateOtherSkills">Update Other
+                                    Skills</button>
+
+                            </form>
+                            <form action="updateProfile.php" method="post" id="removeOtherSkillsForm">
+
+                                <br>
+                                <label for="otherSkillToRemove">Remove Other Skill Offered:</label>
+                                <select id="otherSkillToRemove" name="otherSkillToRemove" class="removeList"
+                                    onclick="">
+                                    <?php
+                                    if (!empty($userOtherSkills)) {
+                                        foreach ($userOtherSkills as $otherSkill) {
+                                            echo "<option value='" . htmlspecialchars($otherSkill) . "'>" . htmlspecialchars($otherSkill) . "</option>";
+                                        }
+                                    } else {
+                                        echo "<option value=''>No skills to remove</option>";
+                                    }
+                                    ?>
+                                </select>
+
+                                <button type="submit" class="button" name="removeOtherSkills">Remove Other Skill</button>
+                            </form>
+                        </div>
+
+                        <div id="requestedEdit">
+                            <form action="updateProfile.php" method="post" id="requestedSkillsForm">
                                 <h3> Skills Requested: </h3>
                                 <?php
-                                // Fetch the user's other skills from the database
+                                // Fetch the user's requested skills from the database
                                 $getRequestedSkillsStmt = $conn->prepare('SELECT skillName FROM userRequestedSkills WHERE id=?');
                                 $getRequestedSkillsStmt->bind_param('i', $id);
                                 $getRequestedSkillsStmt->execute();
                                 $requestedSkills = $getRequestedSkillsStmt->get_result();
+
                                 if ($requestedSkills->num_rows > 0) {
                                     echo "<ul>";
+                                    $userRequestedSkills = [];
                                     while ($row = $requestedSkills->fetch_assoc()) {
                                         echo "<li>" . htmlspecialchars($row['skillName']) . "</li>";
+                                        $userRequestedSkills[] = $row['skillName'];
                                     }
                                     echo "</ul>";
                                 } else {
                                     echo "<p>No Skills Requested.</p>";
                                 }
+
                                 $getRequestedSkillsStmt->close();
                                 ?>
-                                <label for="requestedSKills">Edit Requested Skills:</label>
-                                <select id="requestedSKills" name="requestedSKills" class="" onclick="">
+
+                                <label for="requestedSKills">Add Requested Skills:</label>
+                                <select id="requestedSKills" name="requestedSKills" class="addList" onclick="">
                                     <!-- fetch all skills from skills table -->
+                                    <?php
+                                    $getAllSkillsStmt = $conn->prepare('SELECT skillName FROM skills ORDER BY skillName ASC');
+                                    $getAllSkillsStmt->execute();
+                                    $AllSkills = $getAllSkillsStmt->get_result();
+                                    $hasSkill = true;
+                                    if ($AllSkills->num_rows > 0) {
+                                        while ($row = $AllSkills->fetch_assoc()) {
+                                            if (!in_array($row['skillName'], $userRequestedSkills)) {
+                                                echo "<option value='" . htmlspecialchars($row['skillName']) . "'>" . htmlspecialchars($row['skillName']) . "</option>";
+                                                $hasSkill = false;
+                                            }
+                                        }
+                                    } else {
+                                        echo "<option value=''>No skills available</option>";
+                                    }
+                                    $getAllSkillsStmt->close();
+
+                                    ?>
                                 </select>
-                            </div>
-                            
+                                <button type="submit" class="button" name="updateRequestedSkills">Update Requested
+                                    Skills</button>
+
+                            </form>
+                            <form action="updateProfile.php" method="post" id="removeRequestedSkillsForm">
+
+                                <br>
+                                <label for="requestedSkillToRemove">Remove Requested Skill:</label>
+                                <select id="requestedSkillToRemove" name="requestedSkillToRemove" class="removeList"
+                                    onclick="">
+                                    <?php
+                                    if (!empty($userRequestedSkills)) {
+                                        foreach ($userRequestedSkills as $requestedSkill) {
+                                            echo "<option value='" . htmlspecialchars($requestedSkill) . "'>" . htmlspecialchars($requestedSkill) . "</option>";
+                                        }
+                                    } else {
+                                        echo "<option value=''>No skills to remove</option>";
+                                    }
+                                    ?>
+                                </select>
+
+                                <button type="submit" class="button" name="removeRequestedSkills">Remove Requested Skill</button>
+                            </form>
+                        
                         </div>
-                    </form>
+
+                    </div>
+
                 </div>
                 <div class="editProfile">
                     <button id="editProfileButton" type="submit" class="button"
-                        onclick="location.href='./studentProfile.php';"> Confirm Edit</button>
+                        onclick="location.href='./studentProfile.php'"> Confirm Edit</button>
                 </div>
-                
+
             </div>
         </div>
 

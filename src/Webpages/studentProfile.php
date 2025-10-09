@@ -104,8 +104,10 @@ $getUserBioStmt->close();
       </header>
     </div>
     <div id="UserDetails">
-      <h4> <a id="profileLink" href="./studentProfile.php"> <?php echo "Hello, " . $firstName ?> </a></h4>
-    </div>
+            <h4> <a id="profileLink" href="./studentProfile.php">
+                    <?php echo "Hello, " . $firstName . "<br>" . "You have " . $userCredits . " Credits!" ?> </a></h4>
+
+        </div>
     <div id="logoutButton">
       <input id="logButton" class="button" type="button" onclick="location.href='./loginPages/logout.php';"
         value="Logout"/>
