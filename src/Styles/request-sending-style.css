@@ -30,14 +30,12 @@ body {
 #flindersLogo{
     display: block;
     float: left;
-}
 
-#imgLogo{
     height: 120px;
     width: 400px;
 }
 
-#title{
+#header{
     width: 100%;
     display: flex;
     justify-content: center;
@@ -128,7 +126,8 @@ main{
  display: table-cell;
 vertical-align: middle;
 }
-.requestFormItem{
+
+#requestForm > * {
     display: block;
     width: 300px;
     box-sizing: border-box;
@@ -163,7 +162,7 @@ vertical-align: middle;
     max-width: 600px;
     display: block;
 }
-#Notes{
+#notesDiv{
     padding-bottom: 20px;
 }
 

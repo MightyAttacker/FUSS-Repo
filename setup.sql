@@ -51,13 +51,14 @@ CREATE TABLE IF NOT EXISTS request (
     requestid VARCHAR(20) PRIMARY KEY,
     d DATE,
     starttime TIME,
-    duration TINYINT,
+    cost TINYINT,
     requesterid VARCHAR(20) REFERENCES users (id),
     requesteeid VARCHAR(20) REFERENCES users (id),
     status VARCHAR(15) NOT NULL,
     datecompleted DATE,
     requesterreview VARCHAR(100),
-    requesteereview VARCHAR(100)
+    requesteereview VARCHAR(100),
+    notes VARCHAR(100)
 );
 
 # Testing data below

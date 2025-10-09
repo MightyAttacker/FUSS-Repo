@@ -1,19 +1,114 @@
-:root {
-    background-color: #bbb;
-}
-
 body {
-    display: grid;
-    grid-template-columns: 6fr 1fr 6fr 1fr 22fr 1fr;
+    font-family: Helvetica, Arial, sans-serif;
+    --flinders-yellow: #ffD300;
+    --flinders-blue: #002F60;
 }
 
-.text-input {
-    background-color: #aaa;
+#flindersLogo {
+    display: block;
+    float: left;
+
+    height: 120px;
+    width: 400px;
 }
 
-#sidebar {
-    position: static;
-    background-color: gray;
+#logoutButton {
+    position: absolute;
+    right: 10px;
+    top: 80px;
+    align-items: center;
+}
+
+#banner {
+    background-color: var(--flinders-blue);
+    color: #000000;
+    padding: 10px 5px 10px 10px;
+    text-align: justify;
+    align-items: center;
+    justify-content: left;
+    display: block;
+    margin-top: -15px;
+    margin-left: -10px;
+    width: 100%;
+    height: 100vh;
+    max-height: 130px;
+}
+
+#header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 1px;
+    align-items: center;
+    color: var(--flinders-yellow);
+
+}
+
+#logButton {
+    background-color: var(--flinders-yellow);
+    padding: 10px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--flinders-blue);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#logButton:hover {
+    background-color: #555555;
+    color: white;
+}
+
+#information {
+    padding: 10px;
+    border: #000000 1px ridge;
+    border-radius: 5px;
+    max-width: 30%;
+    width: 30%;
+}
+
+#banner {
+    font-size: 1em;
+    font-weight: 700;
+}
+
+main {
+    margin-left: 200px;
+    margin-top: 20px;
+    display: flex;
+}
+
+
+.sidebar {
+    list-style-type: none;
+    margin-left: -10px;
+    margin-top: -0px;
+    padding: 0;
+    width: 200px;
+    background-color: var(--flinders-blue);
+    height: 100vh;
+    position: absolute;
+    overflow: auto;
+}
+
+.sidebar a {
+    display: block;
+    color: var(--flinders-yellow);
+    padding: 15px 16px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Change the link and background color on hover */
+.sidebar a:hover {
+    background-color: #555555;
+    color: white;
+}
+
+.sidebar .active {
+    background-color: var(--flinders-yellow);
+    color: var(--flinders-blue);
 }
 
 a {
@@ -21,18 +116,29 @@ a {
 }
 
 .skill-btn {
+    border-radius: 4px;
     padding: 10px;
-    background-color: yellow;
+    background-color: var(--flinders-yellow);
+    border: black;
+    margin: 2px 5px
 }
 
-#academic-skills, #non-academic-skills {
-    background-color: chocolate;
+.skill-btn:hover {
+    background-color: #d7b003;
+    cursor: pointer;
 }
 
 #availability-popup {
     position: absolute;
     background-color: #efb435;
     padding: 20px;
+}
+
+
+#availability {
+    float: right;
+    flex: 1;
+    padding-left: 20px;
 }
 
 div.popup {
@@ -63,15 +169,34 @@ table {
 }
 
 [class*="start"] {
-    background-color: rgb(190, 145, 209);
+    /*background-color: rgb(190, 145, 209);*/
 }
 
 [class*="end"] {
-    background-color: rgb(109, 121, 181);
+    /*background-color: rgb(109, 121, 181);*/
 }
 
 [class*="more"] {
     width: 100%;
     height: 100%;
-    background-color: darkolivegreen;
+    background-color: var(--flinders-yellow);
+}
+
+h2 {
+    margin-left: 200px;
+}
+
+input#submit,
+button#changeavailability {
+    margin-top: 25px;
+    margin-right: 50px;
+    padding: 10px 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffD300;
+    border: none;
+    border-radius: 5px;
+    background-color: #002F60;
+    cursor: pointer;
+
 }
