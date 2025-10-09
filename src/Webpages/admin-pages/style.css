@@ -68,7 +68,7 @@ li a:hover{
     padding:20px; /* gap between all other elements*/
     gap:20px;   /* gap between each box on grid*/
     height:100vh;   /* height of each item*/
-    background-color: #FFD300
+    background-color: #FFD300;
     
 }
 /* formatting for divs within conatainer*/
@@ -97,8 +97,8 @@ li a:hover{
     padding-right:20px;
     padding-bottom: 20px;
 }
-table,th,tr {
-    border-color: lightgrey;
+table,th,td {
+    border:1px solid grey;
     width: 60%;
     margin: 20px auto;
 }
