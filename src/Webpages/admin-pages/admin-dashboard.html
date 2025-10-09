@@ -47,9 +47,20 @@
         </tbody>
       </table>
     </div>
-        <div class="inlinebox">
-            FUSSCredit distribution
-        </div>
+    <div class="inlinebox">
+        <h3>FUSSCredit Distribution</h3>
+        <p>Total FUSSCredits in system: <span id="totalCredits"></span></p>
+        <table id="creditTable">
+            <thead>
+            <tr>
+            <th>User ID</th>
+            <th>Credits</th>
+            <th>%</th>
+        </tr>
+        </thead>
+        <tbody id="creditBody"></tbody>
+    </table>
+    </div>
         <div class="skillSection">
             <h3>Popular Skills</h3>
                 <table id="skillTable">
@@ -89,6 +100,33 @@
 
         servicetbody.appendChild(row);
     });
+// Populate FUSSCRedit table
+    const credittbody = document.getElementById('creditBody');
+    document.getElementById('totalCredits').textContent = data.totalCredits;
+
+    data.FUSScreditDistribution.forEach(user => {
+      const row = document.createElement('tr');
+
+      const idCell = document.createElement('td');
+      idCell.textContent = user.id;
+
+      const creditCell = document.createElement('td');
+      creditCell.textContent = user.credits;
+
+      const meterCell = document.createElement('td');
+      const meter = document.createElement('meter');
+      meter.min = 0;
+      meter.max = data.totalCredits;
+      meter.value = user.credits;
+      meter.style.width = '200px';
+      meterCell.appendChild(meter);
+
+      row.appendChild(idCell);
+      row.appendChild(creditCell);
+      row.appendChild(meterCell);
+
+      credittbody.appendChild(row);
+    });
 // Populate skills table
     const skilltbody = document.getElementById('skillBody');
 
@@ -106,7 +144,7 @@
         skilltbody.appendChild(row);
     });
           
-})    
+})
 </script>
 </body>
 </html>
