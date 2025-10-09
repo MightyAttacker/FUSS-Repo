@@ -18,13 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password = test_input($_POST["password"]);
 
   // Prepare and execute
-  $stmt = $conn->prepare("SELECT password, admin FROM userdata WHERE email = ?");
+  $stmt = $conn->prepare("SELECT password, admin, id FROM userdata WHERE email = ?");
   $stmt->bind_param("s", $email);
   $stmt->execute();
   $stmt->store_result();
 
   if ($stmt->num_rows > 0) {
-    $stmt->bind_result($db_password, $admin);
+    $stmt->bind_result($db_password, $admin, $id);
     $stmt->fetch();
 
     if ((password_verify($password, $db_password))&&($admin == 1)) {
@@ -32,9 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       // Start the session and redirect to the dashboard or home page
       session_start();
-      $_SESSION['email'] = $email;
-      header("Location: ../admin-dashboard.html");
+      $_SESSION['id'] = $id;
+      header("Location: ../admin-pages/admin-dashboard.html");
       exit();
+
     } elseif ($admin == 0) {
       $message = "You are not an Administrator";
     } else {
