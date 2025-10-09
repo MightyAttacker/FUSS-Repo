@@ -201,8 +201,7 @@ function getRecurringAvailability(startdate, userid) {
                 "Content-Type": "application/json",
             },
         }
-    )
-        .then((response) => response.json());
+    ).then((response) => response.json());
 }
 
 function getDailyAvailability(startdate, enddate, userid) {
@@ -288,7 +287,6 @@ weeklyButton.addEventListener("click", () => {
             places = [];
         }
         if (datePicker.value !== "") {
-            // TODO: convert date to previous Monday
             currentStartDate = datePicker.value;
             const div = document.createElement("div");
             const table = document.createElement("table");

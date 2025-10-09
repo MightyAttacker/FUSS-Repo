@@ -5,6 +5,7 @@
 
     <head>
         <meta charset="UTF-8">
+        <meta name="author" content="Thomas Wachmer">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>My Account</title>
         <script type="module" src="/Scripts/account-page-script.js" defer> </script>
@@ -36,7 +37,7 @@
                     $sql = "SELECT course FROM users WHERE id = 'testuser1'";
                     if ($result = mysqli_query($conn, $sql)) {
                         foreach ($result as $k => $v) {
-                            echo $v["course"];
+                            echo htmlspecialchars($v["course"]);
                         }
                         mysqli_free_result($result);
                     }
@@ -55,7 +56,7 @@
                     $sql = "SELECT about FROM users WHERE id = 'testuser1'";
                     if ($result = mysqli_query($conn, $sql)) {
                         foreach ($result as $k => $v) {
-                            echo $v["about"];
+                            echo htmlspecialchars($v["about"]);
                         }
                         mysqli_free_result($result);
                     }
@@ -73,7 +74,7 @@
             $sql = "SELECT skill FROM skills WHERE academic = 1";
             if ($result = mysqli_query($conn, $sql)) {
                 foreach ($result as $k => $v) {
-                    $a = $v["skill"];
+                    $a = htmlspecialchars($v["skill"]);
                     echo "<option value=\"$a\">$a</option>";
                 }
                 mysqli_free_result($result);
@@ -89,7 +90,7 @@
                 WHERE academic = 1 AND userid = 'testuser1'";
             if ($result = mysqli_query($conn, $sql)) {
                 foreach ($result as $k => $v) {
-                    $b = implode($v);
+                    $b = htmlspecialchars(implode($v));
                     // Could combine all calls into one script. Only needs to be done if there is spare time
                     echo "<script type=\"module\"> 
                         import {createButton} from \"/Scripts/account-page-script.js\";
@@ -110,7 +111,7 @@
             $sql = "SELECT skill FROM skills WHERE academic = 0";
             if ($result = mysqli_query($conn, $sql)) {
                 foreach ($result as $k => $v) {
-                    $a = $v["skill"];
+                    $a = htmlspecialchars($v["skill"]);
                     echo "<option value=\"$a\">$a</option>";
                 }
                 mysqli_free_result($result);
@@ -127,8 +128,7 @@
                 WHERE academic = 0 AND userid = 'testuser1'";
             if ($result = mysqli_query($conn, $sql)) {
                 foreach ($result as $k => $v) {
-                    $b = implode($v);
-                    // echo "$b";
+                    $b = htmlspecialchars(implode($v));
                     echo "<script type=\"module\"> 
                         import {createButton} from \"/Scripts/account-page-script.js\";
                         createButton(\"$b\", false); </script>";

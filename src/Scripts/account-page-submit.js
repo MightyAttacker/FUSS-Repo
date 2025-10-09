@@ -8,7 +8,7 @@ submitButton.addEventListener("click", () => {
 
 function submit() {
     console.log("start");
-    fetch("/api/update-details.php", {
+    fetch("/api/update-user-details.php", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
