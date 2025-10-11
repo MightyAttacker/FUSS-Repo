@@ -63,6 +63,20 @@ if (isset($_POST["academicYear"])) {
     $updateYearstmt->close();
 }
 
+if (isset($_POST["updateAvailability"])) {
+    $newAvailability = $_POST["availability"];
+
+    $updateAvavilabiltystmt = $conn->prepare("UPDATE userdata SET availability = ? WHERE id = ?");
+    $updateAvavilabiltystmt->bind_param("si", $newAvailability, $id);
+    if ($updateAvavilabiltystmt->execute()) {
+        $_SESSION["success"] = "Availability updated successfully.";
+    } else {
+        $_SESSION["error"] = "Failed to update availability. Please try again.";
+    }
+
+    $updateAvavilabiltystmt->close();
+}
+
 if (isset($_POST["updateCollege"])) {
 
     $newCollege = $_POST["college"];
