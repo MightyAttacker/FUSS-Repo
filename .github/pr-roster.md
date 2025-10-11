@@ -15,5 +15,5 @@ The process for submitting PRs is to:
 - [ ] Edwin (@main0074)
 - [ ] Lachlan (@klen0010)
 - [ ] Thomas (@wach0035)
-- [x] Liam (@mane0039)
+- [X] Liam (@mane0039)
 
