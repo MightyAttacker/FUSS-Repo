@@ -96,6 +96,13 @@ $getUserBioStmt->execute();
 $userBio = $getUserBioStmt->get_result()->fetch_assoc()['bio'];
 $getUserBioStmt->close();
 
+//Fetch User's Availablity
+$getUserAvailabilityStmt = $conn->prepare('SELECT availability FROM userdata WHERE id=?');
+$getUserAvailabilityStmt->bind_param('i', $id);
+$getUserAvailabilityStmt->execute();
+$userAvailability = $getUserAvailabilityStmt->get_result()->fetch_assoc()['availability'];
+$getUserAvailabilityStmt->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -147,8 +154,17 @@ $getUserBioStmt->close();
       <h2 id="header"><?php echo $firstName?>'s Profile </h2>
       <div class="profileContainer">
         <div class="profileDetails">
-          <img id="profilePic" src="<?php echo $imagePath ?>" alt="<?php echo $imageAlt ?>"> <br>
-          <div id="pesonalInfo"></div>
+            <img id="profilePic" src="<?php echo $imagePath ?>" alt="<?php echo $imageAlt ?>"> <br>
+            <div id="pesonalInfo"></div>
+            
+            <h3 id="name" class="profileItem"> Name: <?php echo $firstName. " ". $lastName ?> </h3> 
+            <h3 id="adademicYear" class="profileItem"> Academic Year: <?php echo $userYear ?> </h3>
+            <h3 id="availability" class="profileItem"> General Availability: <?php echo $userAvailability ?> </h3>
+            <h3 id="credits" class="profileItem"> FussCredits: <?php echo $userCredits ?></h3>
+            <h3 id="college" class="profileItem"> College: <?php echo $userCollege ?></h3> 
+            <h3 id="BioTitle" class="profileItem"> Bio</h3>
+            <p id="bioText" class="profileItem"> <?php echo $userBio ?> </p>
+            </div>
 
           <h3 id="name" class="profileItem"> Name: <?php echo $firstName . " " . $lastName ?> </h3>
           <h3 id="adademicYear" class="profileItem"> Academic Year: <?php echo $userYear ?> </h3>
