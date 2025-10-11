@@ -2,7 +2,8 @@
 include '../inc/dbconn.inc.php';
 
 // Get credits for the user 
-$sql = "SELECT credits FROM users WHERE id = 'testuser1'";
+$id = $_SESSION['id'];
+$sql = "SELECT credits FROM users WHERE id = 'id'";
 $result = $conn->query($sql);
 
 // Fetch credit value
