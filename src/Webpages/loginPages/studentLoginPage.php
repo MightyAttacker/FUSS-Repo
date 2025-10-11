@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Start the session and redirect to the dashboard or home page
             session_start();
             $_SESSION['id'] = $id;
-            header( "Location: ../student-homepage.html");  
+            header( "Location: ../student-homepage.php");  
             exit();
         } else {
             $message = "Incorrect Password";
