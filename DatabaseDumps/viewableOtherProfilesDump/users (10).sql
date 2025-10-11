@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2025 at 04:06 AM
+-- Generation Time: Oct 11, 2025 at 11:23 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,7 +47,10 @@ INSERT INTO `mailbox` (`id`, `Subject`, `message`, `sentby`, `sentto`, `created`
 (3, 'Testing Time Zone', 'it is currently 2:09pm', 'putl0014@flinders.edu.au', 'bob@flinders.edu.au', '2025-10-08 14:09:30'),
 (4, 'character limit', 'gfwhyuISKKKKKKKKKKKKKKKKKKKKKKKDHGAHSDFAHKGJFDSHKJFSHAGKJHGKJFSAHGSAFHGJASFHJGASFHGJFHJASGHGJSFAHGJFSAHGJSFAHGSAFGHJhjfjahkshjsfajhfsajhsafhjjfasjklfasjhlkfashjlfashjfashjfhsajhjfasjhkafsjhkfashjklfasljhlfasjlhafsjlhfasljhkafsljhkfashjlkhfjaslhjafshjklasf', 'putl0014@flinders.edu.au', 'bob@flinders.edu.au', '2025-10-08 14:17:27'),
 (5, 'Hello', 'testing Message', 'putl0014@flinders.edu.au', 'bob@flinders.edu.au', '2025-10-08 14:28:04'),
-(6, 'Hello', 'test 4', 'putl0014@flinders.edu.au', 'bob@flinders.edu.au', '2025-10-08 14:32:15');
+(6, 'Hello', 'test 4', 'putl0014@flinders.edu.au', 'bob@flinders.edu.au', '2025-10-08 14:32:15'),
+(7, 'test 1 2 3', 'test 1 2 3', 'putl0014@flinders.edu.au', 'test@flinders.edu.au', '2025-10-11 19:47:09'),
+(14, 'test 1 2 3', 'test 1 2 3', 'putl0014@flinders.edu.au', 'test@flinders.edu.au', '2025-10-11 19:49:46'),
+(15, 'Test #9', 'Mambo # 5', 'putl0014@flinders.edu.au', 'test@flinders.edu.au', '2025-10-11 19:50:08');
 
 -- --------------------------------------------------------
 
@@ -132,9 +135,9 @@ CREATE TABLE `userdata` (
 --
 
 INSERT INTO `userdata` (`id`, `email`, `firstName`, `lastName`, `password`, `imageName`, `imagePath`, `academicYear`, `credits`, `college`, `bio`, `last_active`, `admin`) VALUES
-(1, 'putl0014@flinders.edu.au', 'Jayden', 'Putland', '$2y$10$ds4ha4PtWZZZ2Xk9G.4pRuKwAcJSeKQczEOYZDqMIjimGrtasegtG', 'Daschund stock.jpg', '../userProfilePictures/Daschund stock.jpg', 1, 10, 'Information Science', 'Not an explodey', '2025-10-11', 1),
+(1, 'putl0014@flinders.edu.au', 'Jayden', 'Putland', '$2y$10$ds4ha4PtWZZZ2Xk9G.4pRuKwAcJSeKQczEOYZDqMIjimGrtasegtG', 'Screenshot 2024-11-10 131358.png', '../userProfilePictures/Screenshot 2024-11-10 131358.png', 1, 10, 'Information Science', 'Not an explodey', '2025-10-11', 1),
 (2, 'bob@flinders.edu.au', 'Bob', 'Test', '$2y$10$FhUF0v/ZyEzPw6GLdOuwEONmeEuBpzZxrFQ8VqGk6JJuytP.G.RQ6', 'default-avatar.jpg', '../userProfilePictures/default-avatar.jpg', 0, 0, '', '', NULL, 1),
-(3, 'test@flinders.edu.au', 'First', 'Last', '$2y$10$mmiNWdOSqK0HWZaRtcNHe.yjyoB3khBe.Ickx8DG3Rs4mrYIwj1r6', 'default-avatar.jpg', '../userProfilePictures/default-avatar.jpg\r\n', 0, 0, '', '', NULL, 0),
+(3, 'test@flinders.edu.au', 'First', 'Last', '$2y$10$mmiNWdOSqK0HWZaRtcNHe.yjyoB3khBe.Ickx8DG3Rs4mrYIwj1r6', 'Screenshot 2024-11-17 144136.png', '../userProfilePictures/Screenshot 2024-11-17 144136.png', 0, 0, '', '', NULL, 0),
 (4, 'klen0010@flinders.edu.au', 'Lachlan', 'Lachlans Last Name ', '$2y$10$ds4ha4PtWZZZ2Xk9G.4pRuKwAcJSeKQczEOYZDqMIjimGrtasegtG', 'default-avatar.jpg', '../userProfilePictures/default-avatar.jpg', 0, 0, '', '', '0000-00-00', 1),
 (5, 'wach0035@flinders.edu.au', 'Thomas', 'Thomas Last Name ', '$2y$10$ds4ha4PtWZZZ2Xk9G.4pRuKwAcJSeKQczEOYZDqMIjimGrtasegtG', 'default-avatar.jpg', '../userProfilePictures/default-avatar.jpg', 0, 0, '', '', '0000-00-00', 1),
 (6, 'mane0039@flinders.edu.au', 'Liam', 'Liams Last Name ', '$2y$10$ds4ha4PtWZZZ2Xk9G.4pRuKwAcJSeKQczEOYZDqMIjimGrtasegtG', 'default-avatar.jpg', '../userProfilePictures/default-avatar.jpg', 0, 0, '', '', '0000-00-00', 1);
@@ -215,11 +218,21 @@ INSERT INTO `user_mailbox` (`id`, `user`, `mailbox`, `mailbox_id`) VALUES
 (9, 'bob@flinders.edu.au', 'In', 5),
 (10, 'putl0014@flinders.edu.au', 'Out', 5),
 (11, 'bob@flinders.edu.au', 'In', 6),
-(12, 'putl0014@flinders.edu.au', 'Out', 6);
+(12, 'putl0014@flinders.edu.au', 'Out', 6),
+(14, 'test@flinders.edu.au', 'In', 14),
+(15, 'putl0014@flinders.edu.au', 'Out', 14),
+(16, 'test@flinders.edu.au', 'In', 15),
+(17, 'putl0014@flinders.edu.au', 'Out', 15);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `mailbox`
+--
+ALTER TABLE `mailbox`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `messages`
@@ -256,13 +269,17 @@ ALTER TABLE `userskills`
 -- Indexes for table `user_mailbox`
 --
 ALTER TABLE `user_mailbox`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`),
-  ADD KEY `Message ID` (`mailbox_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `mailbox`
+--
+ALTER TABLE `mailbox`
+  MODIFY `id` int(45) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -280,7 +297,7 @@ ALTER TABLE `userdata`
 -- AUTO_INCREMENT for table `user_mailbox`
 --
 ALTER TABLE `user_mailbox`
-  MODIFY `id` int(45) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(45) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
