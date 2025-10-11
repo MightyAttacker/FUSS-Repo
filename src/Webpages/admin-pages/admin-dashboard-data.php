@@ -8,7 +8,10 @@ header('Content-Type: application/json');
 $response = [
     'totalUsers' => null,
     'activeUsers' => null,
-    'services' => []
+    'services' => [],
+    'totalCredits' => null,
+    'FUSScreditDistribution' => [],
+    'topSkills' => []
 ];
 
 // Get total users
@@ -23,7 +26,7 @@ $activeResult = mysqli_query($conn, "SELECT COUNT(*) AS active FROM users WHERE 
 if ($activeResult) {
     $activeRow = mysqli_fetch_assoc($activeResult);
     $response['activeUsers'] = $activeRow['active'];
-} 
+}
 // get services and their statuses
 $services = [];
 $servicesResult = mysqli_query($conn, "SELECT service_name, status FROM services");
@@ -31,6 +34,29 @@ while($row = mysqli_fetch_assoc($servicesResult)) {
     $services[] = $row;
 }
  $response['services'] = $services;
+
+ //FUSScredit Distribution
+$creditDistribution = [];
+$distributionResult = mysqli_query($conn, "SELECT id, credits FROM users ORDER BY credits DESC");
+$totalCreditsResult = mysqli_query($conn, "SELECT SUM(credits) AS total FROM users");
+
+$totalCreditsRow = mysqli_fetch_assoc($totalCreditsResult);
+$totalCredits = $totalCreditsRow['total'];
+
+while($row = mysqli_fetch_assoc($distributionResult)) {
+    $creditDistribution[] = $row;
+}
+
+$response['totalCredits'] = $totalCredits;
+$response['FUSScreditDistribution'] = $creditDistribution;
+
+//get top 5 skills and their counts
+$skills = [];
+$skillsResult = mysqli_query($conn, "SELECT skill, COUNT(*) AS count FROM userskills GROUP BY skill ORDER BY count DESC LIMIT 5");
+while($row = mysqli_fetch_assoc($skillsResult)) {
+    $skills[] = $row;
+}
+$response['topSkills'] = $skills;
 
 // Return JSON response
 echo json_encode($response);

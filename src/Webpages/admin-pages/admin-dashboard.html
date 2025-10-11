@@ -13,7 +13,7 @@
         <div class="userprofile">
             <img id="userIcon" src="../admin-pages/images/usericon.png" alt="User Icon">
             <p>User name</p>
-            <a href="../Webpages/Login Page/Login-Page.html"><button>Log out</button></a>
+            <a href="../Webpages/loginPages/studentLoginPage.php"><button>Log out</button></a>
         </div>
         
     </div>
@@ -47,44 +47,104 @@
         </tbody>
       </table>
     </div>
-        <div class="inlinebox">
-            FUSSCredit distribution
-        </div>
-        <div class="inlinebox">
-            Popular Skills
+    <div class="inlinebox">
+        <h3>FUSSCredit Distribution</h3>
+        <p>Total FUSSCredits in system: <span id="totalCredits"></span></p>
+        <table id="creditTable">
+            <thead>
+            <tr>
+            <th>User ID</th>
+            <th>Credits</th>
+            <th>%</th>
+        </tr>
+        </thead>
+        <tbody id="creditBody"></tbody>
+    </table>
+    </div>
+        <div class="skillSection">
+            <h3>Popular Skills</h3>
+                <table id="skillTable">
+        <thead>
+          <tr>
+            <th>Skill</th>
+            <th>#</th>
+          </tr>
+        </thead>
+        <tbody id="skillBody">
+        </tbody>
+      </table>
         </div>
     </div>
-    <script>
-      fetch('admin-dashboard-data.php')
-        .then(response => response.json())
-        .then(data => {
-          // Update total users
-          document.getElementById('totalUsers').textContent = data.totalUsers;
-          document.getElementById('activeUsers').textContent = data.activeUsers;
+<script>
+    fetch('admin-dashboard-data.php')
+    .then(response => response.json())
+    .then(data => {
+    // Update total users
+    document.getElementById('totalUsers').textContent = data.totalUsers;
+    document.getElementById('activeUsers').textContent = data.activeUsers;
 
-          // Populate services table
-          const tbody = document.getElementById('servicesBody');
+// Populate services table
+    const servicetbody = document.getElementById('servicesBody');
 
-          data.services.forEach(service => {
-            const row = document.createElement('tr');
+    data.services.forEach(service => {
+        const row = document.createElement('tr');
 
-            const nameCell = document.createElement('td');
-            nameCell.textContent = service.service_name;
-            row.appendChild(nameCell);
+        const nameCell = document.createElement('td');
+        nameCell.textContent = service.service_name;
+        row.appendChild(nameCell);
 
-            const statusCell = document.createElement('td');
-            statusCell.textContent = service.status;
-            statusCell.className = service.status === 'active' ? 'active' : 'inactive';
-            row.appendChild(statusCell);
+        const statusCell = document.createElement('td');
+        statusCell.textContent = service.status;
+        statusCell.className = service.status === 'active' ? 'active' : 'inactive';
+        row.appendChild(statusCell);
 
-            tbody.appendChild(row);
-          });
-        })
-        .catch(error => {
-          console.error('Fetch error:', error);
-          const tbody = document.getElementById('servicesBody');
-          tbody.innerHTML = '<tr><td colspan="2">Error loading services</td></tr>';
-        });
-    </script>
+        servicetbody.appendChild(row);
+    });
+// Populate FUSSCRedit table
+    const credittbody = document.getElementById('creditBody');
+    document.getElementById('totalCredits').textContent = data.totalCredits;
+
+    data.FUSScreditDistribution.forEach(user => {
+      const row = document.createElement('tr');
+
+      const idCell = document.createElement('td');
+      idCell.textContent = user.id;
+
+      const creditCell = document.createElement('td');
+      creditCell.textContent = user.credits;
+
+      const meterCell = document.createElement('td');
+      const meter = document.createElement('meter');
+      meter.min = 0;
+      meter.max = data.totalCredits;
+      meter.value = user.credits;
+      meter.style.width = '200px';
+      meterCell.appendChild(meter);
+
+      row.appendChild(idCell);
+      row.appendChild(creditCell);
+      row.appendChild(meterCell);
+
+      credittbody.appendChild(row);
+    });
+// Populate skills table
+    const skilltbody = document.getElementById('skillBody');
+
+    data.topSkills.forEach(skill => {
+        const row = document.createElement('tr');
+
+        const skillCell = document.createElement('td');
+        skillCell.textContent = skill.skill;
+        row.appendChild(skillCell);
+
+        const countCell = document.createElement('td');
+        countCell.textContent = skill.count;
+        row.appendChild(countCell);
+
+        skilltbody.appendChild(row);
+    });
+          
+})
+</script>
 </body>
 </html>
