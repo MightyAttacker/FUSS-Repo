@@ -1,5 +1,5 @@
 <?php
-include '../../inc/dbconn.inc.php';
+include '../../src/inc/dbconn.inc.php';
 
 $message = "";
 $email = "";
