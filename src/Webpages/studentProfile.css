@@ -1,0 +1,181 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+
+}
+.login{
+    background-color: #002F60;
+    border: 5px;
+    color: #ffd300;
+    border-color: black;
+    border-style: ridge;
+    text-align: center;
+}
+
+#topBanner{
+    background-color: #002F60;
+    color: #000000;
+    padding: 10px 5px 10px 10px;
+    text-align: center;
+    align-items: center;
+    justify-content: left;
+    display: block;
+    margin-top: -15px;
+    margin-left: -10px;
+    width: 100%;
+    height: 100vh;
+    max-height: 130px;
+    position: sticky;
+    top: 0;
+}
+
+#flindersLogo{
+    display: block;
+    float: left;
+}
+
+#imgLogo{
+    height: 120px;
+    width: 400px;
+}
+
+#title{
+    width: 90%; 
+    text-align: center;    
+    color: #ffD300;
+    padding-top: 80px;
+
+}
+
+#UserDetails{
+  position: absolute;
+   top: 90px;
+   right: 106px;
+   color: #ffD300;
+}
+
+
+#logoutButton{
+    position: absolute;
+    right: 10px;
+    top: 106px;
+    align-items: center;
+}
+
+#logButton{
+    background-color: #ffD300;
+    padding: 10px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #002F60;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;  
+}
+#logButton:hover{
+    background-color: #555555;
+    color: white;
+}
+
+.sidebar {
+  list-style-type: none;
+  margin-left: -10px;
+  margin-top: -0px;
+  padding: 0;
+  width: 200px;
+  background-color: #002F60;
+  height: 100vh;
+  position: fixed;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: #ffD300;
+  padding: 15px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Change the link and background color on hover */
+.sidebar a:hover {
+  background-color: #555555;
+  color: white;
+}
+
+.sidebar .active {
+  background-color: #ffD300;
+  color: #002F60;
+}
+
+main{
+    margin-left: 200px;
+}
+#header{
+    text-align: center;
+}
+
+#profileLink{
+    color: #ffD300;
+    text-decoration: none;
+}
+#submitButtons{
+    display: block;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.button{
+    padding: 10px 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffD300;
+    border: none;
+    border-radius: 5px;
+    background-color: #002F60;
+    cursor: pointer;   
+}
+
+#profilePic{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #002F60;
+    margin-bottom: 10px;
+    left: 50%;
+    position: relative;
+}
+
+.profileContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    gap: 50px;
+    padding: 20px;
+}
+#profileDetails{
+    justify-content: center;
+}
+#personalInfo{
+    position: relative;
+    left: 20px;
+    text-align: left;
+    max-width: 400px;
+
+}
+#skillsList{
+    padding-top: 170px;
+    list-style-type: disc;
+    padding-left: 20px;
+
+}
+#mainContent{
+    justify-content: space-around;
+    display: grid;
+    align-items: baseline;
+}
+#editProfileButton{
+   
+}
