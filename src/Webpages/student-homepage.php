@@ -1,20 +1,27 @@
 <?php
+session_start(); // Start session to access logged-in user info
 include '../inc/dbconn.inc.php';
 
-// Get credits for the user 
-$id = $_SESSION['id'];
-$sql = "SELECT credits FROM users WHERE id = 'id'";
-$result = $conn->query($sql);
-
-// Fetch credit value
-$credits = 0;
-if ($result && $result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $credits = $row['credits'];
+// Ensure the user is logged in
+if (!isset($_SESSION['id'])) {
+    header("Location: loginPages/login.php");
+    exit();
 }
 
+$id = $_SESSION['id'];
+
+// Get credits for the user
+$getUserCreditStmt = $conn->prepare('SELECT credits FROM userdata WHERE id = ?');
+$getUserCreditStmt->bind_param('i', $id);
+$getUserCreditStmt->execute();
+$result = $getUserCreditStmt->get_result();
+$row = $result->fetch_assoc();
+
+$userCredits = $row ? $row['credits'] : 0; // Fallback to 0 if not found
+$getUserCreditStmt->close();
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -56,7 +63,7 @@ $conn->close();
          <ul class="credits">
             <li>
                 <h1>
-                    <?php echo $credits . ' Credits'; ?>
+                    <?php echo $userCredits . ' Credits'; ?>
                 </h1>
             </li>
         </ul>
