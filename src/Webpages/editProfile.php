@@ -28,6 +28,7 @@ if ($checkIfAdmin->num_rows > 0) {
     $adminRow = $checkIfAdmin->fetch_assoc();
     if (isset($adminRow['Admin']) && $adminRow['Admin'] == 1) {
         $isAdmin = 1;
+
     }
 }
 $checkIfAdmin->close();
@@ -190,8 +191,8 @@ $getUserBioStmt->close();
                                 <form action="updateProfile.php?id=<?php echo $id; ?>" method="post" id="editNameForm">
                                     <h3 id="name" class="profileItem"> Name: <?php echo $firstName . " " . $lastName ?>
                                     </h3>
-                                    <button type="button" class="collapsible">Edit Name</button>
-                                    <div class="content">
+                                    <button type="button" class="collapsible" onclick="">Edit Name</button>
+                                    <div class="content" style="display:<?php echo ($isAdmin == 1) ? 'block' : 'none'; ?>">
 
                                         <label for="firstName">First Name:</label>
                                         <input type="text" id="firstName" name="firstName"
@@ -208,8 +209,8 @@ $getUserBioStmt->close();
                                 <form action="updateProfile.php?id=<?php echo $id; ?>" method="post" id="editYearForm">
                                     <h3 id="adademicYear" class="profileItem"> Academic Year: <?php echo $userYear ?>
                                     </h3>
-                                    <button type="button" class="collapsible" >Edit Academic Year</button>
-                                    <div class="content">
+                                    <button type="button" class="collapsible" onclick="">Edit Academic Year</button>
+                                    <div class="content" style="display:<?php echo ($isAdmin == 1) ? 'block' : 'none'; ?>">
                                         <label for="academicYear">Academic Year:</label>
 
                                         <input type="number" id="academicYear" name="academicYear" min="1" max="10"
@@ -225,8 +226,8 @@ $getUserBioStmt->close();
                                     id="editCollegeForm">
                                     <h3 id="college" class="profileItem"> College: <?php echo $userCollege ?></h3>
 
-                                    <button type="button" class="collapsible" >Edit College</button>
-                                    <div class="content">
+                                    <button type="button" class="collapsible" onclick="" >Edit College</button>
+                                    <div class="content" style="display:<?php echo ($isAdmin == 1) ? 'block' : 'none'; ?>">
                                         <label for="college">College:</label>
 
                                         <input type="text" id="college" name="college"
@@ -240,8 +241,8 @@ $getUserBioStmt->close();
                                 <form action="updateProfile.php?id=<?php echo $id; ?>" method="post" id="editBioForm">
                                     <h3 id="BioTitle" class="profileItem"> Bio</h3>
                                     <p id="bioText" class="profileItem"> <?php echo $userBio ?> </p>
-                                    <button type="button" class="collapsible" >Edit Bio</button>
-                                    <div class="content">
+                                    <button type="button" class="collapsible" onclick="" >Edit Bio</button>
+                                    <div class="content" style="display:<?php echo ($isAdmin == 1) ? 'block' : 'none'; ?>">
                                         <label for="bio">Bio:</label><span id="charNum"></span>
 
                                         <textarea id="bio" name="bio" rows="4" cols="25" maxlength="255"
@@ -266,14 +267,14 @@ $getUserBioStmt->close();
                                 <h3> Academic Skills Offered: </h3>
 
                                 <?php
+                                $userAcademicSkills = [];
                                 // Fetch the user's academic skills from the database
                                 $getAcademicSkillsStmt = $conn->prepare('SELECT userSkills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=1 AND userskills.id=?');
                                 $getAcademicSkillsStmt->bind_param('i', $id);
                                 $getAcademicSkillsStmt->execute();
                                 $academicSkills = $getAcademicSkillsStmt->get_result();
                                 if ($academicSkills->num_rows > 0) {
-                                    echo "<ul>";
-                                    $userAcademicSkills = [];
+                                    echo "<ul>";                                    
                                     while ($row = $academicSkills->fetch_assoc()) {
                                         echo "<li>" . htmlspecialchars($row['skillName']) . "</li>";
                                         $userAcademicSkills[] = $row['skillName'];
@@ -344,14 +345,14 @@ $getUserBioStmt->close();
                             <form action="updateProfile.php?id=<?php echo $id; ?>" method="post" id="otherSkillsForm">
                                 <h3> Other Skills Offered: </h3>
                                 <?php
+                                $userOtherSkills = [];
                                 // Fetch the user's other skills from the database
                                 $getOtherSkillsStmt = $conn->prepare('SELECT userSkills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=0 AND userskills.id=?');
                                 $getOtherSkillsStmt->bind_param('i', $id);
                                 $getOtherSkillsStmt->execute();
                                 $otherSkills = $getOtherSkillsStmt->get_result();
                                 if ($otherSkills->num_rows > 0) {
-                                    echo "<ul>";
-                                    $userOtherSkills = [];
+                                    echo "<ul>";                                    
                                     while ($row = $otherSkills->fetch_assoc()) {
                                         echo "<li>" . htmlspecialchars($row['skillName']) . "</li>";
                                         $userOtherSkills[] = $row['skillName'];
@@ -416,6 +417,7 @@ $getUserBioStmt->close();
                                 id="requestedSkillsForm">
                                 <h3> Skills Requested: </h3>
                                 <?php
+                                $userRequestedSkills = [];
                                 // Fetch the user's requested skills from the database
                                 $getRequestedSkillsStmt = $conn->prepare('SELECT skillName FROM userRequestedSkills WHERE id=?');
                                 $getRequestedSkillsStmt->bind_param('i', $id);
@@ -423,8 +425,7 @@ $getUserBioStmt->close();
                                 $requestedSkills = $getRequestedSkillsStmt->get_result();
 
                                 if ($requestedSkills->num_rows > 0) {
-                                    echo "<ul>";
-                                    $userRequestedSkills = [];
+                                    echo "<ul>";                                  
                                     while ($row = $requestedSkills->fetch_assoc()) {
                                         echo "<li>" . htmlspecialchars($row['skillName']) . "</li>";
                                         $userRequestedSkills[] = $row['skillName'];
@@ -490,23 +491,13 @@ $getUserBioStmt->close();
                     </div>
 
                 </div>
-                <div class="editProfile">
-                    <?php
-                    $checkIfAdmin = $conn->prepare('SELECT Admin FROM userdata WHERE id=?');
-                    $checkIfAdmin->bind_param('i', $id);
-                    $checkIfAdmin->execute();
-                    $checkIfAdmin = $checkIfAdmin->get_result();
+               <div class="editProfile">
+                    <?php                 
 
-                    if ($checkIfAdmin->num_rows > 0) {
-                        $isAdmin = $checkIfAdmin->fetch_assoc()['Admin'];
-                    } else {
-                        $isAdmin = 0;
+                    if (($isAdmin == 1 || $uid == $id))  {
+                        echo '<div class="editProfile"><button id="editProfileButton" class="button" onclick="location.href=\'./studentProfile.php?id=' . $id . '\';">Back to Profile</button></div>';
                     }
-
-                    if (($uid == $id) || ($isAdmin == 1)) {
-                        echo '<div class="editProfile"><button id="editProfileButton" class="button" onclick="location.href=\'./studentProfile.php?id=' . $uid . '\';">Back to Profile</button></div>';
-                    }
-                    ?>
+                    ?> 
                 </div>
 
             </div>
