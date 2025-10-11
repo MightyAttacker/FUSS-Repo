@@ -62,7 +62,7 @@ $user = $stmt3->get_result()->fetch_assoc()['firstName'];
 
   <div id="sideBar">
     <ul class="sidebar">
-      <li> <a href="./student-homepage.html">Home</a> </li>
+      <li> <a href="./student-homepage.php">Home</a> </li>
       <li> <a class="active" href="./inbox.php"> Inbox</a> </li>
       <li> <a href="#Requests"> Make A Request</a> </li>
       <li> <a href="#ViewRequests">View My Requests</a> </li>
