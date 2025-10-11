@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="Author" content="Liam Maney" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <img id="logo" src="../admin-pages/images/Logo_Flinders_white.png" alt="Flinders University Logo">
+        <div class="userprofile">
+            <img id="userIcon" src="../admin-pages/images/usericon.png" alt="User Icon">
+            <p>User name</p>
+            <a href="../Webpages/Login Page/Login-Page.html"><button>Log out</button></a>
+        </div>
+    </div>
+
+    <div class="navbarContainer">
+        <ul class="navbar">
+            <li><a href="admin-dashboard.html">Home</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="view-students.html">View Students</a></li>
+            <li><a class="active" href="manage-skill-list.html">Manage Skill List</a></li>
+            <li><a href="view-reports.html">View Reports</a></li>
+        </ul>
+    </div>
+
+    <div class="body">
+        <div>
+            <!-- Manage Skills -->
+            <button type="button" class="collapsible">Manage Skill List</button>
+            <div class="content">
+                <form id="addSkillForm">
+                    <label for="skillName">Skill Name:</label>
+                    <input type="text" id="skillName" name="skillName" required><br><br>
+
+                    <button type="submit">Add Skill</button>
+                </form>
+
+                <p id="message"></p>
+            <!--Skill table-->
+                <h3>Skills List</h3>
+                <table id="skillTable">
+                    <thead>
+                        <tr>
+                            <th>Skill</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="skillBody"></tbody>
+                </table>
+            </div>
+
+            <!-- Manage Categories -->
+            <button type="button" class="collapsible">Manage Skill Categories</button>
+            <div class="content">
+                <form id="addCategoryForm">
+                    <label for="categoryName">Category Name:</label>
+                    <input type="text" id="categoryName" name="categoryName" required><br><br>
+
+                    <button type="submit">Add Category</button>
+                </form>
+                <p id="categoryMessage"></p>
+            <!--Category table-->
+                <h3>Category List</h3>
+                <table id="categoryTable">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th># of skills</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="categoryBody"></tbody>
+                </table>
+                </div>
+            <!--Manage Degree-->
+            <button type="button" class="collapsible">Manage Degree</button>
+            <div class="content">
+                <form id="addDegreeForm">
+                    <label for="degreeName">Degree Name:</label>
+                    <input type="text" id="degreeName" name="degreeName" required><br><br>
+
+                    <button type="submit">Add Degree</button>
+                </form>
+                <p id="degreeMessage"></p>
+            <!--Degree table-->
+                <h3>Degree List</h3>
+                <table id="degreeTable">
+                    <thead>
+                        <tr>
+                            <th>Degree</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="degreeBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Collapsible sections
+        document.querySelectorAll('.collapsible').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('active');
+                const content = btn.nextElementSibling;
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        // Skills Section
+        const skillForm = document.getElementById('addSkillForm');
+        const skillMessage = document.getElementById('message');
+        const skillBody = document.getElementById('skillBody');
+
+        function loadSkills() {
+            fetch('skill-data.php?action=fetch')
+                .then(res => res.json())
+                .then(data => {
+                    skillBody.innerHTML = '';
+                    data.skills.forEach(skill => {
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                            <td>${skill.skill}</td>
+                            <td><button class="deleteSkill">Delete</button></td>
+                        `;
+                        //delete skill
+                        row.querySelector('.deleteSkill').addEventListener('click', () => {
+                            if(confirm(`Are you sure you want to delete skill "${skill.skill}"?`)) {
+                                fetch('skill-data.php', {
+                                    method: 'POST',
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                                    body: `action=delete&skill=${encodeURIComponent(skill.skill)}`
+                                })
+                                .then(res => res.json())
+                                .then(resp => {
+                                    skillMessage.textContent = resp.message;
+                                    loadSkills();
+                                });
+                            }
+                        });
+
+                        skillBody.appendChild(row);
+                    });
+                });
+        }
+        // add new skill
+        skillForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const skillName = document.getElementById('skillName').value.trim();
+
+            fetch('skill-data.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: `skillName=${encodeURIComponent(skillName)}`
+            })
+            .then(res => res.json())
+            .then(data => {
+                skillMessage.textContent = data.message;
+                if(data.success) skillForm.reset();
+                loadSkills();
+            });
+        });
+
+        loadSkills();
+
+
+        // Categories Section
+        const categoryForm = document.getElementById('addCategoryForm');
+        const categoryMessage = document.getElementById('categoryMessage');
+        const categoryBody = document.getElementById('categoryBody');
+
+        function loadCategories() {
+            fetch('category-data.php?action=fetch')
+                .then(res => res.json())
+                .then(data => {
+                    categoryBody.innerHTML = '';
+                    data.categories.forEach(cat => {
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                            <td>${cat.category}</td>
+                            <td>${cat.count}</td>
+                            <td><button class="deleteCat">Delete</button></td>`;
+                        //delete category
+                        row.querySelector('.deleteCat').addEventListener('click', () => {
+                            if(confirm(`Are you sure you want to delete category "${cat.category}"?`)) {
+                                fetch('category-data.php', {
+                                    method: 'POST',
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                                    body: `action=delete&category=${encodeURIComponent(cat.category)}`
+                                })
+                                .then(res => res.json())
+                                .then(resp => {
+                                    categoryMessage.textContent = resp.message;
+                                    loadCategories();
+                                });
+                            }
+                        });
+
+                        categoryBody.appendChild(row);
+                    });
+                });
+        }
+        //add new category
+        categoryForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const categoryName = document.getElementById('categoryName').value.trim();
+            if(categoryName === '') return categoryMessage.textContent = "Please enter a category name.";
+
+            fetch('category-data.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: `action=add&categoryName=${encodeURIComponent(categoryName)}`
+            })
+            .then(res => res.json())
+            .then(data => {
+                categoryMessage.textContent = data.message;
+                if(data.success) categoryForm.reset();
+                loadCategories();
+            });
+        });
+
+        loadCategories();
+
+        // degrees Section
+        const degreeForm = document.getElementById('addDegreeForm');
+        const degreeMessage = document.getElementById('degreeMessage');
+        const degreeBody = document.getElementById('degreeBody');
+
+        function loadDegree() {
+            fetch('degree-data.php?action=fetch')
+                .then(res => res.json())
+                .then(data => {
+                    degreeBody.innerHTML = '';
+                    data.degree.forEach(degree => {
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                            <td>${degree.degree}</td>
+                            <td><button class="deleteDegree">Delete</button></td>`;
+                        //delete category
+                        row.querySelector('.deleteDegree').addEventListener('click', () => {
+                            if(confirm(`Are you sure you want to delete degree "${degree.degree}"?`)) {
+                                fetch('degree-data.php', {
+                                    method: 'POST',
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                                    body: `action=delete&degree=${encodeURIComponent(degree.degree)}`
+                                })
+                                .then(res => res.json())
+                                .then(resp => {
+                                    degreeMessage.textContent = resp.message;
+                                    loadDegree();
+                                });
+                            }
+                        });
+
+                        degreeBody.appendChild(row);
+                    });
+                });
+        }
+        //add new degree
+        degreeForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const degreeName = document.getElementById('degreeName').value.trim();
+            if(degreeName === '') return degreeMessage.textContent = "Please enter a degree name.";
+
+            fetch('degree-data.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: `action=add&degreeName=${encodeURIComponent(degreeName)}`
+            })
+            .then(res => res.json())
+            .then(data => {
+                degreeMessage.textContent = data.message;
+                if(data.success) degreeForm.reset();
+                loadDegree();
+            });
+        });
+
+        loadDegree();
+    </script>
+</body>
+</html>

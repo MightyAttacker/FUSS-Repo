@@ -4,6 +4,7 @@ include '../../inc/dbconn.inc.php';
 $message = "";
 $email = "";
 $password = "";
+$id ="";
 
 function test_input($data) {
   $data = trim($data);
@@ -17,13 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      
   
     // Prepare and execute
-    $stmt = $conn->prepare("SELECT password FROM userdata WHERE email = ?");
+    $stmt = $conn->prepare("SELECT password, id FROM userdata WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($db_password);
+        $stmt->bind_result($db_password, $id);
         $stmt->fetch();
 
         if (password_verify($password, $db_password)) {
@@ -31,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             // Start the session and redirect to the dashboard or home page
             session_start();
-            $_SESSION['email'] = $email;
+            $_SESSION['id'] = $id;
             header( "Location: ../student-homepage.html");  
             exit();
         } else {

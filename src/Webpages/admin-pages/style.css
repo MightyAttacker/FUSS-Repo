@@ -1,0 +1,156 @@
+html,body{
+    height:100%;
+    margin: 0; /* remove default margin around edge of browser*/
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.header{
+    background-color:#002F60;
+    display: flex; /* required for justify content*/
+    justify-content: space-between; /* evenly spaces everything within header*/
+    align-items: center;
+    padding:20px;
+    color:white;
+}
+/* this encases just the usericon, username and logout button*/
+.userprofile{
+    display:flex;
+    align-items: center; /* display:flex and align item:right to make everything centered vertically*/
+    gap:15px; /* gap between the user icon, username and logout button*/
+     /* margin on right so log out button isnt on edge of screen*/
+}
+/* Flinder logo*/
+#logo{
+    width:200px;
+}
+/* User icon image*/
+#userIcon{
+    height:50px;
+    width:50px;
+}
+.navbarContainer{
+    float:left;
+    width:220px;
+    background-color: #002F60;
+    min-height:100vh;
+}
+/* navigation bar formating*/
+.navbar{
+    list-style: none;
+    margin: 0;
+    padding: 0px;
+}
+/* show which page your currently on*/
+li a.active{
+    background-color: #FFD300;
+    color: black;
+}
+/* for every list item thats a hyperlink*/
+li a{
+    display: block; /* makes the whole area of the list item clickable*/
+    color: white;
+    padding: 10px 16px;
+    text-decoration: none;
+}
+/* change colour when hovering over*/
+li a:hover{
+    background-color: #FFD300;
+    color:black;
+}
+/* container holding each graph*/
+.container{
+    margin-left: 220px; /* prevent items from going behind navbar*/
+    display:grid;       /* setup grid layout*/
+    grid-template-columns: 1fr 1fr;   /* grid template: 2 columns wide*/
+    grid-template-rows: 1fr 1fr;
+    padding:20px; /* gap between all other elements*/
+    gap:20px;   /* gap between each box on grid*/
+    height:100vh;   /* height of each item*/
+    background-color: #FFD300;
+}
+/* formatting for divs within conatainer*/
+.container > div{
+    background-color:white;
+    padding:20px;
+}
+/* formatting for div used for the body of each page (every page except the dashboard*/
+.body{
+    margin-left:220px;
+    min-height:100vh;
+    background-color: #FFD300;
+    padding:20px;
+}
+.body > div{
+    background-color:white;
+    text-align: left;
+    padding:20px;
+    min-height:100vh;
+}
+#users > a{
+    text-align:right;
+    padding-right:20px;
+    padding-bottom: 20px;
+}
+#services > a{
+    text-align:right;
+    padding-right:20px;
+    padding-bottom: 20px;
+}
+table,th,td {
+    border:1px solid grey;
+    width: 60%;
+    margin: 20px auto;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: #002F60;
+    color:white;
+}
+.active {
+    color: green;
+    font-weight: bold;
+}
+.inactive {
+    color: red;
+    font-weight: bold;
+}
+h3{
+    text-align: center;
+}
+/* collapsible button*/
+.collapsible{
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    margin-top: 10px;
+}
+.active, .collapsible:hover{
+    background-color: #555;
+    color: white;
+}
+/* symbol on right of collapsible button */
+.collapsible:after{
+    content: '\002B'; /* Unicode character for "plus" sign (+)*/
+    font-size: 13px;
+    float: right;
+    margin-left: 5px;
+}
+.collapsible.active:after{
+    content: "\2212"; /* Unicode character for "minus" sign (-)*/
+}
+/* content within collapsible button*/
+.content{
+    padding: 18px 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+

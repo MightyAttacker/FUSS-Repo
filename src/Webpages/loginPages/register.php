@@ -5,20 +5,26 @@ $message = "";
 $email = "";
 $password = "";
 $hashed_password = "";
-function test_input($data) {
+$firstName = "";
+$lastName = "";
+$admin = 0;
+
+function test_input($data)
+{
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  
+
   $email = test_input($_POST["email"]);
+  $firstName = test_input($_POST["firstName"]);
+  $lastName = test_input($_POST["lastName"]);
   $password = test_input($_POST["password"]);
   $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 
-  
   // Check if email already exists
   $checkEmailStmt = $conn->prepare("SELECT email FROM userdata WHERE email = ?");
   $checkEmailStmt->bind_param("s", $email);
@@ -29,8 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = "Email ID already exists";
   } else {
     // Prepare and bind
-    $stmt = $conn->prepare("INSERT INTO userdata (email, password) VALUES (?, ?)");
-    $stmt->bind_param("ss", $email, $hashed_password);
+    $stmt = $conn->prepare("INSERT INTO userdata (email, firstName, lastName, password) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $email, $firstName, $lastName, $hashed_password);
 
     if ($stmt->execute()) {
       $message = "Account created successfully";
@@ -53,8 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="loginStyle.css">
-    <meta name="author" content="Jayden">
-    <script src="login.js"> </script>
+  <meta name="author" content="Jayden">
+  <script src="login.js"> </script>
   <title>FUSS Register Page</title>
 </head>
 
@@ -67,13 +73,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <h1>Flinders University Skill Share</h1>
       <header>
         <div id="switchButton">
-          <input id="swapButton" class="button" type="button" onclick="location.href='studentLoginPage.php';" value="Student Login" />
+          <input id="swapButton" class="button" type="button" onclick="location.href='studentLoginPage.php';"
+            value="Student Login" />
         </div>
   </div>
   <main>
-    <?php if ($message): ?> 
+    <?php if ($message): ?>
       <div id="message"> <?php echo $message; ?> </div>
-      <?php endif; ?>
+    <?php endif; ?>
     <div id="loginCard">
       <form action="" method="post" id="loginForm">
         <div class="form-card">
@@ -81,7 +88,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <h4> Please use your '@flinders.edu.au' email </h4>
           <div>
             <label for="email">Email:</label>
-            <input class="form-item" type="email" id="email" name="email" pattern="^.+@flinders\.edu\.au$" title="Please use an @flinders.edu.au email address" required>
+            <input class="form-item" type="email" id="email" name="email" pattern="^.+@flinders\.edu\.au$"
+              title="Please use an @flinders.edu.au email address" required>
+          </div>
+          <div>
+            <label for="firstName">First Name:</label>
+            <input class="form-item" type="text" id="firstName" name="firstName">
+          </div>
+          <div>
+            <label for="lasttName">Last Name:</label>
+            <input class="form-item" type="text" id="lastName" name="lastName">
           </div>
           <br>
           <div>
@@ -100,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div id="account" class="form-item">
           Already have an Account? <a href="studentLoginPage.php"> Login </a>
-          </div>
+        </div>
       </form>
     </div>
   </main>

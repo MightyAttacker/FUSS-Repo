@@ -4,58 +4,64 @@ include '../../inc/dbconn.inc.php';
 $message = "";
 $email = "";
 $password = "";
+$id = "";
 
-function test_input($data) {
+function test_input($data)
+{
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = test_input($_POST["email"]);
-    $password = test_input($_POST["password"]);
-          
-    // Prepare and execute
-    $stmt = $conn->prepare("SELECT password FROM admindata WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->store_result();
+  $email = test_input($_POST["email"]);
+  $password = test_input($_POST["password"]);
 
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($db_password);
-        $stmt->fetch();
+  // Prepare and execute
+  $stmt = $conn->prepare("SELECT password, admin, id FROM userdata WHERE email = ?");
+  $stmt->bind_param("s", $email);
+  $stmt->execute();
+  $stmt->store_result();
 
-        if (password_verify($password, $db_password)) {
-            $message = "Login successful";
-            
-            // Start the session and redirect to the dashboard or home page
-            session_start();
-            $_SESSION['email'] = $email;
-            header( "Location: ../admin-dashboard.html");  
-            exit();
-        } else {
-            $message = "Incorrect Password";
-            
-        }
+  if ($stmt->num_rows > 0) {
+    $stmt->bind_result($db_password, $admin, $id);
+    $stmt->fetch();
+
+    if ((password_verify($password, $db_password))&&($admin == 1)) {
+      $message = "Login successful";
+
+      // Start the session and redirect to the dashboard or home page
+      session_start();
+      $_SESSION['id'] = $id;
+      header("Location: ../admin-pages/admin-dashboard.html");
+      exit();
+
+    } elseif ($admin == 0) {
+      $message = "You are not an Administrator";
     } else {
-        $message = "Email Not Found";
-        
-    }
+      $message = "Incorrect Password";
 
-    $stmt->close();
-    $conn->close();
+    }
+  } else{
+    $message = "Email Not Found or You are not an Administrator";
+
+  }
+
+  $stmt->close();
+  $conn->close();
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en-AU"> 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="loginStyle.css">
-    <meta name="author" content="Jayden">
-    <script src="login.js"> </script>
-    <title>FUSS Admin Login Page</title>
+<html lang="en-AU">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="loginStyle.css">
+  <meta name="author" content="Jayden">
+  <script src="login.js"> </script>
+  <title>FUSS Admin Login Page</title>
 </head>
 
 <body>
@@ -63,41 +69,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="flindersLogo">
       <img src="../images/flindersLogo.png" alt="Logo for Flinders University" id="flindersLogo">
     </div>
-      <header><h1>Flinders University Skill Share</h1> <header>
+    <header>
+      <h1>Flinders University Skill Share</h1>
+      <header>
         <div id="switchButton">
-         <input id="swapButton" class="button" type="button" onclick="location.href='studentLoginPage.php';" value="Student Login" />
-          </div>
+          <input id="swapButton" class="button" type="button" onclick="location.href='studentLoginPage.php';"
+            value="Student Login" />
+        </div>
   </div>
   <main>
-    <?php if ($message): ?> 
+    <?php if ($message): ?>
       <div id="message"> <?php echo $message; ?> </div>
-      <?php endif; ?>
-  <div id="loginCard">
+    <?php endif; ?>
+    <div id="loginCard">
       <form action="" method="post" id="loginForm">
-      <div class="form-card">
-        <h2>Administrator Login</h2>
-        <h4> Please use your '@flinders.edu.au' email </h4>
+        <div class="form-card">
+          <h2>Administrator Login</h2>
+          <h4> Please use your '@flinders.edu.au' email </h4>
           <div>
             <label for="email">Email:</label>
-            <input class="form-item" type="email" id="email" name="email" pattern="^.+@flinders\.edu\.au$" title="Please use an @flinders.edu.au email address" required>
-        </div>
-        <br>
-        <div>
+            <input class="form-item" type="email" id="email" name="email" pattern="^.+@flinders\.edu\.au$"
+              title="Please use an @flinders.edu.au email address" required>
+          </div>
+          <br>
+          <div>
             <label for="password">Password:</label>
             <input class="form-item" type="password" id="password" name="password" required>
-             
+
             <div id="showPassword">
-                <input class="showPassword" id="showPassword" type="checkbox" onclick="myPassword()">
-                <label id="passwordText" for="password">Show Password</label>
+              <input class="showPassword" id="showPassword" type="checkbox" onclick="myPassword()">
+              <label id="passwordText" for="password">Show Password</label>
+            </div>
           </div>
-        </div>
-        <br>
+          <br>
         </div>
         <div id="submitButtons">
-        <button id="loginButton" type="submit" class="button">Login</button>
+          <button id="loginButton" type="submit" class="button">Login</button>
         </div>
-    </form>
+      </form>
     </div>
-    </main>
+  </main>
 </body>
+
 </html>
