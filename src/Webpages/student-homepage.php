@@ -53,9 +53,11 @@ $conn->close();
     <div id="content">
 
     <div class="creditsContainer">
-         <ul class="credits">
-            <li><h1><a class="activeCredit"href=""> Credits</a></h1></li>
-        </ul>
+        <div class="creditBalance">
+        <span class="creditLabel">Current Credit Balance:</span>
+        <span class="creditAmount"><?php echo $credits; ?></span>
+        <span class="creditUnit">Credits</span>
+        </div>
     </div>
     <div id="content">
 
