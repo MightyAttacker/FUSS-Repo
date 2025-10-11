@@ -14,9 +14,32 @@ if (!isset($_SESSION['id'])) {
     // session logged
 }
 
+$uid = $_SESSION['id'];
+
 include '../inc/dbconn.inc.php';
 
-$id = $_SESSION['id'];
+
+$checkIfAdmin = $conn->prepare('SELECT Admin FROM userdata WHERE id=?');
+$checkIfAdmin->bind_param('i', $uid);
+$checkIfAdmin->execute();
+$checkIfAdmin = $checkIfAdmin->get_result();
+$isAdmin = 0;
+if ($checkIfAdmin->num_rows > 0) {
+    $adminRow = $checkIfAdmin->fetch_assoc();
+    if (isset($adminRow['Admin']) && $adminRow['Admin'] == 1) {
+        $isAdmin = 1;
+    }
+}
+$checkIfAdmin->close();
+
+// Decide which user profile to edit
+if ($isAdmin == 1 && isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $id = intval($_GET['id']);
+} else {
+    $id = $uid;
+}
+
+
 // Fetch the user's email
 $getEmailstmt = $conn->prepare('SELECT email FROM userdata WHERE id=?');
 $getEmailstmt->bind_param('i', $id);
@@ -30,6 +53,13 @@ $getfirstNamestmt->bind_param('i', $id);
 $getfirstNamestmt->execute();
 $firstName = $getfirstNamestmt->get_result()->fetch_assoc()['firstName'];
 $getfirstNamestmt->close();
+
+// Fetch the logged user's first name
+$getloggedFirstNamestmt = $conn->prepare('SELECT firstName FROM userdata WHERE id=?');
+$getloggedFirstNamestmt->bind_param('i', $uid);
+$getloggedFirstNamestmt->execute();
+$loggedFirstName = $getloggedFirstNamestmt->get_result()->fetch_assoc()['firstName'];
+$getloggedFirstNamestmt->close();
 
 // Fetch the user's last name
 $getlastNamestmt = $conn->prepare('SELECT lastName FROM userdata WHERE id=?');
@@ -64,6 +94,14 @@ $getUserCreditStmt->bind_param('i', $id);
 $getUserCreditStmt->execute();
 $userCredits = $getUserCreditStmt->get_result()->fetch_assoc()['credits'];
 $getUserCreditStmt->close();
+
+// Fetch the logged in user's FussCredits
+$getUserCreditStmt = $conn->prepare('SELECT credits FROM userdata WHERE id=?');
+$getUserCreditStmt->bind_param('i', $uid);
+$getUserCreditStmt->execute();
+$loggedUserCredits = $getUserCreditStmt->get_result()->fetch_assoc()['credits'];
+$getUserCreditStmt->close();
+
 
 // Fetch the User's College
 $getUserCollegeStmt = $conn->prepare('SELECT college FROM userdata WHERE id=?');
@@ -106,7 +144,8 @@ $getUserBioStmt->close();
         </div>
         <div id="UserDetails">
             <h4> <a id="profileLink" href="./studentProfile.php">
-                    <?php echo "Hello, " . $firstName . "<br>" . "You have " . $userCredits . " Credits!" ?> </a></h4>
+                    <?php echo "Hello, " . $loggedFirstName . "<br>" . "You have " . $loggedUserCredits . " Credits!" ?>
+                </a></h4>
 
         </div>
         <div id="logoutButton">
@@ -128,14 +167,14 @@ $getUserBioStmt->close();
     </div>
     <main>
         <div id="mainContent">
-            <h2 id="header">Your Profile </h2>
+            <h2 id="header"><?php echo $firstName?>'s Profile </h2>
             <div class="profileContainer">
                 <div class="profileDetails">
 
 
                     <img id="profilePic" src="<?php echo $imagePath ?>" alt="<?php echo $imageAlt ?>"> <br>
 
-                    <form id="editPic" action="imageUpload.php" method="post" enctype="multipart/form-data">
+                    <form id="editPic" action="imageUpload.php?id=<?php echo $id; ?>" method="post" enctype="multipart/form-data">
                         <label for="imageUpload">
                             <h3>Select Image:</h3>
                         </label>
@@ -148,10 +187,10 @@ $getUserBioStmt->close();
                         <div id="personalInfo">
                             <div id="nameYearEdit">
 
-                                <form action="updateProfile.php" method="post" id="editNameForm">
+                                <form action="updateProfile.php?id=<?php echo $id; ?>" method="post" id="editNameForm">
                                     <h3 id="name" class="profileItem"> Name: <?php echo $firstName . " " . $lastName ?>
                                     </h3>
-                                    <button type="button" class="collapsible" onclick="">Edit Name</button>
+                                    <button type="button" class="collapsible">Edit Name</button>
                                     <div class="content">
 
                                         <label for="firstName">First Name:</label>
@@ -166,10 +205,10 @@ $getUserBioStmt->close();
                                             href="updateProfile.php">Update Name</button>
                                     </div>
                                 </form>
-                                <form action="updateProfile.php" method="post" id="editYearForm">
+                                <form action="updateProfile.php?id=<?php echo $id; ?>" method="post" id="editYearForm">
                                     <h3 id="adademicYear" class="profileItem"> Academic Year: <?php echo $userYear ?>
                                     </h3>
-                                    <button type="button" class="collapsible" onclick="">Edit Academic Year</button>
+                                    <button type="button" class="collapsible" >Edit Academic Year</button>
                                     <div class="content">
                                         <label for="academicYear">Academic Year:</label>
 
@@ -182,10 +221,11 @@ $getUserBioStmt->close();
                                 </form>
                             </div>
                             <div id="collegeBioEdit">
-                                <form action="updateProfile.php" method="post" id="editCollegeForm">
+                                <form action="updateProfile.php?id=<?php echo $id; ?>" method="post"
+                                    id="editCollegeForm">
                                     <h3 id="college" class="profileItem"> College: <?php echo $userCollege ?></h3>
 
-                                    <button type="button" class="collapsible" onclick="">Edit College</button>
+                                    <button type="button" class="collapsible" >Edit College</button>
                                     <div class="content">
                                         <label for="college">College:</label>
 
@@ -197,10 +237,10 @@ $getUserBioStmt->close();
                                             College</button>
                                     </div>
                                 </form>
-                                <form action="updateProfile.php" method="post" id="editBioForm">
+                                <form action="updateProfile.php?id=<?php echo $id; ?>" method="post" id="editBioForm">
                                     <h3 id="BioTitle" class="profileItem"> Bio</h3>
                                     <p id="bioText" class="profileItem"> <?php echo $userBio ?> </p>
-                                    <button type="button" class="collapsible" onclick="">Edit Bio</button>
+                                    <button type="button" class="collapsible" >Edit Bio</button>
                                     <div class="content">
                                         <label for="bio">Bio:</label><span id="charNum"></span>
 
@@ -221,7 +261,8 @@ $getUserBioStmt->close();
                                     onclick="showRequested()" class="button">Requested Skills</Button> </h2>
                         </div>
                         <div id="academicEdit">
-                            <form action="updateProfile.php" method="post" id="academicSkillsForm" name="academicSkillToAddForm">
+                            <form action="updateProfile.php?id=<?php echo $id; ?>" method="post" id="academicSkillsForm"
+                                name="academicSkillToAddForm">
                                 <h3> Academic Skills Offered: </h3>
 
                                 <?php
@@ -276,7 +317,8 @@ $getUserBioStmt->close();
                                 <button type="submit" class="button" name="addAcademicSkills">Add Academic
                                     Skills</button>
                             </form>
-                            <form action="updateProfile.php" method="post" id="removeAcademicSkillsForm">
+                            <form action="updateProfile.php?id=<?php echo $id; ?>" method="post"
+                                id="removeAcademicSkillsForm">
 
                                 <br>
                                 <label for="academicSkillToRemove">Remove Academic Skill Offered:</label>
@@ -293,12 +335,13 @@ $getUserBioStmt->close();
                                     ?>
                                 </select>
 
-                                <button type="submit" class="button" name="removeAcademicSkills">Remove Academic Skill</button>
+                                <button type="submit" class="button" name="removeAcademicSkills">Remove Academic
+                                    Skill</button>
                             </form>
                         </div>
 
                         <div id="otherEdit">
-                            <form action="updateProfile.php" method="post" id="otherSkillsForm">
+                            <form action="updateProfile.php?id=<?php echo $id; ?>" method="post" id="otherSkillsForm">
                                 <h3> Other Skills Offered: </h3>
                                 <?php
                                 // Fetch the user's other skills from the database
@@ -346,12 +389,12 @@ $getUserBioStmt->close();
                                     Skills</button>
 
                             </form>
-                            <form action="updateProfile.php" method="post" id="removeOtherSkillsForm">
+                            <form action="updateProfile.php?id=<?php echo $id; ?>" method="post"
+                                id="removeOtherSkillsForm">
 
                                 <br>
                                 <label for="otherSkillToRemove">Remove Other Skill Offered:</label>
-                                <select id="otherSkillToRemove" name="otherSkillToRemove" class="removeList"
-                                    onclick="">
+                                <select id="otherSkillToRemove" name="otherSkillToRemove" class="removeList" onclick="">
                                     <?php
                                     if (!empty($userOtherSkills)) {
                                         foreach ($userOtherSkills as $otherSkill) {
@@ -363,12 +406,14 @@ $getUserBioStmt->close();
                                     ?>
                                 </select>
 
-                                <button type="submit" class="button" name="removeOtherSkills">Remove Other Skill</button>
+                                <button type="submit" class="button" name="removeOtherSkills">Remove Other
+                                    Skill</button>
                             </form>
                         </div>
 
                         <div id="requestedEdit">
-                            <form action="updateProfile.php" method="post" id="requestedSkillsForm">
+                            <form action="updateProfile.php?id=<?php echo $id; ?>" method="post"
+                                id="requestedSkillsForm">
                                 <h3> Skills Requested: </h3>
                                 <?php
                                 // Fetch the user's requested skills from the database
@@ -418,7 +463,8 @@ $getUserBioStmt->close();
                                     Skills</button>
 
                             </form>
-                            <form action="updateProfile.php" method="post" id="removeRequestedSkillsForm">
+                            <form action="updateProfile.php?id=<?php echo $id; ?>" method="post"
+                                id="removeRequestedSkillsForm">
 
                                 <br>
                                 <label for="requestedSkillToRemove">Remove Requested Skill:</label>
@@ -435,17 +481,32 @@ $getUserBioStmt->close();
                                     ?>
                                 </select>
 
-                                <button type="submit" class="button" name="removeRequestedSkills">Remove Requested Skill</button>
+                                <button type="submit" class="button" name="removeRequestedSkills">Remove Requested
+                                    Skill</button>
                             </form>
-                        
+
                         </div>
 
                     </div>
 
                 </div>
                 <div class="editProfile">
-                    <button id="editProfileButton" type="submit" class="button"
-                        onclick="location.href='./studentProfile.php'"> Confirm Edit</button>
+                    <?php
+                    $checkIfAdmin = $conn->prepare('SELECT Admin FROM userdata WHERE id=?');
+                    $checkIfAdmin->bind_param('i', $id);
+                    $checkIfAdmin->execute();
+                    $checkIfAdmin = $checkIfAdmin->get_result();
+
+                    if ($checkIfAdmin->num_rows > 0) {
+                        $isAdmin = $checkIfAdmin->fetch_assoc()['Admin'];
+                    } else {
+                        $isAdmin = 0;
+                    }
+
+                    if (($uid == $id) || ($isAdmin == 1)) {
+                        echo '<div class="editProfile"><button id="editProfileButton" class="button" onclick="location.href=\'./studentProfile.php?id=' . $uid . '\';">Back to Profile</button></div>';
+                    }
+                    ?>
                 </div>
 
             </div>

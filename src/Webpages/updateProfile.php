@@ -3,15 +3,32 @@ session_start();
 include "../inc/dbconn.inc.php";
 
 
-$id = $_SESSION["id"];
+// Always get the logged-in user's id
+$uid = $_SESSION["id"];
+
+// Check if logged-in user is admin
+$checkIfAdmin = $conn->prepare('SELECT Admin FROM userdata WHERE id=?');
+$checkIfAdmin->bind_param('i', $uid);
+$checkIfAdmin->execute();
+$result = $checkIfAdmin->get_result();
+$isAdmin = ($result->num_rows > 0 && $result->fetch_assoc()['Admin'] == 1) ? 1 : 0;
+$checkIfAdmin->close();
+
+// Decide which user to update
+if ($isAdmin == 1 && isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $id = intval($_GET['id']);
+} else {
+    $id = $uid;
+}
+
 
 if (isset($_POST["updateName"])) {
-    
+
     $firstName = $_POST["firstName"];
     $lastName = $_POST["lastName"];
     // Prepare and execute the update query
     $updateNamestmt = $conn->prepare("UPDATE userdata SET firstName =?, lastName =?  WHERE id =?");
-    $updateNamestmt->bind_param("ssi", $firstName,$lastName , $id);
+    $updateNamestmt->bind_param("ssi", $firstName, $lastName, $id);
 
     if ($updateNamestmt->execute()) {
         $_SESSION["success"] = "Name updated successfully.";
@@ -20,10 +37,10 @@ if (isset($_POST["updateName"])) {
     }
 
     $updateNamestmt->close();
-}    
+}
 
 if (isset($_POST["academicYear"])) {
-    
+
     $newYear = $_POST["academicYear"];
 
     // Validate the academic year input
@@ -44,13 +61,13 @@ if (isset($_POST["academicYear"])) {
     }
 
     $updateYearstmt->close();
-}   
+}
 
 if (isset($_POST["updateCollege"])) {
-    
+
     $newCollege = $_POST["college"];
 
-    
+
     // Prepare and execute the update query
     $updateCollegestmt = $conn->prepare("UPDATE userdata SET college = ? WHERE id = ?");
     $updateCollegestmt->bind_param("si", $newCollege, $id);
@@ -62,12 +79,12 @@ if (isset($_POST["updateCollege"])) {
     }
 
     $updateCollegestmt->close();
-}    
+}
 if (isset($_POST["updateBio"])) {
-    
+
     $newBio = $_POST["bio"];
 
-    
+
     // Prepare and execute the update query
     $updateBiostmt = $conn->prepare("UPDATE userdata SET bio = ? WHERE id = ?");
     $updateBiostmt->bind_param("si", $newBio, $id);
@@ -79,17 +96,17 @@ if (isset($_POST["updateBio"])) {
     }
 
     $updateBiostmt->close();
-}   
+}
 
 if (isset($_POST["addAcademicSkills"])) {
-    
+
     $newAcademicSkill = $_POST["academicSkillsOffered"];
 
-    
+
     // Prepare and execute the update query
     $updateAcademicSkillstmt = $conn->prepare("INSERT INTO userskills (id, skillName) VALUES (? , ?)");
-    $updateAcademicSkillstmt->bind_param("is",  $id,$newAcademicSkill);
-    
+    $updateAcademicSkillstmt->bind_param("is", $id, $newAcademicSkill);
+
     if ($updateAcademicSkillstmt->execute()) {
         $_SESSION["success"] = "Skills updated successfully.";
     } else {
@@ -97,15 +114,15 @@ if (isset($_POST["addAcademicSkills"])) {
     }
 
     $updateAcademicSkillstmt->close();
-} 
+}
 if (isset($_POST["removeAcademicSkills"])) {
-    
+
     $academicSKillToRemove = $_POST["academicSkillToRemove"];
-    
+
     // Prepare and execute the update query
     $removeAcademicSKillstmt = $conn->prepare("DELETE FROM userskills WHERE id = ? AND skillName = ?");
-    $removeAcademicSKillstmt->bind_param("is",  $id,$academicSKillToRemove);
-    
+    $removeAcademicSKillstmt->bind_param("is", $id, $academicSKillToRemove);
+
     if ($removeAcademicSKillstmt->execute()) {
         $_SESSION["success"] = "Skill Removed successfully.";
     } else {
@@ -113,16 +130,16 @@ if (isset($_POST["removeAcademicSkills"])) {
     }
 
     $removeAcademicSKillstmt->close();
-} 
+}
 
 if (isset($_POST["updateOtherSkills"])) {
-    
+
     $newOtherSkill = $_POST["otherSkillsOffered"];
-    
+
     // Prepare and execute the update query
     $updateOtherSkillstmt = $conn->prepare("INSERT INTO userskills (id, skillName) VALUES (? , ?)");
-    $updateOtherSkillstmt->bind_param("is",  $id,$newOtherSkill);
-    
+    $updateOtherSkillstmt->bind_param("is", $id, $newOtherSkill);
+
     if ($updateOtherSkillstmt->execute()) {
         $_SESSION["success"] = "Skills updated successfully.";
     } else {
@@ -130,15 +147,15 @@ if (isset($_POST["updateOtherSkills"])) {
     }
 
     $updateOtherSkillstmt->close();
-} 
+}
 if (isset($_POST["removeOtherSkills"])) {
-    
+
     $otherSKillToRemove = $_POST["otherSkillToRemove"];
-    
+
     // Prepare and execute the update query
     $removeOtherSKillstmt = $conn->prepare("DELETE FROM userskills WHERE id = ? AND skillName = ?");
-    $removeOtherSKillstmt->bind_param("is",  $id,$otherSKillToRemove);
-    
+    $removeOtherSKillstmt->bind_param("is", $id, $otherSKillToRemove);
+
     if ($removeOtherSKillstmt->execute()) {
         $_SESSION["success"] = "Skill Removed successfully.";
     } else {
@@ -146,16 +163,16 @@ if (isset($_POST["removeOtherSkills"])) {
     }
 
     $removeOtherSKillstmt->close();
-} 
+}
 
 if (isset($_POST["updateRequestedSkills"])) {
-    
+
     $newRequestedSKill = $_POST["requestedSKills"];
-    
+
     // Prepare and execute the update query
     $updateRequestedSKillstmt = $conn->prepare("INSERT INTO userrequestedskills (id, skillName) VALUES (? , ?)");
-    $updateRequestedSKillstmt->bind_param("is",  $id,$newRequestedSKill);
-    
+    $updateRequestedSKillstmt->bind_param("is", $id, $newRequestedSKill);
+
     if ($updateRequestedSKillstmt->execute()) {
         $_SESSION["success"] = "Skills updated successfully.";
     } else {
@@ -163,15 +180,15 @@ if (isset($_POST["updateRequestedSkills"])) {
     }
 
     $updateRequestedSKillstmt->close();
-}     
+}
 if (isset($_POST["removeRequestedSkills"])) {
-    
+
     $requestedSKillToRemove = $_POST["requestedSkillToRemove"];
-    
+
     // Prepare and execute the update query
     $removerequestedSKillstmt = $conn->prepare("DELETE FROM userrequestedskills WHERE id = ? AND skillName = ?");
-    $removerequestedSKillstmt->bind_param("is",  $id,$requestedSKillToRemove);
-    
+    $removerequestedSKillstmt->bind_param("is", $id, $requestedSKillToRemove);
+
     if ($removerequestedSKillstmt->execute()) {
         $_SESSION["success"] = "Skill Removed successfully.";
     } else {
@@ -179,7 +196,7 @@ if (isset($_POST["removeRequestedSkills"])) {
     }
 
     $removerequestedSKillstmt->close();
-} 
+}
 
 
 
@@ -187,10 +204,10 @@ if (isset($_POST["removeRequestedSkills"])) {
 
 
 
-    $conn->close();
+$conn->close();
 
-    header("Location: editProfile.php");
-    exit();
+header("Location: editProfile.php");
+exit();
 
 
 

@@ -106,7 +106,7 @@ $getUserBioStmt->close();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="studentProfile.css">
   <meta name="author" content="Jayden">
-  
+
   <title>FUSS Your Profile Page</title>
 </head>
 
@@ -121,13 +121,13 @@ $getUserBioStmt->close();
       </header>
     </div>
     <div id="UserDetails">
-            <h4> <a id="profileLink" href="./studentProfile.php">
-                    <?php echo "Hello, " . $loggedFirstName . "<br>" . "You have " . $loggedUserCredits . " Credits!" ?> </a></h4>
+      <h4> <a id="profileLink" href="./studentProfile.php">
+          <?php echo "Hello, " . $loggedFirstName . "<br>" . "You have " . $loggedUserCredits . " Credits!" ?> </a></h4>
 
-        </div>
+    </div>
     <div id="logoutButton">
       <input id="logButton" class="button" type="button" onclick="location.href='./loginPages/logout.php';"
-        value="Logout"/>
+        value="Logout" />
     </div>
   </div>
 
@@ -142,100 +142,100 @@ $getUserBioStmt->close();
       <li> <a href="#History">Credit History</a> </li>
     </ul>
   </div>
-<main>
+  <main>
     <div id="mainContent">
-        <h2 id="header">Your Profile </h2>
-        <div class="profileContainer">
+      <h2 id="header"><?php echo $firstName?>'s Profile </h2>
+      <div class="profileContainer">
         <div class="profileDetails">
-            <img id="profilePic" src="<?php echo $imagePath ?>" alt="<?php echo $imageAlt ?>"> <br>
-            <div id="pesonalInfo"></div>
-            
-            <h3 id="name" class="profileItem"> Name: <?php echo $firstName. " ". $lastName ?> </h3> 
-            <h3 id="adademicYear" class="profileItem"> Academic Year: <?php echo $userYear ?> </h3>
-            <h3 id="credits" class="profileItem"> FussCredits: <?php echo $userCredits ?></h3>
-            <h3 id="college" class="profileItem"> College: <?php echo $userCollege ?></h3> 
-            <h3 id="BioTitle" class="profileItem"> Bio</h3>
-            <p id="bioText" class="profileItem"> <?php echo $userBio ?> </p>
-            </div>
+          <img id="profilePic" src="<?php echo $imagePath ?>" alt="<?php echo $imageAlt ?>"> <br>
+          <div id="pesonalInfo"></div>
 
-            <div id="skillsList">
-            <h3> Academic Skills Offered: </h3>
-
-            <?php
-            // Fetch the user's academic skills from the database
-            $getAcademicSkillsStmt = $conn->prepare('SELECT userSkills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=1 AND userskills.id=?');
-            $getAcademicSkillsStmt->bind_param('i', $uid);
-            $getAcademicSkillsStmt->execute();
-            $academicSkills = $getAcademicSkillsStmt->get_result();
-            if($academicSkills->num_rows > 0) {
-                echo "<ul>";
-                while($row = $academicSkills->fetch_assoc()) {
-                    echo "<li>" . htmlspecialchars($row['skillName']) . "</li>";
-                }
-                echo "</ul>";
-            } else {
-                echo "<p>No academic skills listed.</p>";
-            }
-            $getAcademicSkillsStmt->close();
-            ?>
-            
-            <h3> Other Skills Offered: </h3>
-
-            <?php
-            // Fetch the user's other skills from the database
-            $getOtherSkillsStmt = $conn->prepare('SELECT userSkills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=0 AND userskills.id=?');
-            $getOtherSkillsStmt->bind_param('i', $uid);
-            $getOtherSkillsStmt->execute();
-            $otherSkills = $getOtherSkillsStmt->get_result();
-            if($otherSkills->num_rows > 0) {
-                echo "<ul>";
-                while($row = $otherSkills->fetch_assoc()) {
-                    echo "<li>" . htmlspecialchars($row['skillName']) . "</li>";
-                }
-                echo "</ul>";
-            } else {
-                echo "<p>No Other skills Offered.</p>";
-            }
-            $getOtherSkillsStmt->close();
-            ?>
-            
-            <h3> Skills Requested: </h3>
-            <?php
-            // Fetch the user's other skills from the database
-            $getRequestedSkillsStmt = $conn->prepare('SELECT skillName FROM userRequestedSkills WHERE id=?');
-            $getRequestedSkillsStmt->bind_param('i', $uid);
-            $getRequestedSkillsStmt->execute();
-            $requestedSkills = $getRequestedSkillsStmt->get_result();
-            if($requestedSkills->num_rows > 0) {
-                echo "<ul>";
-                while($row = $requestedSkills->fetch_assoc()) {
-                    echo "<li>" . htmlspecialchars($row['skillName']) . "</li>";
-                }
-                echo "</ul>";
-            } else {
-                echo "<p>No Skills Requested.</p>";
-            }
-            $getRequestedSkillsStmt->close();
-            ?>
-            </div>
+          <h3 id="name" class="profileItem"> Name: <?php echo $firstName . " " . $lastName ?> </h3>
+          <h3 id="adademicYear" class="profileItem"> Academic Year: <?php echo $userYear ?> </h3>
+          <h3 id="credits" class="profileItem"> FussCredits: <?php echo $userCredits ?></h3>
+          <h3 id="college" class="profileItem"> College: <?php echo $userCollege ?></h3>
+          <h3 id="BioTitle" class="profileItem"> Bio</h3>
+          <p id="bioText" class="profileItem"> <?php echo $userBio ?> </p>
         </div>
-        <?php
-        $checkIfAdmin = $conn->prepare('SELECT Admin FROM userdata WHERE id=?');
-        $checkIfAdmin->bind_param('i', $id);
-        $checkIfAdmin->execute();
-        $checkIfAdmin = $checkIfAdmin->get_result();
-        
-        if($checkIfAdmin->num_rows > 0) {
-            $isAdmin = $checkIfAdmin->fetch_assoc()['Admin'];
-        } else {
-            $isAdmin = 0;
-        }
 
-        if (($uid == $id) || ($isAdmin == 1)) {
-        echo '<div class="editProfile">' . '<button id="editProfileButton" class="button" onclick="location.href=\'./editProfile.php\';">' . 'Edit Profile' .'</button>' . '</div>';
-        }
-        ?>
+        <div id="skillsList">
+          <h3> Academic Skills Offered: </h3>
+
+          <?php
+          // Fetch the user's academic skills from the database
+          $getAcademicSkillsStmt = $conn->prepare('SELECT userSkills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=1 AND userskills.id=?');
+          $getAcademicSkillsStmt->bind_param('i', $uid);
+          $getAcademicSkillsStmt->execute();
+          $academicSkills = $getAcademicSkillsStmt->get_result();
+          if ($academicSkills->num_rows > 0) {
+            echo "<ul>";
+            while ($row = $academicSkills->fetch_assoc()) {
+              echo "<li>" . htmlspecialchars($row['skillName']) . "</li>";
+            }
+            echo "</ul>";
+          } else {
+            echo "<p>No academic skills listed.</p>";
+          }
+          $getAcademicSkillsStmt->close();
+          ?>
+
+          <h3> Other Skills Offered: </h3>
+
+          <?php
+          // Fetch the user's other skills from the database
+          $getOtherSkillsStmt = $conn->prepare('SELECT userSkills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=0 AND userskills.id=?');
+          $getOtherSkillsStmt->bind_param('i', $uid);
+          $getOtherSkillsStmt->execute();
+          $otherSkills = $getOtherSkillsStmt->get_result();
+          if ($otherSkills->num_rows > 0) {
+            echo "<ul>";
+            while ($row = $otherSkills->fetch_assoc()) {
+              echo "<li>" . htmlspecialchars($row['skillName']) . "</li>";
+            }
+            echo "</ul>";
+          } else {
+            echo "<p>No Other skills Offered.</p>";
+          }
+          $getOtherSkillsStmt->close();
+          ?>
+
+          <h3> Skills Requested: </h3>
+          <?php
+          // Fetch the user's other skills from the database
+          $getRequestedSkillsStmt = $conn->prepare('SELECT skillName FROM userRequestedSkills WHERE id=?');
+          $getRequestedSkillsStmt->bind_param('i', $uid);
+          $getRequestedSkillsStmt->execute();
+          $requestedSkills = $getRequestedSkillsStmt->get_result();
+          if ($requestedSkills->num_rows > 0) {
+            echo "<ul>";
+            while ($row = $requestedSkills->fetch_assoc()) {
+              echo "<li>" . htmlspecialchars($row['skillName']) . "</li>";
+            }
+            echo "</ul>";
+          } else {
+            echo "<p>No Skills Requested.</p>";
+          }
+          $getRequestedSkillsStmt->close();
+          ?>
         </div>
+      </div>
+      <?php
+      $checkIfAdmin = $conn->prepare('SELECT Admin FROM userdata WHERE id=?');
+      $checkIfAdmin->bind_param('i', $id);
+      $checkIfAdmin->execute();
+      $checkIfAdmin = $checkIfAdmin->get_result();
+
+      if ($checkIfAdmin->num_rows > 0) {
+        $isAdmin = $checkIfAdmin->fetch_assoc()['Admin'];
+      } else {
+        $isAdmin = 0;
+      }
+
+      if (($uid == $id) || ($isAdmin == 1)) {
+        echo '<div class="editProfile"><button id="editProfileButton" class="button" onclick="location.href=\'./editProfile.php?id=' . $uid . '\';">Edit Profile</button></div>';
+      }
+      ?>
+    </div>
     </div>
 
-</main>
+  </main>
