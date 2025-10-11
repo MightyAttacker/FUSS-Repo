@@ -1,6 +1,4 @@
 <?php
-
-
 session_start();
 
 if (!isset($_SESSION['id'])) {
@@ -13,68 +11,87 @@ if (!isset($_SESSION['id'])) {
 } else {
   // session logged
 }
+//getting a user profile based on id passed in URL, if no id passed then show logged in user profile
+
+$id = $_SESSION['id'];
+$uid = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : $_SESSION['id'];
 
 include '../inc/dbconn.inc.php';
 
-$id = $_SESSION['id'];
+
 // Fetch the user's email
 $getEmailstmt = $conn->prepare('SELECT email FROM userdata WHERE id=?');
-$getEmailstmt->bind_param('i', $id);
+$getEmailstmt->bind_param('i', $uid);
 $getEmailstmt->execute();
 $email = $getEmailstmt->get_result()->fetch_assoc()['email'];
 $getEmailstmt->close();
 
 // Fetch the user's first name
 $getfirstNamestmt = $conn->prepare('SELECT firstName FROM userdata WHERE id=?');
-$getfirstNamestmt->bind_param('i', $id);
+$getfirstNamestmt->bind_param('i', $uid);
 $getfirstNamestmt->execute();
 $firstName = $getfirstNamestmt->get_result()->fetch_assoc()['firstName'];
 $getfirstNamestmt->close();
 
+// Fetch the logged user's first name
+$getloggedFirstNamestmt = $conn->prepare('SELECT firstName FROM userdata WHERE id=?');
+$getloggedFirstNamestmt->bind_param('i', $id);
+$getloggedFirstNamestmt->execute();
+$loggedFirstName = $getloggedFirstNamestmt->get_result()->fetch_assoc()['firstName'];
+$getloggedFirstNamestmt->close();
+
 // Fetch the user's last name
 $getlastNamestmt = $conn->prepare('SELECT lastName FROM userdata WHERE id=?');
-$getlastNamestmt->bind_param('i', $id);
+$getlastNamestmt->bind_param('i', $uid);
 $getlastNamestmt->execute();
 $lastName = $getlastNamestmt->get_result()->fetch_assoc()['lastName'];
 $getlastNamestmt->close();
 
 // Fetch the user's profile image and name for alt text
 $getUserImageStmt = $conn->prepare('SELECT imagePath FROM userdata WHERE id=?');
-$getUserImageStmt->bind_param('i', $id);
+$getUserImageStmt->bind_param('i', $uid);
 $getUserImageStmt->execute();
 $imagePath = $getUserImageStmt->get_result()->fetch_assoc()['imagePath'];
 $getUserImageStmt->close();
 
 $getUserImageAltStmt = $conn->prepare('SELECT imageName FROM userdata WHERE id=?');
-$getUserImageAltStmt->bind_param('i', $id);
+$getUserImageAltStmt->bind_param('i', $uid);
 $getUserImageAltStmt->execute();
 $imageAlt = $getUserImageAltStmt->get_result()->fetch_assoc()['imageName'];
 $getUserImageAltStmt->close();
 
 // Fetch the user's academic year
 $getUserYearStmt = $conn->prepare('SELECT academicYear FROM userdata WHERE id=?');
-$getUserYearStmt->bind_param('i', $id);
+$getUserYearStmt->bind_param('i', $uid);
 $getUserYearStmt->execute();
 $userYear = $getUserYearStmt->get_result()->fetch_assoc()['academicYear'];
 $getUserYearStmt->close();
 
 // Fetch the user's FussCredits
 $getUserCreditStmt = $conn->prepare('SELECT credits FROM userdata WHERE id=?');
-$getUserCreditStmt->bind_param('i', $id);
+$getUserCreditStmt->bind_param('i', $uid);
 $getUserCreditStmt->execute();
 $userCredits = $getUserCreditStmt->get_result()->fetch_assoc()['credits'];
 $getUserCreditStmt->close();
 
+// Fetch the logged in user's FussCredits
+$getUserCreditStmt = $conn->prepare('SELECT credits FROM userdata WHERE id=?');
+$getUserCreditStmt->bind_param('i', $id);
+$getUserCreditStmt->execute();
+$loggedUserCredits = $getUserCreditStmt->get_result()->fetch_assoc()['credits'];
+$getUserCreditStmt->close();
+
+
 // Fetch the User's College
 $getUserCollegeStmt = $conn->prepare('SELECT college FROM userdata WHERE id=?');
-$getUserCollegeStmt->bind_param('i', $id);
+$getUserCollegeStmt->bind_param('i', $uid);
 $getUserCollegeStmt->execute();
 $userCollege = $getUserCollegeStmt->get_result()->fetch_assoc()['college'];
 $getUserCollegeStmt->close();
 
 // Fetch the User's Bio
 $getUserBioStmt = $conn->prepare('SELECT bio FROM userdata WHERE id=?');
-$getUserBioStmt->bind_param('i', $id);
+$getUserBioStmt->bind_param('i', $uid);
 $getUserBioStmt->execute();
 $userBio = $getUserBioStmt->get_result()->fetch_assoc()['bio'];
 $getUserBioStmt->close();
@@ -105,7 +122,7 @@ $getUserBioStmt->close();
     </div>
     <div id="UserDetails">
             <h4> <a id="profileLink" href="./studentProfile.php">
-                    <?php echo "Hello, " . $firstName . "<br>" . "You have " . $userCredits . " Credits!" ?> </a></h4>
+                    <?php echo "Hello, " . $loggedFirstName . "<br>" . "You have " . $loggedUserCredits . " Credits!" ?> </a></h4>
 
         </div>
     <div id="logoutButton">
@@ -147,7 +164,7 @@ $getUserBioStmt->close();
             <?php
             // Fetch the user's academic skills from the database
             $getAcademicSkillsStmt = $conn->prepare('SELECT userSkills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=1 AND userskills.id=?');
-            $getAcademicSkillsStmt->bind_param('i', $id);
+            $getAcademicSkillsStmt->bind_param('i', $uid);
             $getAcademicSkillsStmt->execute();
             $academicSkills = $getAcademicSkillsStmt->get_result();
             if($academicSkills->num_rows > 0) {
@@ -167,7 +184,7 @@ $getUserBioStmt->close();
             <?php
             // Fetch the user's other skills from the database
             $getOtherSkillsStmt = $conn->prepare('SELECT userSkills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=0 AND userskills.id=?');
-            $getOtherSkillsStmt->bind_param('i', $id);
+            $getOtherSkillsStmt->bind_param('i', $uid);
             $getOtherSkillsStmt->execute();
             $otherSkills = $getOtherSkillsStmt->get_result();
             if($otherSkills->num_rows > 0) {
@@ -186,7 +203,7 @@ $getUserBioStmt->close();
             <?php
             // Fetch the user's other skills from the database
             $getRequestedSkillsStmt = $conn->prepare('SELECT skillName FROM userRequestedSkills WHERE id=?');
-            $getRequestedSkillsStmt->bind_param('i', $id);
+            $getRequestedSkillsStmt->bind_param('i', $uid);
             $getRequestedSkillsStmt->execute();
             $requestedSkills = $getRequestedSkillsStmt->get_result();
             if($requestedSkills->num_rows > 0) {
@@ -202,9 +219,22 @@ $getUserBioStmt->close();
             ?>
             </div>
         </div>
-        <div class="editProfile">
-            <button id="editProfileButton" class="button" onclick="location.href='./editProfile.php';"> Edit Profile</button>
-        </div>
+        <?php
+        $checkIfAdmin = $conn->prepare('SELECT Admin FROM userdata WHERE id=?');
+        $checkIfAdmin->bind_param('i', $id);
+        $checkIfAdmin->execute();
+        $checkIfAdmin = $checkIfAdmin->get_result();
+        
+        if($checkIfAdmin->num_rows > 0) {
+            $isAdmin = $checkIfAdmin->fetch_assoc()['Admin'];
+        } else {
+            $isAdmin = 0;
+        }
+
+        if (($uid == $id) || ($isAdmin == 1)) {
+        echo '<div class="editProfile">' . '<button id="editProfileButton" class="button" onclick="location.href=\'./editProfile.php\';">' . 'Edit Profile' .'</button>' . '</div>';
+        }
+        ?>
         </div>
     </div>
 
