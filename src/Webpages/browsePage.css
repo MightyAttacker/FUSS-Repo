@@ -178,3 +178,19 @@ th {
 #searchInput {
   width: 150px;
 }
+
+.pagination {
+  margin-top: 20px;
+}
+.pagination a {
+  margin: 0 5px;
+  padding: 5px 10px;
+  background: #eee;
+  text-decoration: none;
+  border-radius: 3px;
+  color: #333;
+}
+.pagination a.active {
+  background: #0078d4;
+  color: #fff;
+}
