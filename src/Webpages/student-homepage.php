@@ -1,3 +1,32 @@
+<?php
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "users";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Get credits for the user 
+$sql = "SELECT credits FROM users WHERE id = 'testuser1'";
+$result = $conn->query($sql);
+
+// Fetch credit value
+$credits = 0;
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $credits = $row['credits'];
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,18 +48,18 @@
     <div class="navbarContainer">
          <ul class="navbar">
             <li><a class="active"href="student-homepage.html">Home</a></li>
-            <li><a href="">Make Request</a></li>
-            <li><a href="">View My Requests</a></li>
-            <li><a href="">Browse Requests</a></li>
-            <li><a href="">Manage Profile</a></li>
-            <li><a href="">History</a></li>
+            <li><a href="#">Make Request</a></li>
+            <li><a href="#">View My Requests</a></li>
+            <li><a href="#">Browse Requests</a></li>
+            <li><a href="#">Manage Profile</a></li>
+            <li><a href="#">History</a></li>
         </ul>
     </div>
+    
     <div id="content">
-
     <div class="creditContainer">
          <ul class="credit">
-            <li><h3><class="activeCredit>Current Credit Balance</h3></li>
+             <li><h3>Current Credit Balance: <?php echo $credits; ?></h3></li>
         </ul>
     </div>
     <div id="content">
