@@ -1,9 +1,9 @@
 <?php
+include '../../inc/dbconn.inc.php';
 
-$servername = "localhost";
-$username = "root";
+$message = "";
+$email = "";
 $password = "";
-$dbname = "users";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
