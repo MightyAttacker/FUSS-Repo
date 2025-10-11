@@ -147,8 +147,8 @@ main {
     object-fit: cover;
     border: 3px solid #002F60;
     margin-bottom: 10px;
-    left: 32%;
     position: relative;
+    top:-7vh;
 }
 
 .profileContainer {
@@ -161,16 +161,15 @@ main {
 
 .profileDetails {
     justify-content: center;
-    left: -3%;
+    left: 11%;
     vertical-align: middle;
     position: absolute;
-    width: 44%;
 }
 
 #personalInfo {
     position: relative;
-    left: 20px;
-
+    left: -248px;
+    top: -81px;
 }
 
 #skillsList {
@@ -224,8 +223,8 @@ main {
 }
 
 #editPic {
-    left: 432px;
-    top:20px;
+    left: 178px;
+    top:-62px;
     position: absolute;
 }
 
@@ -250,7 +249,7 @@ main {
     display: flex;
     flex-direction: column;
     position: absolute;
-    left: 750px;
+    left: 1021px;
     top: -116px;
     width:350px;
 }
@@ -258,7 +257,7 @@ main {
     display: flex;
     flex-direction: column;
     position: absolute;
-    left: 750px;
+    left: 1021px;
     top: -116px;
     width:350px;
     display: none;
@@ -268,7 +267,7 @@ main {
     display: flex;
     flex-direction: column;
     position: absolute;
-    left: 750px;
+    left: 1021px;
     top: -116px;
     width:350px;
     display: none;
@@ -282,7 +281,7 @@ main {
 }
 #swapButtons{
     top: -190px;
-    left: 610px;
+    left: 865px;
     vertical-align: middle;
     position: absolute;
     width: 530px;
@@ -297,4 +296,10 @@ main {
 }
 .removeList{
     margin-bottom: 20px;
+}
+#editAvailability{
+    left: 668px;
+    position: relative;
+    top: 20px;
+    width: 301px;
 }

@@ -89,12 +89,13 @@ $getUserCreditStmt->close();
             <th>Skill Name</th>
             <th>Offered By</th>
             <th>Skill Type</th>
+            <th>Offerer's Availability </th>
             <th>Contact</th>
         </tr>
         <?php
         // Fetch all skills along with the user who offers them
         $getSkillsStmt = $conn->prepare('
-            SELECT userdata.firstName, userdata.lastName, skills.skillName, skills.academic, userdata.id FROM skills
+            SELECT userdata.firstName,userdata.availability, userdata.lastName, skills.skillName, skills.academic, userdata.id FROM skills
             JOIN userskills ON skills.skillName = userskills.skillName
             JOIN userdata ON userskills.id = userdata.id WHERE userdata.id != ? ORDER BY skills.skillName ASC
             
@@ -112,6 +113,7 @@ $getUserCreditStmt->close();
             } else {
                 echo '<td>'. 'Non-Academic' . '</td>';
             }
+            echo '<td>'. $skill['availability'] . '</td>';
             echo '<td><a href="./studentProfile.php?id=' . $skill['id'] . '">View Profile</a></td>';
             echo '</tr>';
         }

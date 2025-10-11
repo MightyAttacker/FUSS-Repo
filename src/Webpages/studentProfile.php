@@ -81,7 +81,6 @@ $getUserCreditStmt->execute();
 $loggedUserCredits = $getUserCreditStmt->get_result()->fetch_assoc()['credits'];
 $getUserCreditStmt->close();
 
-
 // Fetch the User's College
 $getUserCollegeStmt = $conn->prepare('SELECT college FROM userdata WHERE id=?');
 $getUserCollegeStmt->bind_param('i', $uid);
@@ -98,7 +97,7 @@ $getUserBioStmt->close();
 
 //Fetch User's Availablity
 $getUserAvailabilityStmt = $conn->prepare('SELECT availability FROM userdata WHERE id=?');
-$getUserAvailabilityStmt->bind_param('i', $id);
+$getUserAvailabilityStmt->bind_param('i', $uid);
 $getUserAvailabilityStmt->execute();
 $userAvailability = $getUserAvailabilityStmt->get_result()->fetch_assoc()['availability'];
 $getUserAvailabilityStmt->close();
@@ -155,7 +154,7 @@ $getUserAvailabilityStmt->close();
       <div class="profileContainer">
         <div class="profileDetails">
             <img id="profilePic" src="<?php echo $imagePath ?>" alt="<?php echo $imageAlt ?>"> <br>
-            <div id="pesonalInfo"></div>
+            <div id="pesonalInfo">
             
             <h3 id="name" class="profileItem"> Name: <?php echo $firstName. " ". $lastName ?> </h3> 
             <h3 id="adademicYear" class="profileItem"> Academic Year: <?php echo $userYear ?> </h3>
@@ -165,13 +164,7 @@ $getUserAvailabilityStmt->close();
             <h3 id="BioTitle" class="profileItem"> Bio</h3>
             <p id="bioText" class="profileItem"> <?php echo $userBio ?> </p>
             </div>
-
-          <h3 id="name" class="profileItem"> Name: <?php echo $firstName . " " . $lastName ?> </h3>
-          <h3 id="adademicYear" class="profileItem"> Academic Year: <?php echo $userYear ?> </h3>
-          <h3 id="credits" class="profileItem"> FussCredits: <?php echo $userCredits ?></h3>
-          <h3 id="college" class="profileItem"> College: <?php echo $userCollege ?></h3>
-          <h3 id="BioTitle" class="profileItem"> Bio</h3>
-          <p id="bioText" class="profileItem"> <?php echo $userBio ?> </p>
+         
         </div>
 
         <div id="skillsList">

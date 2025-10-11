@@ -227,6 +227,8 @@ $getUserBioStmt->close();
                                             name="updateYear">Update Year</button>
                                     </div>
                                 </form>
+                            </div>
+                            <div id="editAvailability">
                                 <form action="updateProfile.php" method="post" id="editAvailabilityForm">
                                     <h3 id="availability" class="profileItem"> General Availability: <?php echo $userAvailability ?>
                                     </h3>
@@ -243,6 +245,7 @@ $getUserBioStmt->close();
                                     </div>
                                 </form>
                             </div>
+                            
                             <div id="collegeBioEdit">
                                 <form action="updateProfile.php?id=<?php echo $id; ?>" method="post"
                                     id="editCollegeForm">
