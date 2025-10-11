@@ -58,6 +58,13 @@ $getUserYearStmt->execute();
 $userYear = $getUserYearStmt->get_result()->fetch_assoc()['academicYear'];
 $getUserYearStmt->close();
 
+//Fetch User's Availablity
+$getUserAvailabilityStmt = $conn->prepare('SELECT availability FROM userdata WHERE id=?');
+$getUserAvailabilityStmt->bind_param('i', $id);
+$getUserAvailabilityStmt->execute();
+$userAvailability = $getUserAvailabilityStmt->get_result()->fetch_assoc()['availability'];
+$getUserAvailabilityStmt->close();
+
 // Fetch the user's FussCredits
 $getUserCreditStmt = $conn->prepare('SELECT credits FROM userdata WHERE id=?');
 $getUserCreditStmt->bind_param('i', $id);
@@ -178,6 +185,21 @@ $getUserBioStmt->close();
 
                                         <button href="updateProfile.php" type="submit" class="button"
                                             name="updateYear">Update Year</button>
+                                    </div>
+                                </form>
+                                <form action="updateProfile.php" method="post" id="editAvailabilityForm">
+                                    <h3 id="availability" class="profileItem"> General Availability: <?php echo $userAvailability ?>
+                                    </h3>
+                                    <button type="button" class="collapsible" onclick="">Edit General Availability</button>
+                                    <div class="content">
+                                        <label for="academicYear">General Availability:</label>
+
+                                        <textarea id="availability" name="availability" rows="4" cols="25" maxlength="255"
+                                            onkeyup="limitText(this,255)"
+                                            value="<?php echo htmlspecialchars($userAvailability); ?>" required></textarea>
+
+                                        <button href="updateProfile.php" type="submit" class="button"
+                                            name="updateAvailability">Update Availability</button>
                                     </div>
                                 </form>
                             </div>
