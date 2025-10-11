@@ -93,7 +93,7 @@ $conn->close();
   <li><a href="#">&raquo;</a></li>
     </ul>
 
-    <h1 style="margin-left: 220px; padding-left: 20px;">Notifications</h1>
+    <h1 style="margin-left: 220px; padding-left: 20px;">New Messages</h1>
 
     <div class="container">
         <div class="inlinebox">
