@@ -1,25 +1,13 @@
 <?php
 include '../inc/dbconn.inc.php';
 
-$message = "";
-$email = "";
-$password = "";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
 // Get credits for the user 
 $sql = "SELECT credits FROM users WHERE id = 'testuser1'";
 $result = $conn->query($sql);
 
 // Fetch credit value
 $credits = 0;
-if ($result->num_rows > 0) {
+if ($result && $result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $credits = $row['credits'];
 }
