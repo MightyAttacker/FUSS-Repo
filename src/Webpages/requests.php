@@ -104,7 +104,7 @@ $getUserAdminStmt->close();
             <th>Agree to Request</th>
           </tr>
           <?php
-          $getRequestsInstmt = $conn->prepare("SELECT requesteeAgreed, skillName, requester, message, credits, DATE_FORMAT(proposedDate, '%T %d/%m/%Y') AS formattedProposedDate, DATE_FORMAT(created,'%T %d/%m/%Y') AS formattedCreated FROM user_requestbox INNER JOIN requestBox ON requestBox.id = user_requestbox.requestbox_id WHERE user_requestbox.user =? AND user_requestbox.requestBoxType = 'In' ORDER BY created DESC;");
+          $getRequestsInstmt = $conn->prepare("SELECT user_requestbox.requestbox_id, requesteeAgreed, skillName, requester, message, credits, DATE_FORMAT(proposedDate, '%T %d/%m/%Y') AS formattedProposedDate, DATE_FORMAT(created,'%T %d/%m/%Y') AS formattedCreated FROM user_requestbox INNER JOIN requestBox ON requestBox.id = user_requestbox.requestbox_id WHERE user_requestbox.user =? AND user_requestbox.requestBoxType = 'In' ORDER BY created DESC;");
           $getRequestsInstmt->bind_param("i", $id);
           $getRequestsInstmt->execute();
           $result = $getRequestsInstmt->get_result();
@@ -117,17 +117,15 @@ $getUserAdminStmt->close();
                 echo "<td>". $row["message"] . "</td>";                 
                 echo "<td>". $row["formattedProposedDate"]. "</td>";
                 echo "<td>". $row["formattedCreated"]. "</td>";
-                if ($row['requesteeAgreed'] == 0) {
-                echo '<form action="agreeRequest.php" method="post" style="display:inline;">
-                <input type="hidden" name="requestbox_id" value="' . $row['id'] . '">
-                <input type="hidden" name="agreeType" value="requestee">
-                <button type="submit">Agree</button>
-                 </form>';
-} else {
-    echo 'Agreed';
-}
-                echo "</tr>";
-            }
+                if ($row['requesteeAgreed'] == 0){
+                echo '<td> 
+                <form action="agreeRequest.php" method="post" style="display:inline;">
+            <input type="hidden" name="requestbox_id" value="' . $row['requestbox_id'] . '">
+            <input type="hidden" name="agreeType" value="requestee">
+            <button class="button" type="submit">Agree</button>
+            </form> </td>';            
+            } else { echo '<td> Agreed </td>' ;}
+            echo "</tr>";}
         } else {
             echo "<h3>"."No Messages Found"."</h3>";
                   }
@@ -177,9 +175,10 @@ $getUserAdminStmt->close();
             <th>Message</th>
             <th>Proposed Date and Time</th>
             <th>Date Sent</th>
+            <th>Agree to Request</th>
           </tr>
          <?php
-          $getRequestsOutStmt = $conn->prepare("SELECT requesterAgreed, skillName, requestee, message, credits, DATE_FORMAT(proposedDate, '%T %d/%m/%Y') AS formattedProposedDate, DATE_FORMAT(created,'%T %d/%m/%Y') AS formattedCreated FROM user_requestbox INNER JOIN requestBox ON requestBox.id = user_requestbox.requestbox_id WHERE user_requestbox.user =? AND user_requestbox.requestBoxType = 'Out' ORDER BY created DESC;");
+          $getRequestsOutStmt = $conn->prepare("SELECT user_requestbox.requestbox_id, requesterAgreed, skillName, requestee, message, credits, DATE_FORMAT(proposedDate, '%T %d/%m/%Y') AS formattedProposedDate, DATE_FORMAT(created,'%T %d/%m/%Y') AS formattedCreated FROM user_requestbox INNER JOIN requestBox ON requestBox.id = user_requestbox.requestbox_id WHERE user_requestbox.user =? AND user_requestbox.requestBoxType = 'Out' ORDER BY created DESC;");
           $getRequestsOutStmt->bind_param("i", $id);
           $getRequestsOutStmt->execute();
           $result = $getRequestsOutStmt->get_result();
@@ -192,15 +191,15 @@ $getUserAdminStmt->close();
                 echo "<td>". $row["message"] . "</td>"; 
                 echo "<td>". $row["formattedProposedDate"]. "</td>";
                 echo "<td>". $row["formattedCreated"]. "</td>";
-                if ($row['requestedAgreed'] == 0) {
-                echo '<form action="agreeRequest.php" method="post" style="display:inline;">
-                <input type="hidden" name="requestbox_id" value="' . $row['id'] . '">
-                <input type="hidden" name="agreeType" value="requester">
-                <button type="submit">Agree</button>
-                 </form>';
-                echo "</tr>";
-                }
-            }
+               if ($row['requesterAgreed'] == 0){
+                echo '<td> 
+                <form action="agreeRequest.php" method="post" style="display:inline;">
+            <input type="hidden" name="requestbox_id" value="' . $row['requestbox_id'] . '">
+            <input type="hidden" name="agreeType" value="requester">
+            <button class="button" type="submit">Agree</button>
+            </form> </td>';            
+            } else { echo '<td> Agreed </td>' ;}
+            echo "</tr>";}
         } else {
             echo "<h3>"."No Messages Found"."</h3>";
                   }

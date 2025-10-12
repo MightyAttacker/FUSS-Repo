@@ -1,3 +1,7 @@
+<?php
+session_start();
+include "../inc/dbconn.inc.php";
+
 if (isset($_POST['requestbox_id']) && isset($_POST['agreeType'])) {
     $requestbox_id = intval($_POST['requestbox_id']);
     $agreeType = $_POST['agreeType'];
