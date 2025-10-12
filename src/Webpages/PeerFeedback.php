@@ -96,18 +96,36 @@ button:hover { background:#0055A5; }
 </head>
 <body>
 
-<div id="topBanner">
-    <div id="flindersLogo"><img src="./images/Logo_Flinders_white.png" alt="Flinders University"></div>
-    <div>Hello, <?php echo htmlspecialchars($firstName); ?></div>
-    <div><button onclick="location.href='./loginPages/logout.php';">Logout</button></div>
-</div>
+  <div id="topBanner">
+    <div id="flindersLogo">
+      <img id="imgLogo" src="./images/Logo_Flinders_white.png" alt="Logo for Flinders University" id="flindersLogo">
+    </div>
+    <div id="title">
+      <header>
+        <h1>Flinders University Skill Share</h1>
+      </header>
+    </div>
+    <div id="UserDetails">
+      <h4> Hello, <?php echo htmlspecialchars($firstName); ?></h4>
+    </div>
+    <div id="logoutButton">
+      <input id="logButton" class="button" type="button" onclick="location.href='./loginPages/logout.php';"
+        value="Logout"/>
+    </div>
+  </div>
 
-<ul id="sideBar">
-    <li><a class="active" href="./student-homepage.php">Home</a></li>
-    <li><a href="./inbox.php">Inbox</a></li>
-    <li><a href="./browsePage.php">Browse Skills</a></li>
-    <li><a href="./studentProfile.php">My Profile</a></li>
-</ul>
+<div id="sideBar">
+    <ul class="sidebar">
+        <li> <a class="active" href="./student-homepage.php">Home</a> </li>
+            <li> <a href="./inbox.php"> Inbox</a> </li>
+            <li> <a href="./browsePage.php"> Browse Offered Skills</a> </li>
+            <li> <a href="#Requests"> Make A Request</a> </li>
+            <li> <a href="#ViewRequests">View My Requests</a> </li>
+            <li> <a href="./PeerFeedback.php">Browse Requests</a> </li>
+            <li> <a href="./studentProfile.php">My Profile</a> </li>
+            <li> <a href="#History">Credit History</a> </li>
+    </ul>
+  </div>
 
 <div class="review-container">
     <h2>Leave a Review</h2>
