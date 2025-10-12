@@ -102,6 +102,12 @@ $getUserAvailabilityStmt->execute();
 $userAvailability = $getUserAvailabilityStmt->get_result()->fetch_assoc()['availability'];
 $getUserAvailabilityStmt->close();
 
+// Fetch Logged User's Admin Status
+$getUserAdminStmt = $conn->prepare('SELECT admin FROM userdata WHERE id=?');
+$getUserAdminStmt->bind_param('i', $id);
+$getUserAdminStmt->execute();
+$getUserAdmin = $getUserAdminStmt->get_result()->fetch_assoc()['admin'];
+$getUserAdminStmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -139,13 +145,15 @@ $getUserAvailabilityStmt->close();
 
   <div id="sideBar">
     <ul class="sidebar">
-      <li> <a href="./student-homepage.html">Home</a> </li>
-      <li> <a href="./inbox.php"> Inbox</a> </li>
-      <li> <a href="#Requests"> Make A Request</a> </li>
-      <li> <a href="#ViewRequests">View My Requests</a> </li>
-      <li> <a href="#BrowseRequests">Browse Requests</a> </li>
-      <li> <a class="active" href="./studentProfile.php">My Profile</a> </li>
-      <li> <a href="#History">Credit History</a> </li>
+            <li> <a href="./student-homepage.php">Home</a> </li>
+            <li> <a  href="./inbox.php"> Inbox</a> </li>
+            <li> <a href="./browsePage.php"> Browse Offered Skills</a> </li>
+            <li> <a href="#Requests"> Make A Request</a> </li>
+            <li> <a href="#ViewRequests">View My Requests</a> </li>
+            <li> <a href="#BrowseRequests">Browse Requests</a> </li>
+            <li> <a class="active" href="./studentProfile.php">My Profile</a> </li>
+            <li> <a href="#History">Credit History</a> </li>
+            <?php if ($getUserAdmin == 1) echo '<li> <a href="./admin-pages/admin-dashbaord.html">Admin Dashboard</a> </li>' ?>
     </ul>
   </div>
   <main>
