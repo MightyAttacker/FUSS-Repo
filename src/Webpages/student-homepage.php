@@ -76,7 +76,7 @@ function truncateText($text, $limit = 100) {
             <li> <a href="./browsePage.php"> Browse Offered Skills</a> </li>
             <li> <a href="#Requests"> Make A Request</a> </li>
             <li> <a href="#ViewRequests">View My Requests</a> </li>
-            <li> <a href="#BrowseRequests">Browse Requests</a> </li>
+            <li> <a href="./PeerFeedback.php">Browse Requests</a> </li>
             <li> <a href="./studentProfile.php">My Profile</a> </li>
             <li> <a href="#History">Credit History</a> </li>
     </ul>
