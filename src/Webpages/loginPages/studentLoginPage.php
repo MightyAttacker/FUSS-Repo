@@ -18,16 +18,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      
   
     // Prepare and execute
-    $stmt = $conn->prepare("SELECT password, id FROM userdata WHERE email = ?");
+    $stmt = $conn->prepare("SELECT password, id, suspended, suspendedUntil, Deleted FROM userdata WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($db_password, $id);
+        $stmt->bind_result($db_password, $id, $suspended, $suspendDate, $Deleted);
         $stmt->fetch();
 
         if (password_verify($password, $db_password)) {
+            if($suspended == 1) {
+                $message = "Account Suspended Until " . $suspendDate;
+                            }
+            elseif ($Deleted == 1) {
+                $message = "Account Deleted. Please contact admin.";
+                              
+            }
+           elseif ($suspended == 0 && $Deleted == 0) {
             $message = "Login successful";
             
             // Start the session and redirect to the dashboard or home page
@@ -35,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['id'] = $id;
             header( "Location: ../student-homepage.html");  
             exit();
+            }
         } else {
             $message = "Incorrect Password";
             
