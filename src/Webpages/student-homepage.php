@@ -28,8 +28,6 @@ $getUserDataStmt->close();
 $conn->close();
 ?>
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +40,7 @@ $conn->close();
     <div class="header">
         <img id="logo" src="../Webpages/images/Logo_Flinders_white.png" alt="Flinders University Logo">
         <div class="userprofile">
-            <img id="profilePic" src="<?php echo $imagePath ?>" alt="Profile Picture"> <br>
+            <img id="userIcon" src="<?php echo $imagePath ?>" alt="Profile Picture"> <br>
             <p><?php echo htmlspecialchars($firstName); ?></p>
             <button onclick="location.href='./loginPages/logout.php'">Log out</button>
         </div>
