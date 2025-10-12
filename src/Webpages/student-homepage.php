@@ -18,6 +18,12 @@ $getUserDataStmt->execute();
 $result = $getUserDataStmt->get_result();
 $userData = $result->fetch_assoc();
 
+$getUserAdminStmt = $conn->prepare('SELECT admin FROM userdata WHERE id=?');
+$getUserAdminStmt->bind_param('i', $id);
+$getUserAdminStmt->execute();
+$getUserAdmin = $getUserAdminStmt->get_result()->fetch_assoc()['admin'];
+$getUserAdminStmt->close();
+
 $userCredits = $userData['credits'] ?? 0;
 $firstName   = $userData['firstName'] ?? '';
 $email       = $userData['email'] ?? '';
@@ -36,8 +42,6 @@ $getUserAdmin = $getUserAdminStmt->get_result();
     $getUserAdmin = $row['admin'];
   }
 $getUserAdminStmt->close();
-
-$conn->close();
 
 // 2. Fetch notifications using email
 $getNotificationsStmt = $conn->prepare(
@@ -88,21 +92,14 @@ function truncateText($text, $limit = 100) {
         <li> <a class="active" href="./student-homepage.php">Home</a> </li>
             <li> <a href="./inbox.php"> Inbox</a> </li>
             <li> <a href="./browsePage.php"> Browse Offered Skills</a> </li>
-            <li> <a href="#Requests"> Make A Request</a> </li>
-            <li> <a href="#ViewRequests">View My Requests</a> </li>
-            <li> <a href="./PeerFeedback.php">Browse Requests</a> </li>
+            <li> <a href="./requests.php"> Make A Request</a> </li>
+            <li> <a href="./myRequests.php">View My Requests</a> </li>
+            <li> <a href="./PeerFeedback.php">Peer Reviews</a> </li>
             <li> <a href="./studentProfile.php">My Profile</a> </li>
             <li> <a href="#History">Credit History</a> </li>
-            <?php if ($getUserAdmin == 1) echo '<li> <a href="./admin-pages/admin-dashbaord.html">Admin Dashboard</a> </li>' ?>
-        </ul>
-    </div>
-    
-   <div id="content">
-    <div class="creditsContainer">
-         <ul class="credit">
-             <li><h3>Current Credit Balance:</h3></li>
-        </ul>
-    </div>
+            <?php if ($getUserAdmin == 1) echo '<li> <a href="./admin-pages/admin-dashboard.html">Admin Dashboard</a> </li>' ?>
+    </ul>
+  </div>
 
 <div class="creditsContainer">
     <h3>Current Credit Balance</h3>
