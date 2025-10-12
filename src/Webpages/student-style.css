@@ -1,61 +1,109 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+body {
+    font-family: Helvetica, Arial, sans-serif;
+          
 }
-
-.header {
+.login{
     background-color: #002F60;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 20px 20px 0;
-    color: white;
+    border: 5px;
+    color: #ffd300;
+    border-color: black;
+    border-style: ridge;
+    text-align: center;
 }
 
-.userprofile {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-#logo {
-    padding-top: 10px;
-    padding-left: 10px;
-    width: 200px;
-}
-
-#userIcon {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-}
-
-.navbar {
-    list-style-type: none;
-    margin: 0;
-    padding: 0px;
-    width: 220px;
+#topBanner{
     background-color: #002F60;
-    position: absolute;
-    min-height: 100%;
-}
-
-li a {
+    color: #000000;
+    padding: 10px 5px 10px 10px;
+    text-align: center;
+    align-items: center;
+    justify-content: left;
     display: block;
+    margin-top: -15px;
+    margin-left: -10px;
+    width: 100%;
+    height: 100vh;
+    max-height: 130px;
+    
+}
+
+#flindersLogo{
+    display: block;
+    float: left;
+}
+
+#imgLogo{
+    height: 120px;
+    width: 400px;
+}
+
+#title{
+    width: 90%; 
+    text-align: center;    
+    color: #ffD300;
+    padding-top: 80px;
+
+}
+
+#UserDetails{
+  position: absolute;
+   top: 100px;
+   right: 106px;
+   color: #ffD300;
+}
+
+
+#logoutButton{
+    position: absolute;
+    right: 10px;
+    top: 106px;
+    align-items: center;
+}
+
+#logButton{
+    background-color: #ffD300;
+    padding: 10px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #002F60;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;  
+}
+#logButton:hover{
+    background-color: #555555;
     color: white;
-    padding: 8px 16px;
-    text-decoration: none;
 }
 
-li a:hover {
-    background-color: #FFD300;
-    color: black;
+.sidebar {
+  list-style-type: none;
+  margin-left: -10px;
+  margin-top: -0px;
+  padding: 0;
+  width: 200px;
+  background-color: #002F60;
+  height: 100vh;
+  position: fixed;
+  overflow: auto;
 }
 
-li a.active {
-    background-color: #FFD300;
-    color: black;
+.sidebar a {
+  display: block;
+  color: #ffD300;
+  padding: 15px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Change the link and background color on hover */
+.sidebar a:hover {
+  background-color: #555555;
+  color: white;
+}
+
+.sidebar .active {
+  background-color: #ffD300;
+  color: #002F60;
 }
 
 .credit, .credits {
@@ -66,13 +114,13 @@ li a.active {
     position: absolute;
 }
 
-.credit { top: 100px; }
-.credits { top: 115px; }
+.credit { top: 150px; }
+.credits { top: 165px; }
 
 .section-title {
     margin-left: 220px;
     padding-left: 20px;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .container {
@@ -156,4 +204,31 @@ li a.active {
 
 .pagination li a:hover:not(.active) {
     background-color: lightgray;
+}
+
+
+.creditsContainer {
+    position: absolute;
+    top: 150px;
+    right: 20px;
+    text-align: center;
+    background-color: #ffD300; /* Gold background */
+    color: #002F60;           /* Dark blue text */
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    font-weight: bold;
+    min-width: 180px;
+}
+
+.creditsContainer h3 {
+    margin: 0;
+    font-size: 1em;
+    color: #002F60;
+}
+
+.creditsContainer h1 {
+    margin: 5px 0 0 0;
+    font-size: 2em;
+    color: #002F60;
 }

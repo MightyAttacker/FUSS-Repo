@@ -51,26 +51,40 @@ function truncateText($text, $limit = 100) {
 </head>
 
 <body>
-<div class="header">
-    <img id="logo" src="../Webpages/images/Logo_Flinders_white.png" alt="Flinders University Logo">
-    <div class="userprofile">
-        <img id="userIcon" src="<?php echo $imagePath ?>" alt="Profile Picture">
-        <p><?php echo htmlspecialchars($firstName); ?></p>
-        <button onclick="location.href='./loginPages/logout.php'">Log out</button>
+  <div id="topBanner">
+    <div id="flindersLogo">
+      <img id="imgLogo" src="./images/Logo_Flinders_white.png" alt="Logo for Flinders University" id="flindersLogo">
     </div>
-</div>
+    <div id="title">
+      <header>
+        <h1>Flinders University Skill Share</h1>
+      </header>
+    </div>
+    <div id="UserDetails">
+      <h4> Hello, <?php echo htmlspecialchars($firstName); ?></h4>
+    </div>
+    <div id="logoutButton">
+      <input id="logButton" class="button" type="button" onclick="location.href='./loginPages/logout.php';"
+        value="Logout"/>
+    </div>
+  </div>
 
-<div class="navbarContainer">
-    <ul class="navbar">
-        <li><a class="active" href="student-homepage.php">Home</a></li>
-        <li><a href="./inbox.php">Inbox</a></li>
-        <li><a href="./browsePage.php">Browse Offered Skills</a></li>
-        <li><a href="#Requests">Make A Request</a></li>
-        <li><a href="#ViewRequests">View My Requests</a></li>
-        <li><a href="#BrowseRequests">Browse Requests</a></li>
-        <li><a href="./studentProfile.php">My Profile</a></li>
-        <li><a href="#History">Credit History</a></li>
+<div id="sideBar">
+    <ul class="sidebar">
+        <li> <a class="active" href="./student-homepage.php">Home</a> </li>
+            <li> <a href="./inbox.php"> Inbox</a> </li>
+            <li> <a href="./browsePage.php"> Browse Offered Skills</a> </li>
+            <li> <a href="#Requests"> Make A Request</a> </li>
+            <li> <a href="#ViewRequests">View My Requests</a> </li>
+            <li> <a href="#BrowseRequests">Browse Requests</a> </li>
+            <li> <a href="./studentProfile.php">My Profile</a> </li>
+            <li> <a href="#History">Credit History</a> </li>
     </ul>
+  </div>
+
+<div class="creditsContainer">
+    <h3>Current Credit Balance</h3>
+    <h1><?php echo htmlspecialchars($userCredits); ?></h1>
 </div>
 
 <h1 class="section-title">Urgent Actions</h1>
