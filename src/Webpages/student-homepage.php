@@ -25,14 +25,21 @@ $userCredits = $row ? $row['credits'] : 0;
 $firstName = $row ? $row['firstName'] : '';
 
 $getUserDataStmt->close();
-$conn->close();
+
 
 // Fetch User's Admin Status
+$getUserAdmin = 0;
 $getUserAdminStmt = $conn->prepare('SELECT admin FROM userdata WHERE id=?');
 $getUserAdminStmt->bind_param('i', $id);
 $getUserAdminStmt->execute();
-$getUserAdmin = $getUserAdminStmt->get_result()->fetch_assoc()['admin'];
+$getUserAdmin = $getUserAdminStmt->get_result();
+  if ($row = $getUserAdmin->fetch_assoc()) {
+    $getUserAdmin = $row['admin'];
+  }
 $getUserAdminStmt->close();
+
+$conn->close();
+
 ?>
 
 <!DOCTYPE html>

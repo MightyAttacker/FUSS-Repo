@@ -102,11 +102,15 @@ $getUserAvailabilityStmt->execute();
 $userAvailability = $getUserAvailabilityStmt->get_result()->fetch_assoc()['availability'];
 $getUserAvailabilityStmt->close();
 
-// Fetch Logged User's Admin Status
+// Fetch User's Admin Status
+$getUserAdmin = 0;
 $getUserAdminStmt = $conn->prepare('SELECT admin FROM userdata WHERE id=?');
 $getUserAdminStmt->bind_param('i', $id);
 $getUserAdminStmt->execute();
-$getUserAdmin = $getUserAdminStmt->get_result()->fetch_assoc()['admin'];
+$getUserAdmin = $getUserAdminStmt->get_result();
+  if ($row = $getUserAdmin->fetch_assoc()) {
+    $getUserAdmin = $row['admin'];
+  }
 $getUserAdminStmt->close();
 ?>
 
@@ -237,18 +241,9 @@ $getUserAdminStmt->close();
         </div>
       </div>
       <?php
-      $checkIfAdmin = $conn->prepare('SELECT Admin FROM userdata WHERE id=?');
-      $checkIfAdmin->bind_param('i', $id);
-      $checkIfAdmin->execute();
-      $checkIfAdmin = $checkIfAdmin->get_result();
+            
 
-      if ($checkIfAdmin->num_rows > 0) {
-        $isAdmin = $checkIfAdmin->fetch_assoc()['Admin'];
-      } else {
-        $isAdmin = 0;
-      }
-
-      if (($uid == $id) || ($isAdmin == 1)) {
+      if (($uid == $id) || ($getUserAdmin == 1)) {
         echo '<div class="editProfile"><button id="editProfileButton" class="button" onclick="location.href=\'./editProfile.php?id=' . $uid . '\';">Edit Profile</button></div>';
       }
       ?>
