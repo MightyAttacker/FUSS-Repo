@@ -9,12 +9,17 @@ if (!isset($_SESSION['id'])) {
 
 $id = $_SESSION['id'];
 
-// Combine queries
 $getUserDataStmt = $conn->prepare('SELECT credits, firstName FROM userdata WHERE id = ?');
 $getUserDataStmt->bind_param('i', $id);
 $getUserDataStmt->execute();
 $result = $getUserDataStmt->get_result();
 $row = $result->fetch_assoc();
+
+$getUserImageStmt = $conn->prepare('SELECT imagePath FROM userdata WHERE id=?');
+$getUserImageStmt->bind_param('i', $id);
+$getUserImageStmt->execute();
+$imagePath = $getUserImageStmt->get_result()->fetch_assoc()['imagePath'];
+$getUserImageStmt->close();
 
 $userCredits = $row ? $row['credits'] : 0;
 $firstName = $row ? $row['firstName'] : '';
@@ -37,7 +42,7 @@ $conn->close();
     <div class="header">
         <img id="logo" src="../Webpages/images/Logo_Flinders_white.png" alt="Flinders University Logo">
         <div class="userprofile">
-            <img id="userIcon" src="../Webpages/images/usericon.png" alt="User Icon">
+            <img id="profilePic" src="<?php echo $imagePath ?>" alt="Profile Picture"> <br>
             <p><?php echo htmlspecialchars($firstName); ?></p>
             <button onclick="location.href='./loginPages/logout.php'">Log out</button>
         </div>
