@@ -97,7 +97,7 @@ function truncateText($text, $limit = 100) {
             <li> <a href="./PeerFeedback.php">Peer Reviews</a> </li>
             <li> <a href="./studentProfile.php">My Profile</a> </li>
             <li> <a href="#History">Credit History</a> </li>
-            <?php if ($getUserAdmin == 1) echo '<li> <a href="./admin-pages/admin-dashbaord.html">Admin Dashboard</a> </li>' ?>
+            <?php if ($getUserAdmin == 1) echo '<li> <a href="./admin-pages/admin-dashboard.html">Admin Dashboard</a> </li>' ?>
     </ul>
   </div>
 
