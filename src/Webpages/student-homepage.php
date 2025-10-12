@@ -1,31 +1,34 @@
 <?php
-session_start(); // Start session to access logged-in user info
+session_start();
 include '../inc/dbconn.inc.php';
 
-// Ensure the user is logged in
 if (!isset($_SESSION['id'])) {
-    header("Location: loginPages/login.php");
+    header("Location: loginPages/studentLoginPage.php");
     exit();
 }
 
 $id = $_SESSION['id'];
 
-// Get credits for the user
-$getUserCreditStmt = $conn->prepare('SELECT credits FROM userdata WHERE id = ?');
-$getUserCreditStmt->bind_param('i', $id);
-$getUserCreditStmt->execute();
-$result = $getUserCreditStmt->get_result();
+// Combine queries
+$getUserDataStmt = $conn->prepare('SELECT credits, firstName FROM userdata WHERE id = ?');
+$getUserDataStmt->bind_param('i', $id);
+$getUserDataStmt->execute();
+$result = $getUserDataStmt->get_result();
 $row = $result->fetch_assoc();
 
-$userCredits = $row ? $row['credits'] : 0; // Fallback to 0 if not found
-$getUserCreditStmt->close();
+$userCredits = $row ? $row['credits'] : 0;
+$firstName = $row ? $row['firstName'] : '';
+
+$getUserDataStmt->close();
 $conn->close();
 ?>
+
 
 
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="author" content="Lachlan">
     <meta charset="UTF-8" />
     <title>Student Homepage</title>
     <link rel="stylesheet" type="text/css" href="student-style.css">
@@ -35,14 +38,14 @@ $conn->close();
         <img id="logo" src="../Webpages/images/Logo_Flinders_white.png" alt="Flinders University Logo">
         <div class="userprofile">
             <img id="userIcon" src="../Webpages/images/usericon.png" alt="User Icon">
-            <p>User name</p>
+            <p><?php echo htmlspecialchars($firstName); ?></p>
             <button onclick="location.href='./loginPages/logout.php'">Log out</button>
         </div>
     </div>
 
     <div class="navbarContainer">
          <ul class="navbar">
-            <li><a class="active"href="student-homepage.html">Home</a></li>
+            <li><a class="active"href="student-homepage.php">Home</a></li>
             <li> <a href="./inbox.php"> Inbox</a> </li>
             <li> <a href="#Requests"> Make A Request</a> </li>
             <li> <a href="#ViewRequests">View My Requests</a> </li>
@@ -63,7 +66,7 @@ $conn->close();
          <ul class="credits">
             <li>
                 <h1>
-                    <?php echo $userCredits . ' Credits'; ?>
+                    <h1><?php echo htmlspecialchars($userCredits) . ' Credits'; ?></h1>
                 </h1>
             </li>
         </ul>
