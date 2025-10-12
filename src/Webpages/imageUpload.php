@@ -3,6 +3,23 @@ session_start();
 // Database connection 
 include "../inc/dbconn.inc.php";
 
+$uid = $_SESSION['id'];
+
+// Check if logged-in user is admin
+$checkIfAdmin = $conn->prepare('SELECT Admin FROM userdata WHERE id=?');
+$checkIfAdmin->bind_param('i', $uid);
+$checkIfAdmin->execute();
+$result = $checkIfAdmin->get_result();
+$isAdmin = ($result->num_rows > 0 && $result->fetch_assoc()['Admin'] == 1) ? 1 : 0;
+$checkIfAdmin->close();
+
+// Decide which user to update
+if ($isAdmin == 1 && isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $id = intval($_GET['id']);
+} else {
+    $id = $uid;
+}
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $target_dir = "../userProfilePictures/"; // Directory where images will be stored
@@ -45,8 +62,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $image_name = basename($_FILES["imageUpload"]["name"]);
             $image_path = $target_file;
 
-
-            $id = $_SESSION['id'];
             $uploadStmt = $conn ->prepare("UPDATE userdata SET imageName=?, imagePath=? WHERE id=?");
             $uploadStmt -> bind_param('ssi',$image_name,$image_path, $id);
             $uploadStmt -> execute();
@@ -58,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-header("location: ./editProfile.php?$message");
+header("location: ./editProfile.php?id=$id&message=" .urlencode($message));
 $conn->close();
 exit();
 ?>
