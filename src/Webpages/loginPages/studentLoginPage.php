@@ -28,14 +28,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->fetch();
 
         if (password_verify($password, $db_password)) {
-            if($suspended == 1) {
+            if($suspended == 1 && $suspendDate >= date("Y-m-d")) {
                 $message = "Account Suspended Until " . $suspendDate;
                             }
             elseif ($Deleted == 1) {
                 $message = "Account Deleted. Please contact admin.";
                               
             }
-           elseif ($suspended == 0 && $Deleted == 0) {
+           elseif ($Deleted == 0 && ($suspended == 0 || $suspendDate < date("Y-m-d"))) {
             $message = "Login successful";
             
             // Start the session and redirect to the dashboard or home page
