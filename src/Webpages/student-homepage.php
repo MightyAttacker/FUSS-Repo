@@ -29,6 +29,23 @@ $firstName   = $userData['firstName'] ?? '';
 $email       = $userData['email'] ?? '';
 $imagePath   = $userData['imagePath'] ?? '';
 
+$getRatingStmt = $conn->prepare('
+    SELECT AVG(pr.rating) AS avgRating
+    FROM product_reviews pr
+    INNER JOIN requestbox rb ON pr.product_id = rb.id
+    WHERE rb.requester = ?
+');
+$getRatingStmt->bind_param('i', $id);
+$getRatingStmt->execute();
+$getRatingResult = $getRatingStmt->get_result();
+$ratingRow = $getRatingResult->fetch_assoc();
+
+$averageRating = $ratingRow['avgRating'] ? round($ratingRow['avgRating'], 1) : 0;
+
+
+
+
+
 $getUserDataStmt->close();
 
 
@@ -105,6 +122,39 @@ function truncateText($text, $limit = 100) {
     <h3>Current Credit Balance</h3>
     <h1><?php echo htmlspecialchars($userCredits); ?></h1>
 </div>
+
+<div class="creditsContainer">
+    <h3>Current Credit Balance</h3>
+    <h1><?php echo htmlspecialchars($userCredits); ?></h1>
+
+    <h3>Average Rating</h3>
+    <div class="stars">
+        <?php
+        $filledStars = floor($averageRating);
+        $halfStar = ($averageRating - $filledStars) >= 0.5;
+        $emptyStars = 5 - $filledStars - ($halfStar ? 1 : 0);
+
+        // Filled stars
+        for ($i = 0; $i < $filledStars; $i++) {
+            echo '<span class="star filled">&#9733;</span>';
+        }
+
+        // Half star
+        if ($halfStar) {
+            echo '<span class="star half">&#9733;</span>';
+        }
+
+        // Empty stars
+        for ($i = 0; $i < $emptyStars; $i++) {
+            echo '<span class="star">&#9734;</span>';
+        }
+
+        echo "<span class='rating-value'> $averageRating / 5</span>";
+        ?>
+    </div>
+</div>
+
+
 
 <h1 class="section-title">Urgent Actions</h1>
 <div id="urgentContainer" class="container">
