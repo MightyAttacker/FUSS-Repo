@@ -1,143 +1,234 @@
-html,body{
-    margin: 0; /* remove default margin around edge of browser*/
-    padding: 0;
+body {
+    font-family: Helvetica, Arial, sans-serif;
+          
 }
-
-.header{
-    background-color:#002F60;
-    display: flex; /* required for justify content*/
-    justify-content: space-between; /* evenly spaces everything within header*/
-    align-items: middle;
-    padding:20px 20px 20px 0px;
-}
-/* this encases just the usericon, username and logout button*/
-.userprofile{
-    display:flex;
-    align-items: center; /* display:flex and align item:right to make everything centered vertically*/
-    gap:15px; /* gap between the user icon, username and logout button*/
-     /* margin on right so log out button isnt on edge of screen*/
-    color:white;
-}
-/* Flinder logo*/
-#logo{
-    padding-top:10px;
-    padding-left:10px;
-    width:200px;
-}
-/* User icon image*/
-#userIcon{
-    height:50px;
-    width:50px;
-}
-
-/* navigation bar formating*/
-.navbar{
-    list-style-type: none;
-    margin: 0;
-    padding: 0px;
-    width: 220px;
+.login{
     background-color: #002F60;
-    position:absolute;
-    min-height:100%;
+    border: 5px;
+    color: #ffd300;
+    border-color: black;
+    border-style: ridge;
+    text-align: center;
 }
 
-.credit{
-    list-style-type: none;
-    margin: 0;
-    margin-bottom: -20px;
-    right: 0px;
-    top: 200px;
-    width: 200px;
-    position:absolute;
-}
-
-.credits{
-    list-style-type: none;
-    margin: 0;
-    margin-bottom: -20px;
-    right: 0px;
-    top: 215px;
-    width: 200px;
-    position:absolute;
-}
-
-/* show which page your currently on*/
-li a.active{
-    background-color: #FFD300;
-    color: black;
-}
-
-/* show which page your currently on*/
-li a.activeCredit{
-    color: black;
-}
-
-/* for every list item thats a hyperlink*/
-li a{
-    display: block; /* makes the whole area of the list item clickable*/
-    color: white;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-/* change colour when hovering over*/
-li a:hover{
-    background-color: #FFD300;
-    color:black;
-}
-/* container holding each graph*/
-.container{
-    margin-left: 220px; /* prevent items from going behind navbar*/
-    margin-right: 220px; /* prevent items from going all the way to the right*/
-    display:grid;       /* setup grid layout*/
-    grid-template-columns: auto;   /* grid template: 2 columns wide*/
-    padding-left:20px; /* gap on left of elements*/
-    padding-bottom:10px; /* gap between bottom of elements*/
-    gap:0px;   /* gap between each box on grid*/
-    height: 120px;   /* height of each item*/
-    
-}
-/* formatting for divs within conatainer*/
-.container > div{
-    background-color:grey;
-    text-align:left;
-    position: relative;
+#topBanner{
+    background-color: #002F60;
+    color: #000000;
+    padding: 10px 5px 10px 10px;
+    text-align: center;
+    align-items: center;
+    justify-content: left;
+    display: block;
+    margin-top: -15px;
+    margin-left: -10px;
+    width: 100%;
+    height: 100vh;
+    max-height: 130px;
     
 }
 
-.button {
+#flindersLogo{
+    display: block;
+    float: left;
+}
+
+#imgLogo{
+    height: 120px;
+    width: 400px;
+}
+
+#title{
+    width: 90%; 
+    text-align: center;    
+    color: #ffD300;
+    padding-top: 80px;
+
+}
+
+#UserDetails{
+  position: absolute;
+   top: 100px;
+   right: 106px;
+   color: #ffD300;
+}
+
+
+#logoutButton{
     position: absolute;
-    bottom: 0;
-    left: 0;
+    right: 10px;
+    top: 106px;
+    align-items: center;
 }
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  list-style: none; /* remove list bullets */
-  padding: 0px;
+#logButton{
+    background-color: #ffD300;
+    padding: 10px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #002F60;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;  
+}
+#logButton:hover{
+    background-color: #555555;
+    color: white;
 }
 
-.pagination li a {
-  display: block; /* let links fill the list item */
-  padding: 8px 12px;
-  text-decoration: none;
-  border: 1px solid gray;
-  color: black;
-  margin: 0 4px;
-  border-radius: 5px; /* add rounded borders */
-}
-
-.pagination li a.active {
+.sidebar {
+  list-style-type: none;
+  margin-left: -10px;
+  margin-top: -0px;
+  padding: 0;
+  width: 200px;
   background-color: #002F60;
+  height: 100vh;
+  position: fixed;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: #ffD300;
+  padding: 15px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Change the link and background color on hover */
+.sidebar a:hover {
+  background-color: #555555;
   color: white;
 }
 
-.pagination li a.disabled {
-  color: #dddddd;
-  cursor: not-allowed;
-  pointer-events: none;
+.sidebar .active {
+  background-color: #ffD300;
+  color: #002F60;
+}
+
+.credit, .credits {
+    list-style-type: none;
+    margin: 0;
+    right: 10px;
+    width: 200px;
+    position: absolute;
+}
+
+.credit { top: 150px; }
+.credits { top: 165px; }
+
+.section-title {
+    margin-left: 220px;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.container {
+    margin-left: 220px;
+    margin-right: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+}
+
+.inlinebox {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 15px 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    margin-bottom: 10px;
+}
+
+.inlinebox h2 {
+    margin: 0 0 5px 0;
+    font-size: 1.3em;
+    color: #002F60;
+}
+
+.inlinebox h3 {
+    margin: 0;
+    color: #333;
+}
+
+.inlinebox .button {
+    margin-top: 10px;
+}
+
+.inlinebox button {
+    background-color: #002F60;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.inlinebox button:hover {
+    background-color: #0055A5;
+    transform: translateY(-2px);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.pagination li a {
+    display: block;
+    padding: 6px 10px;
+    margin: 0 4px;
+    border: 1px solid gray;
+    color: black;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.pagination li a.active {
+    background-color: #002F60;
+    color: white;
 }
 
 .pagination li a:hover:not(.active) {
-  background-color: lightgray;
+    background-color: lightgray;
+}
+
+
+.creditsContainer {
+    position: absolute;
+    top: 150px;
+    right: 20px;
+    text-align: center;
+    background-color: #ffD300; /* Gold background */
+    color: #002F60;           /* Dark blue text */
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    font-weight: bold;
+    min-width: 180px;
+}
+
+.creditsContainer h3 {
+    margin: 0;
+    font-size: 1em;
+    color: #002F60;
+}
+
+.creditsContainer h1 {
+    margin: 5px 0 0 0;
+    font-size: 2em;
+    color: #002F60;
 }
