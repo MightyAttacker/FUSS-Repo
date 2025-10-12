@@ -28,10 +28,10 @@ if (isset($_GET['search'])) {
                 ELSE "Active"
                 END AS accountStatus       
         FROM userdata
-        WHERE id LIKE ? OR firstName LIKE ? OR lastName LIKE ? OR Suspened LIKE ? OR Deleted LIKE ? OR admin LIKE ?
+        WHERE id LIKE ? OR firstName LIKE ? OR lastName LIKE ? OR Suspended LIKE ? OR Deleted LIKE ? OR admin LIKE ?
         ORDER BY lastName ASC
     ');
-    $getStudentsStmt->bind_param('sss', $search, $search, $search);
+    $getStudentsStmt->bind_param('ssssss', $search,$search,$search,$search, $search, $search);
     $getStudentsStmt->execute();
     $studentsResult = $getStudentsStmt->get_result();
 
@@ -43,25 +43,25 @@ if (isset($_GET['search'])) {
         echo '<td>' . htmlspecialchars($student['credits']) . '</td>';
         echo '<td>
             <form action="adjustCredits.php" method="post" style="display:inline;">
-                <input type="number" id="newCredits" name="newCredits" value="' . htmlspecialchars($row['credits']) . '" min="0">
-                <input type="hidden" name="studentId" value="' . htmlspecialchars($row['id']) . '">
+                <input type="number" id="newCredits" name="newCredits" value="' . htmlspecialchars($student['credits']) . '" min="0">
+                <input type="hidden" name="studentId" value="' . htmlspecialchars($student['id']) . '">
                 <button type="submit">Update</button>
             </form>
           </td>';
         echo '<td>' . htmlspecialchars($student['last_active']) . '</td>';
         echo '<td><a href="../studentProfile.php?id=' . $student['id'] . '">View Profile</a></td>';
         echo '<td>'. htmlspecialchars($student['adminType']) . '</td>';
-        echo '<td>'. htmlspecialchars($student['accountStatus']) . " " . htmlspecialchars($row['SuspendedUntil']). '</td>';
+        echo '<td>'. htmlspecialchars($student['accountStatus']) . " " . htmlspecialchars($student['SuspendedUntil']). '</td>';
         echo '<td> 
             <form action="suspendUser.php" method="post" style="display:inline;">
                 <input type="date" id="suspendDate" name="suspendDate">
-                <input type="hidden" name="studentId" value="' . htmlspecialchars($row['id']) . '">
+                <input type="hidden" name="studentId" value="' . htmlspecialchars($student['id']) . '">
                 <button class="button" type="submit">Suspend</button>
             </form>
             </td>';
             echo '<td> 
             <form action="deleteUser.php" method="post" style="display:inline;">
-                <input type="hidden" name="studentId" value="' . htmlspecialchars($row['id']) . '">
+                <input type="hidden" name="studentId" value="' . htmlspecialchars($student['id']) . '">
                 <button class="button" type="submit">Delete</button>
             </form> 
             </td>';    
@@ -87,7 +87,7 @@ if (isset($_GET['search'])) {
     <div class="header">
         <img id="logo" src="../admin-pages/images/Logo_Flinders_white.png" alt="Flinders University Logo">
         <div class="userprofile">
-            <img id="userIcon" src="<?php echo $imagePath ?>" alt="User Icon">
+            <img id="userIcon" src="../<?php echo $imagePath ?>" alt="User Icon">
             <p><?php echo 'Welcome ' . $firstName . '!' ?></p>
             <a href="../loginPages/logout.php"><button id="logOutButton">Log out</button></a>
         </div>
@@ -114,7 +114,7 @@ if (isset($_GET['search'])) {
         <tr>
         <th>Name</th>
         <th>ID</th>
-        <th>eMail</th>
+        <th>Email</th>
         <th>Credits</th>
         <th>Adjust Credits</th>
         <th>Last Active</th>
@@ -161,34 +161,34 @@ if (isset($_GET['search'])) {
             $studentStmt->execute();
             $studentResult = $studentStmt->get_result();
             if (!isset($_GET['search'])) {                
-                while ($row = $studentResult->fetch_assoc()) {
+                while ($student = $studentResult->fetch_assoc()) {
                     echo '<tr>';
-                    echo '<td>' . htmlspecialchars($row['firstName'] . ' ' . $row['lastName']) . '</td>';
-                    echo '<td>' . htmlspecialchars($row['id']) . '</td>';                   
-                    echo '<td>' . htmlspecialchars($row['email']) . '</td>';
-                    echo '<td>' . htmlspecialchars($row['credits']) . '</td>';
+                    echo '<td>' . htmlspecialchars($student['firstName'] . ' ' . $student['lastName']) . '</td>';
+                    echo '<td>' . htmlspecialchars($student['id']) . '</td>';                   
+                    echo '<td>' . htmlspecialchars($student['email']) . '</td>';
+                    echo '<td>' . htmlspecialchars($student['credits']) . '</td>';
                     echo '<td>
             <form action="adjustCredits.php" method="post" style="display:inline;">
-                <input type="number" id="newCredits" name="newCredits" value="' . htmlspecialchars($row['credits']) . '" min="0">
-                <input type="hidden" name="studentId" value="' . htmlspecialchars($row['id']) . '">
+                <input type="number" id="newCredits" name="newCredits" value="' . htmlspecialchars($student['credits']) . '" min="0">
+                <input type="hidden" name="studentId" value="' . htmlspecialchars($student['id']) . '">
                 <button class="button" type="submit">Update</button>
             </form>
           </td>';
-                    echo '<td>' . htmlspecialchars($row['last_active']) . '</td>';
+                    echo '<td>' . htmlspecialchars($student['last_active']) . '</td>';
                            
-                    echo '<td><a href="../studentProfile.php?id=' . $row['id'] . '">View Profile</a></td>';
-                    echo '<td>'. htmlspecialchars($row['adminType']) . '</td>';
-                    echo '<td>'. htmlspecialchars($row['accountStatus']) . " " . htmlspecialchars($row['SuspendedUntil']). '</td>';
+                    echo '<td><a href="../studentProfile.php?id=' . $student['id'] . '">View Profile</a></td>';
+                    echo '<td>'. htmlspecialchars($student['adminType']) . '</td>';
+                    echo '<td>'. htmlspecialchars($student['accountStatus']) . " " . htmlspecialchars($student['SuspendedUntil']). '</td>';
                     echo '<td> 
             <form action="suspendUser.php" method="post" style="display:inline;">
                 <input type="date" id="suspendDate" name="suspendDate">
-                <input type="hidden" name="studentId" value="' . htmlspecialchars($row['id']) . '">
+                <input type="hidden" name="studentId" value="' . htmlspecialchars($student['id']) . '">
                 <button class="button" type="submit">Suspend</button>
             </form>
             </td>';
             echo '<td> 
             <form action="deleteUser.php" method="post" style="display:inline;" onsubmit="return confirm("Are you sure you want to delete this user?");">
-                <input type="hidden" name="studentId" value="' . htmlspecialchars($row['id']) . '">
+                <input type="hidden" name="studentId" value="' . htmlspecialchars($student['id']) . '">
                 <button class="button" type="submit">Delete</button>
             </form> 
             </td>';     
