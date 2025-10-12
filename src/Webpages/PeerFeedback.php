@@ -22,6 +22,12 @@ $firstName   = $userData['firstName'] ?? '';
 $email       = $userData['email'] ?? '';
 $imagePath   = $userData['imagePath'] ?? '';
 
+$getUserAdminStmt = $conn->prepare('SELECT admin FROM userdata WHERE id=?');
+$getUserAdminStmt->bind_param('i', $id);
+$getUserAdminStmt->execute();
+$getUserAdmin = $getUserAdminStmt->get_result()->fetch_assoc()['admin'];
+$getUserAdminStmt->close();
+
 // --- Fetch unique skills from requestbox ---
 $skillsResult = $conn->query('SELECT DISTINCT skillName FROM requestbox ORDER BY skillName ASC');
 $skills = [];

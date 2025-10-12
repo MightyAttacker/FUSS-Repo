@@ -18,6 +18,12 @@ $getUserDataStmt->execute();
 $result = $getUserDataStmt->get_result();
 $userData = $result->fetch_assoc();
 
+$getUserAdminStmt = $conn->prepare('SELECT admin FROM userdata WHERE id=?');
+$getUserAdminStmt->bind_param('i', $id);
+$getUserAdminStmt->execute();
+$getUserAdmin = $getUserAdminStmt->get_result()->fetch_assoc()['admin'];
+$getUserAdminStmt->close();
+
 $userCredits = $userData['credits'] ?? 0;
 $firstName   = $userData['firstName'] ?? '';
 $email       = $userData['email'] ?? '';
