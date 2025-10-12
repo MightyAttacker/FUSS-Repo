@@ -137,11 +137,13 @@ li a.active {
 }
 
 .inlinebox h3 {
-    margin: 0 0 10px 0;
-    font-size: 1em;
-    color: #555;
-    line-height: 1.4;
+    margin: 0;
+    color: #333;
+    word-break: break-word;       /* forces long words to wrap */
+    overflow-wrap: break-word;    /* extra compatibility */
+    hyphens: auto;                /* optional: adds hyphenation if supported */
 }
+
 
 /* Button inside inlinebox */
 .inlinebox .button {
