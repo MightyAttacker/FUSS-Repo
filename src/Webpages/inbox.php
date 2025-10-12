@@ -28,12 +28,22 @@ $stmt3->execute();
 $user = $stmt3->get_result()->fetch_assoc()['firstName'];
 
 // Fetch User's Admin Status
+$getUserAdmin = 0;
 $getUserAdminStmt = $conn->prepare('SELECT admin FROM userdata WHERE id=?');
 $getUserAdminStmt->bind_param('i', $id);
 $getUserAdminStmt->execute();
-$getUserAdmin = $getUserAdminStmt->get_result()->fetch_assoc()['admin'];
+$getUserAdmin = $getUserAdminStmt->get_result();
+  if ($row = $getUserAdmin->fetch_assoc()) {
+    $getUserAdmin = $row['admin'];
+  }
 $getUserAdminStmt->close();
 
+// Fetch the user's FussCredits
+$getUserCreditStmt = $conn->prepare('SELECT credits FROM userdata WHERE id=?');
+$getUserCreditStmt->bind_param('i', $id);
+$getUserCreditStmt->execute();
+$userCredits = $getUserCreditStmt->get_result()->fetch_assoc()['credits'];
+$getUserCreditStmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +69,9 @@ $getUserAdminStmt->close();
       </header>
     </div>
     <div id="UserDetails">
-      <h4> <?php echo "Hello, " . $user ?></h4>
+      <h4> <a id="profileLink" href="./studentProfile.php">
+          <?php echo "Hello, " . $user . "<br>" . "You have " . $userCredits . " Credits!" ?> </a></h4>
+
     </div>
     <div id="logoutButton">
       <input id="logButton" class="button" type="button" onclick="location.href='./loginPages/logout.php';"

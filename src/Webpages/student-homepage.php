@@ -31,6 +31,20 @@ $imagePath   = $userData['imagePath'] ?? '';
 
 $getUserDataStmt->close();
 
+
+// Fetch User's Admin Status
+$getUserAdmin = 0;
+$getUserAdminStmt = $conn->prepare('SELECT admin FROM userdata WHERE id=?');
+$getUserAdminStmt->bind_param('i', $id);
+$getUserAdminStmt->execute();
+$getUserAdmin = $getUserAdminStmt->get_result();
+  if ($row = $getUserAdmin->fetch_assoc()) {
+    $getUserAdmin = $row['admin'];
+  }
+$getUserAdminStmt->close();
+
+$conn->close();
+
 // 2. Fetch notifications using email
 $getNotificationsStmt = $conn->prepare(
     'SELECT subject, message FROM mailbox WHERE sentto = ? ORDER BY created DESC'

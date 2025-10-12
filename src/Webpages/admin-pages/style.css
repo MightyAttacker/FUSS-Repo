@@ -154,3 +154,82 @@ h3{
     background-color: #f1f1f1;
 }
 
+#studentsTable, #studentsTable th, #studentsTable td {
+  border-collapse: collapse;
+  width: 100%;
+  border: none;
+  margin: 0px;
+}
+
+#studentsTable td, #studentsTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  width: 50px;
+  max-width: 80px;
+}
+
+#studentsTable tr:nth-child(even){background-color: #f2f2f2;}
+#studentsTable th:first-child,
+#studentsTable td:first-child {
+  width: 80px;      /* or whatever width you want */
+  max-width: 80px;
+  word-break: break-all;
+}
+
+#studentsTable tr:hover {background-color: #ddd;}
+
+#studentsTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #002F60;
+  color: #ffD300;
+}
+
+#studentsTable .pagination {
+  margin-top: 20px;
+}
+#studentsTable .pagination a {
+  margin: 0 5px;
+  padding: 5px 10px;
+  background: #eee;
+  text-decoration: none;
+  border-radius: 3px;
+  color: #333;
+}
+#studentsTable.pagination a.active {
+  background: #0078d4;
+  color: #fff;
+}
+#searchInput {
+  width: 150px; 
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
+}
+.button{
+    padding: 5px 12.5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffD300;
+    border: none;
+    border-radius: 5px;
+    background-color: #002F60;
+    cursor: pointer;   
+}
+#logOutButton{
+    background-color: #ffD300;
+    padding: 10px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #002F60;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;  
+}
+#newCredits{
+    width:60px;
+}

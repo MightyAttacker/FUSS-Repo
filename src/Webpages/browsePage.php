@@ -31,12 +31,18 @@ $getUserCreditStmt->bind_param('i', $id);
 $getUserCreditStmt->execute();
 $loggedUserCredits = $getUserCreditStmt->get_result()->fetch_assoc()['credits'];
 $getUserCreditStmt->close();
+
 // Fetch User's Admin Status
+$getUserAdmin = 0;
 $getUserAdminStmt = $conn->prepare('SELECT admin FROM userdata WHERE id=?');
 $getUserAdminStmt->bind_param('i', $id);
 $getUserAdminStmt->execute();
-$getUserAdmin = $getUserAdminStmt->get_result()->fetch_assoc()['admin'];
+$getUserAdmin = $getUserAdminStmt->get_result();
+  if ($row = $getUserAdmin->fetch_assoc()) {
+    $getUserAdmin = $row['admin'];
+  }
 $getUserAdminStmt->close();
+
  
 
 // Handle search functionality for table
