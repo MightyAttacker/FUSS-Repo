@@ -25,6 +25,20 @@ $imagePath   = $userData['imagePath'] ?? '';
 
 $getUserDataStmt->close();
 
+
+// Fetch User's Admin Status
+$getUserAdmin = 0;
+$getUserAdminStmt = $conn->prepare('SELECT admin FROM userdata WHERE id=?');
+$getUserAdminStmt->bind_param('i', $id);
+$getUserAdminStmt->execute();
+$getUserAdmin = $getUserAdminStmt->get_result();
+  if ($row = $getUserAdmin->fetch_assoc()) {
+    $getUserAdmin = $row['admin'];
+  }
+$getUserAdminStmt->close();
+
+$conn->close();
+
 // 2. Fetch notifications using email
 $getNotificationsStmt = $conn->prepare(
     'SELECT subject, message FROM mailbox WHERE sentto = ? ORDER BY created DESC'
@@ -79,8 +93,16 @@ function truncateText($text, $limit = 100) {
             <li> <a href="./PeerFeedback.php">Browse Requests</a> </li>
             <li> <a href="./studentProfile.php">My Profile</a> </li>
             <li> <a href="#History">Credit History</a> </li>
-    </ul>
-  </div>
+            <?php if ($getUserAdmin == 1) echo '<li> <a href="./admin-pages/admin-dashbaord.html">Admin Dashboard</a> </li>' ?>
+        </ul>
+    </div>
+    
+   <div id="content">
+    <div class="creditsContainer">
+         <ul class="credit">
+             <li><h3>Current Credit Balance:</h3></li>
+        </ul>
+    </div>
 
 <div class="creditsContainer">
     <h3>Current Credit Balance</h3>
