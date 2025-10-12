@@ -1,39 +1,36 @@
 html, body {
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-/* Header */
 .header {
     background-color: #002F60;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 20px 20px 0;
+    color: white;
 }
 
-/* User profile in header */
 .userprofile {
     display: flex;
     align-items: center;
     gap: 15px;
-    color: white;
 }
 
-/* Flinders logo */
 #logo {
     padding-top: 10px;
     padding-left: 10px;
     width: 200px;
 }
 
-/* User icon image */
 #userIcon {
     height: 50px;
     width: 50px;
+    border-radius: 50%;
 }
 
-/* Navigation bar */
 .navbar {
     list-style-type: none;
     margin: 0;
@@ -61,7 +58,6 @@ li a.active {
     color: black;
 }
 
-/* Credits display */
 .credit, .credits {
     list-style-type: none;
     margin: 0;
@@ -73,51 +69,22 @@ li a.active {
 .credit { top: 100px; }
 .credits { top: 115px; }
 
-/* Section titles */
 .section-title {
     margin-left: 220px;
     padding-left: 20px;
+    margin-top: 30px;
 }
 
-/* Pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    padding: 0;
-}
-
-.pagination li a {
-    display: block;
-    padding: 8px 12px;
-    text-decoration: none;
-    border: 1px solid gray;
-    color: black;
-    margin: 0 4px;
-    border-radius: 5px;
-}
-
-.pagination li a.active {
-    background-color: #002F60;
-    color: white;
-}
-
-.pagination li a:hover:not(.active) {
-    background-color: lightgray;
-}
-
-/* Container for inline boxes */
 .container {
     margin-left: 220px;
-    margin-right: 220px;
+    margin-right: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* two-column responsive layout */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
     padding-left: 20px;
     padding-bottom: 10px;
-    gap: 20px;
 }
 
-/* Inline boxes */
 .inlinebox {
     background-color: #f0f0f0;
     border-radius: 10px;
@@ -126,8 +93,11 @@ li a.active {
     transition: transform 0.2s, box-shadow 0.2s;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;  /* align content to top */
-    height: auto;                 /* adapt height to content */
+    justify-content: flex-start;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    margin-bottom: 10px;
 }
 
 .inlinebox h2 {
@@ -139,15 +109,9 @@ li a.active {
 .inlinebox h3 {
     margin: 0;
     color: #333;
-    word-break: break-word;       /* forces long words to wrap */
-    overflow-wrap: break-word;    /* extra compatibility */
-    hyphens: auto;                /* optional: adds hyphenation if supported */
 }
 
-
-/* Button inside inlinebox */
 .inlinebox .button {
-    position: static;  /* no absolute positioning */
     margin-top: 10px;
 }
 
@@ -164,4 +128,32 @@ li a.active {
 .inlinebox button:hover {
     background-color: #0055A5;
     transform: translateY(-2px);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.pagination li a {
+    display: block;
+    padding: 6px 10px;
+    margin: 0 4px;
+    border: 1px solid gray;
+    color: black;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.pagination li a.active {
+    background-color: #002F60;
+    color: white;
+}
+
+.pagination li a:hover:not(.active) {
+    background-color: lightgray;
 }

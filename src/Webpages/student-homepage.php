@@ -48,52 +48,8 @@ function truncateText($text, $limit = 100) {
     <meta charset="UTF-8" />
     <title>Student Homepage</title>
     <link rel="stylesheet" type="text/css" href="student-style.css">
-    <style>
-      .inlinebox {
-          background-color: #f0f0f0;
-          border-radius: 10px;
-          padding: 15px 20px;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-          transition: transform 0.2s, box-shadow 0.2s;
-          margin-bottom: 10px;
-      }
-      .inlinebox h2 { margin: 0 0 5px 0; color: #002F60; }
-      .inlinebox h3 { margin: 0; color: #333; }
-      .inlinebox .button { margin-top: 10px; }
-      .inlinebox button {
-          background-color: #002F60;
-          color: #fff;
-          border: none;
-          border-radius: 5px;
-          padding: 6px 12px;
-          cursor: pointer;
-          transition: background-color 0.2s, transform 0.2s;
-      }
-      .inlinebox button:hover { background-color: #0055A5; transform: translateY(-2px); }
-
-      .pagination {
-        display: flex;
-        justify-content: center;
-        list-style: none;
-        padding: 0;
-        margin-top: 10px;
-      }
-      .pagination li a {
-        display: block;
-        padding: 6px 10px;
-        margin: 0 4px;
-        border: 1px solid gray;
-        color: black;
-        border-radius: 5px;
-        text-decoration: none;
-        cursor: pointer;
-      }
-      .pagination li a.active {
-        background-color: #002F60;
-        color: white;
-      }
-    </style>
 </head>
+
 <body>
 <div class="header">
     <img id="logo" src="../Webpages/images/Logo_Flinders_white.png" alt="Flinders University Logo">
