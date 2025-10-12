@@ -227,6 +227,21 @@ $getUserBioStmt->close();
                                             name="updateYear">Update Year</button>
                                     </div>
                                 </form>
+                                <form action="updateProfile.php" method="post" id="editAvailabilityForm">
+                                    <h3 id="availability" class="profileItem"> General Availability: <?php echo $userAvailability ?>
+                                    </h3>
+                                    <button type="button" class="collapsible" onclick="">Edit General Availability</button>
+                                    <div class="content">
+                                        <label for="academicYear">General Availability:</label>
+
+                                        <textarea id="availability" name="availability" rows="4" cols="25" maxlength="255"
+                                            onkeyup="limitText(this,255)"
+                                            value="<?php echo htmlspecialchars($userAvailability); ?>" required></textarea>
+
+                                        <button href="updateProfile.php" type="submit" class="button"
+                                            name="updateAvailability">Update Availability</button>
+                                    </div>
+                                </form>
                             </div>
                             <div id="editAvailability">
                                 <form action="updateProfile.php" method="post" id="editAvailabilityForm">
