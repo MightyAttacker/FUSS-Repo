@@ -43,8 +43,6 @@ $getUserAdmin = $getUserAdminStmt->get_result();
   }
 $getUserAdminStmt->close();
 
-$conn->close();
-
 // 2. Fetch notifications using email
 $getNotificationsStmt = $conn->prepare(
     'SELECT subject, message FROM mailbox WHERE sentto = ? ORDER BY created DESC'
