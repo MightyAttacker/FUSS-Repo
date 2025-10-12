@@ -76,29 +76,13 @@ foreach ($skills as $skill) {
 <meta charset="UTF-8">
 <meta name="author" content="Lachlan">
 <title>Peer Feedback</title>
-<style>
-body { font-family: Helvetica, Arial, sans-serif; margin:0; padding:0; }
-#topBanner { background-color:#002F60; color:#FFD300; padding:10px; display:flex; align-items:center; justify-content:space-between; }
-#flindersLogo img { height:80px; }
-#sideBar { list-style:none; background:#002F60; color:#FFD300; padding:0; width:200px; height:100vh; position:fixed; }
-#sideBar li a { display:block; color:#FFD300; padding:10px; text-decoration:none; font-weight:bold; }
-#sideBar li a.active, #sideBar li a:hover { background:#FFD300; color:#002F60; }
-.review-container { margin-left:220px; padding:20px; max-width:600px; }
-.star-rating { display:flex; flex-direction:row-reverse; font-size:2em; justify-content:flex-start; cursor:pointer; }
-.star-rating input { display:none; }
-.star-rating label { color:#ccc; transition:color 0.2s; }
-.star-rating input:checked ~ label, .star-rating label:hover, .star-rating label:hover ~ label { color:#FFD300; }
-textarea { width:100%; height:80px; margin-top:10px; padding:8px; border-radius:5px; border:1px solid #ccc; resize:none; }
-button { margin-top:10px; padding:10px 15px; background:#002F60; color:#fff; border:none; border-radius:5px; cursor:pointer; }
-button:hover { background:#0055A5; }
-.message { color:green; }
-</style>
+<link rel="stylesheet" href="PeerFeedback.css">
 </head>
 <body>
 
   <div id="topBanner">
     <div id="flindersLogo">
-      <img id="imgLogo" src="./images/Logo_Flinders_white.png" alt="Logo for Flinders University" id="flindersLogo">
+      <img id="imgLogo" src="./images/Logo_Flinders_white.png" alt="Logo for Flinders University">
     </div>
     <div id="title">
       <header>
@@ -106,28 +90,27 @@ button:hover { background:#0055A5; }
       </header>
     </div>
     <div id="UserDetails">
-      <h4> Hello, <?php echo htmlspecialchars($firstName); ?></h4>
+      <h4>Hello, <?php echo htmlspecialchars($firstName); ?></h4>
     </div>
     <div id="logoutButton">
-      <input id="logButton" class="button" type="button" onclick="location.href='./loginPages/logout.php';"
-        value="Logout"/>
+      <input id="logButton" type="button" onclick="location.href='./loginPages/logout.php';" value="Logout"/>
     </div>
   </div>
 
-<div id="sideBar">
+  <div id="sideBar">
     <ul class="sidebar">
-        <li> <a class="active" href="./student-homepage.php">Home</a> </li>
-            <li> <a href="./inbox.php"> Inbox</a> </li>
-            <li> <a href="./browsePage.php"> Browse Offered Skills</a> </li>
-            <li> <a href="#Requests"> Make A Request</a> </li>
-            <li> <a href="#ViewRequests">View My Requests</a> </li>
-            <li> <a href="./PeerFeedback.php">Browse Requests</a> </li>
-            <li> <a href="./studentProfile.php">My Profile</a> </li>
-            <li> <a href="#History">Credit History</a> </li>
+        <li><a class="active" href="./student-homepage.php">Home</a></li>
+        <li><a href="./inbox.php">Inbox</a></li>
+        <li><a href="./browsePage.php">Browse Offered Skills</a></li>
+        <li><a href="#Requests">Make A Request</a></li>
+        <li><a href="#ViewRequests">View My Requests</a></li>
+        <li><a href="./PeerFeedback.php">Browse Requests</a></li>
+        <li><a href="./studentProfile.php">My Profile</a></li>
+        <li><a href="#History">Credit History</a></li>
     </ul>
   </div>
 
-<div class="review-container">
+  <div class="review-container">
     <h2>Leave a Review</h2>
     <?php if ($message) echo "<p class='message'>$message</p>"; ?>
 
@@ -158,7 +141,7 @@ button:hover { background:#0055A5; }
             <li><?php echo htmlspecialchars($skill); ?>: <?php echo $data['avg']; ?> / 5 (<?php echo $data['total']; ?> reviews)</li>
         <?php endforeach; ?>
     </ul>
-</div>
+  </div>
 
 </body>
 </html>

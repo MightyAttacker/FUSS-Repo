@@ -1,8 +1,10 @@
+/* styles.css */
+
 body {
     font-family: Helvetica, Arial, sans-serif;
-          
 }
-.login{
+
+.login {
     background-color: #002F60;
     border: 5px;
     color: #ffd300;
@@ -11,7 +13,7 @@ body {
     text-align: center;
 }
 
-#topBanner{
+#topBanner {
     background-color: #002F60;
     color: #000000;
     padding: 10px 5px 10px 10px;
@@ -24,44 +26,40 @@ body {
     width: 100%;
     height: 100vh;
     max-height: 130px;
-    
-    
 }
 
-#flindersLogo{
+#flindersLogo {
     display: block;
     float: left;
 }
 
-#imgLogo{
+#imgLogo {
     height: 120px;
     width: 400px;
 }
 
-#title{
+#title {
     width: 90%; 
     text-align: center;    
     color: #ffD300;
     padding-top: 80px;
-
 }
 
-#UserDetails{
-  position: absolute;
-   top: 100px;
-   right: 106px;
-   color: #ffD300;
+#UserDetails {
+    position: absolute;
+    top: 100px;
+    right: 106px;
+    color: #ffD300;
 }
 
-
-#logoutButton{
+#logoutButton {
     position: absolute;
     right: 10px;
     top: 106px;
     align-items: center;
 }
 
-#logButton{
+#logButton {
     background-color: #ffD300;
     padding: 10px 10px;
     font-weight: bold;
@@ -71,40 +69,42 @@ body {
     border-radius: 5px;
     cursor: pointer;  
 }
-#logButton:hover{
+
+#logButton:hover {
     background-color: #555555;
     color: white;
 }
 
 .sidebar {
-  list-style-type: none;
-  margin-left: -10px;
-  margin-top: -0px;
-  padding: 0;
-  width: 200px;
-  background-color: #002F60;
-  height: 100vh;
-  position: fixed;
-  overflow: auto;
+    list-style-type: none;
+    margin-left: -10px;
+    margin-top: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #002F60;
+    height: 100vh;
+    position: fixed;
+    overflow: auto;
 }
 
 .sidebar a {
-  display: block;
-  color: #ffD300;
-  padding: 15px 16px;
-  text-decoration: none;
-  font-weight: bold;
+    display: block;
+    color: #ffD300;
+    padding: 15px 16px;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .sidebar a:hover {
-  background-color: #555555;
-  color: white;
+    background-color: #555555;
+    color: white;
 }
 
 .sidebar .active {
-  background-color: #ffD300;
-  color: #002F60;
+    background-color: #ffD300;
+    color: #002F60;
 }
+
 .review-container {
     max-width: 600px;
     margin-left: 220px;
@@ -173,5 +173,5 @@ body {
 .star-rating input:checked ~ label,
 .star-rating label:hover,
 .star-rating label:hover ~ label {
-    color: #ffD300; /* Gold color */
+    color: #ffD300;
 }
