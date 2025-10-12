@@ -97,16 +97,17 @@ foreach ($skills as $skill) {
     </div>
   </div>
 
-  <div id="sideBar">
+<div id="sideBar">
     <ul class="sidebar">
-        <li><a class="active" href="./student-homepage.php">Home</a></li>
-        <li><a href="./inbox.php">Inbox</a></li>
-        <li><a href="./browsePage.php">Browse Offered Skills</a></li>
-        <li><a href="#Requests">Make A Request</a></li>
-        <li><a href="#ViewRequests">View My Requests</a></li>
-        <li><a href="./PeerFeedback.php">Browse Requests</a></li>
-        <li><a href="./studentProfile.php">My Profile</a></li>
-        <li><a href="#History">Credit History</a></li>
+            <li> <a href="./student-homepage.php">Home</a> </li>
+            <li> <a href="./inbox.php"> Inbox</a> </li>
+            <li> <a href="./browsePage.php"> Browse Offered Skills</a> </li>
+            <li> <a href="./requests.php"> Make A Request</a> </li>
+            <li> <a href="./myRequests.php">View My Requests</a> </li>
+            <li> <a class="active" href="./PeerFeedback.php">Peer Reviews</a> </li>
+            <li> <a href="./studentProfile.php">My Profile</a> </li>
+            <li> <a href="#History">Credit History</a> </li>
+            <?php if ($getUserAdmin == 1) echo '<li> <a href="./admin-pages/admin-dashbaord.html">Admin Dashboard</a> </li>' ?>
     </ul>
   </div>
 
