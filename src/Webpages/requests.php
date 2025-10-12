@@ -49,7 +49,7 @@ $getUserAdminStmt->close();
   <link rel="stylesheet" href="inboxStyle.css">
   <meta name="author" content="Jayden">
   <script src="inbox.js"> </script>
-  <title>FUSS Messages Page</title>
+  <title>FUSS Requests Page</title>
 </head>
 
 <body>
@@ -104,14 +104,29 @@ $getUserAdminStmt->close();
             <th>Agree to Request</th>
           </tr>
           <?php
-          $getRequestsInstmt = $conn->prepare("SELECT user_requestbox.requestbox_id, requesteeAgreed, skillName, requester, message, credits, DATE_FORMAT(proposedDate, '%T %d/%m/%Y') AS formattedProposedDate, DATE_FORMAT(created,'%T %d/%m/%Y') AS formattedCreated FROM user_requestbox INNER JOIN requestBox ON requestBox.id = user_requestbox.requestbox_id WHERE user_requestbox.user =? AND user_requestbox.requestBoxType = 'In' ORDER BY created DESC;");
+          $getRequestsInstmt = $conn->prepare("SELECT 
+          userdata.firstName AS requesterFirstName, 
+          userdata.lastName AS requesterLastName,
+          user_requestbox.requestbox_id, 
+          requesteeAgreed, 
+          skillName, 
+          requester, 
+          message, 
+          requestbox.credits, 
+          DATE_FORMAT(proposedDate, '%T %d/%m/%Y') AS formattedProposedDate, 
+          DATE_FORMAT(created,'%T %d/%m/%Y') AS formattedCreated 
+          FROM user_requestbox 
+          INNER JOIN requestBox ON requestBox.id = user_requestbox.requestbox_id 
+          INNER JOIN userdata ON userdata.id = user_requestbox.user
+          WHERE user_requestbox.user =? AND user_requestbox.requestBoxType = 'In' 
+          ORDER BY created DESC;");
           $getRequestsInstmt->bind_param("i", $id);
           $getRequestsInstmt->execute();
           $result = $getRequestsInstmt->get_result();
            if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>". $row["requester"] . "</td>";
+                echo "<td>". $row["requesterFirstName"] . $row["requesterLastName"] ."</td>";
                 echo "<td>". $row["skillName"] . "</td>";
                 echo "<td>". $row["credits"] . "</td>";
                 echo "<td>". $row["message"] . "</td>";                 
@@ -178,14 +193,29 @@ $getUserAdminStmt->close();
             <th>Agree to Request</th>
           </tr>
          <?php
-          $getRequestsOutStmt = $conn->prepare("SELECT user_requestbox.requestbox_id, requesterAgreed, skillName, requestee, message, credits, DATE_FORMAT(proposedDate, '%T %d/%m/%Y') AS formattedProposedDate, DATE_FORMAT(created,'%T %d/%m/%Y') AS formattedCreated FROM user_requestbox INNER JOIN requestBox ON requestBox.id = user_requestbox.requestbox_id WHERE user_requestbox.user =? AND user_requestbox.requestBoxType = 'Out' ORDER BY created DESC;");
+          $getRequestsOutStmt = $conn->prepare("SELECT 
+          userdata.firstName AS requesteeFirstName,
+          userdata.lastName AS requesteeLastName,
+          user_requestbox.requestbox_id,
+           requesterAgreed, 
+           skillName, 
+           requestee, 
+           message, 
+           requestbox.credits, 
+           DATE_FORMAT(proposedDate, '%T %d/%m/%Y') AS formattedProposedDate, 
+           DATE_FORMAT(created,'%T %d/%m/%Y') AS formattedCreated 
+           FROM user_requestbox 
+           INNER JOIN requestBox ON requestBox.id = user_requestbox.requestbox_id 
+           INNER JOIN userdata ON userdata.id = user_requestbox.user
+           WHERE user_requestbox.user =? AND user_requestbox.requestBoxType = 'Out' 
+           ORDER BY created DESC;");
           $getRequestsOutStmt->bind_param("i", $id);
           $getRequestsOutStmt->execute();
           $result = $getRequestsOutStmt->get_result();
            if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>". $row["requestee"] . "</td>";
+                echo "<td>". $row["requesteeFirstName"] . $row["requesteeLastName"] . "</td>";
                 echo "<td>". $row["skillName"] . "</td>";
                 echo "<td>". $row["credits"] . "</td>";
                 echo "<td>". $row["message"] . "</td>"; 
