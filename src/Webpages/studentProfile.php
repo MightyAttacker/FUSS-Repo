@@ -81,7 +81,6 @@ $getUserCreditStmt->execute();
 $loggedUserCredits = $getUserCreditStmt->get_result()->fetch_assoc()['credits'];
 $getUserCreditStmt->close();
 
-
 // Fetch the User's College
 $getUserCollegeStmt = $conn->prepare('SELECT college FROM userdata WHERE id=?');
 $getUserCollegeStmt->bind_param('i', $uid);
@@ -98,7 +97,7 @@ $getUserBioStmt->close();
 
 //Fetch User's Availablity
 $getUserAvailabilityStmt = $conn->prepare('SELECT availability FROM userdata WHERE id=?');
-$getUserAvailabilityStmt->bind_param('i', $id);
+$getUserAvailabilityStmt->bind_param('i', $uid);
 $getUserAvailabilityStmt->execute();
 $userAvailability = $getUserAvailabilityStmt->get_result()->fetch_assoc()['availability'];
 $getUserAvailabilityStmt->close();
@@ -155,7 +154,7 @@ $getUserAvailabilityStmt->close();
       <div class="profileContainer">
         <div class="profileDetails">
             <img id="profilePic" src="<?php echo $imagePath ?>" alt="<?php echo $imageAlt ?>"> <br>
-            <div id="pesonalInfo"></div>
+            <div id="pesonalInfo">
             
             <h3 id="name" class="profileItem"> Name: <?php echo $firstName. " ". $lastName ?> </h3> 
             <h3 id="adademicYear" class="profileItem"> Academic Year: <?php echo $userYear ?> </h3>
@@ -165,24 +164,22 @@ $getUserAvailabilityStmt->close();
             <h3 id="BioTitle" class="profileItem"> Bio</h3>
             <p id="bioText" class="profileItem"> <?php echo $userBio ?> </p>
             </div>
+         
+        </div>
 
-            <div id="skillsList">
-            <h3> Academic Skills Offered: </h3>
+        <div id="skillsList">
+          <h3> Academic Skills Offered: </h3>
 
-            <?php
-            // Fetch the user's academic skills from the database
-            $getAcademicSkillsStmt = $conn->prepare('SELECT userSkills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=1 AND userskills.id=?');
-            $getAcademicSkillsStmt->bind_param('i', $id);
-            $getAcademicSkillsStmt->execute();
-            $academicSkills = $getAcademicSkillsStmt->get_result();
-            if($academicSkills->num_rows > 0) {
-                echo "<ul>";
-                while($row = $academicSkills->fetch_assoc()) {
-                    echo "<li>" . htmlspecialchars($row['skillName']) . "</li>";
-                }
-                echo "</ul>";
-            } else {
-                echo "<p>No academic skills listed.</p>";
+          <?php
+          // Fetch the user's academic skills from the database
+          $getAcademicSkillsStmt = $conn->prepare('SELECT userSkills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=1 AND userskills.id=?');
+          $getAcademicSkillsStmt->bind_param('i', $uid);
+          $getAcademicSkillsStmt->execute();
+          $academicSkills = $getAcademicSkillsStmt->get_result();
+          if ($academicSkills->num_rows > 0) {
+            echo "<ul>";
+            while ($row = $academicSkills->fetch_assoc()) {
+              echo "<li>" . htmlspecialchars($row['skillName']) . "</li>";
             }
             echo "</ul>";
           } else {
