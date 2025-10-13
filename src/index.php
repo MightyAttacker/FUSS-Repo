@@ -3,7 +3,7 @@
 require_once "./inc/dbconn.inc.php";
 
 echo "<h1>COMP2030 Assignment Dev Environment Setup</h1><h2>Connected successfully to MySQL database!</h2>";
-echo ">Accounts </a>";
+
 // Create a table if it doesn't exist
 $sql = "CREATE TABLE IF NOT EXISTS messages (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
