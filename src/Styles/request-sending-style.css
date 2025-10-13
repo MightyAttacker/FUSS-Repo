@@ -1,0 +1,168 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+          
+}
+.login{
+    background-color: #002F60;
+    border: 5px;
+    color: #ffd300;
+    border-color: black;
+    border-style: ridge;
+    text-align: center;
+}
+
+#topBanner{
+    background-color: #002F60;
+    color: #000000;
+    padding: 10px 5px 10px 10px;
+    text-align: justify;
+    align-items: center;
+    justify-content: left;
+    display: block;
+    margin-top: -15px;
+    margin-left: -10px;
+    width: 100%;
+    height: 100vh;
+    max-height: 130px;
+    
+}
+
+#flindersLogo{
+    display: block;
+    float: left;
+
+    height: 120px;
+    width: 400px;
+}
+
+#header{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 1px;
+    align-items: center;
+    color: #ffD300;
+
+}
+
+#logoutButton{
+    position: absolute;
+    right: -20px;
+    top: 80px;
+    align-items: center;
+}
+
+#logButton{
+    background-color: #ffD300;
+    padding: 10px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #002F60;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;  
+}
+#logButton:hover{
+    background-color: #555555;
+    color: white;
+}
+
+.sidebar {
+  list-style-type: none;
+  margin-left: -10px;
+  margin-top: -0px;
+  padding: 0;
+  width: 200px;
+  background-color: #002F60;
+  height: 100vh;
+  position: fixed;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: #ffD300;
+  padding: 15px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Change the link and background color on hover */
+.sidebar a:hover {
+  background-color: #555555;
+  color: white;
+}
+
+.sidebar .active {
+  background-color: #ffD300;
+  color: #002F60;
+}
+
+main{
+    position: relative;
+    margin-left: 200px;
+}
+#Header{
+    margin-left: 200px;
+    margin-top: 20px;
+    font-size: 2em;
+    font-weight:700;
+}
+
+#calanderWidget{
+    margin-top: -515px;
+    margin-left: 50%;
+    height: 500px;
+    width: 750px;
+    background-color: #555555;
+    color: aliceblue;
+}
+#requestForm{
+ width: 40em;
+ height: 500px;   
+ border: 1px solid #002F60;
+ border-radius: 15px;
+ padding: 15px 0px 0px 15px;
+ display: table-cell;
+vertical-align: middle;
+}
+
+#requestForm > * {
+    display: block;
+    width: 300px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+.button{
+    margin-top: 25px;
+    margin-right: 50px;
+    padding: 10px 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffD300;
+    border: none;
+    border-radius: 5px;
+    background-color: #002F60;
+    cursor: pointer;   
+
+}
+#submitButtons{
+    display: block;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+}
+.dateAndTime{
+    width: fit-content;
+}
+
+#dateAndTime{
+    max-width: 600px;
+    display: block;
+}
+#notesDiv{
+    padding-bottom: 20px;
+}
+

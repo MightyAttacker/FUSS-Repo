@@ -26,6 +26,7 @@ services:
       MYSQL_DATABASE: web_dev_db
     volumes:
       - db_data:/var/lib/mysql
+     
     restart: always
 
 volumes:
