@@ -50,10 +50,10 @@
         <div id="Providername">
             <p>Provider: <b> <?php
                     require_once "../inc/dbconn.inc.php";
-                    $stmt = $conn->prepare("SELECT name FROM users WHERE id = 'testuser2'");
+                    $stmt = $conn->prepare("SELECT firstName FROM userdata WHERE id = 2");
                     $stmt->execute();
                     foreach (mysqli_stmt_get_result($stmt) as $key => $value) {
-                        echo htmlspecialchars($value["name"]);
+                        echo htmlspecialchars($value["firstName"]);
                     }
                     ?> </b></p>
         </div>

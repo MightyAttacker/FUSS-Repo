@@ -1,7 +1,17 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <?php
+    if (isset($_SESSION["id"])) {
+        $id = $_SESSION["id"];
+    }
+    $id = "testuser1";
+    require_once "../inc/dbconn.inc.php";
+    ?>
     <meta charset="UTF-8">
     <meta name="author" content="Thomas Wachmer">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,10 +21,7 @@
     <script type="module" src="/Scripts/account-page-submit.js" defer></script>
     <link rel="stylesheet" href="/Styles/account-page-styles.css">
     <link rel="icon" href="data:,">
-    <?php
-    $conn = 0; // Suppresses the error
-    require_once "../inc/dbconn.inc.php";
-    ?>
+
 </head>
 
 <body>
@@ -55,12 +62,13 @@
                 class="text-input input"
                 id="course"
                 value=<?php
-        $sql = "SELECT course FROM users WHERE id = 'testuser1'";
-        if ($result = mysqli_query($conn, $sql)) {
-            foreach ($result as $k => $v) {
-                echo htmlspecialchars($v["course"]);
-            }
-            mysqli_free_result($result);
+        $stmt = $conn->prepare("SELECT course FROM users WHERE id = ?");
+        $stmt->bind_param("s", $id);
+
+        $stmt->execute();
+
+        foreach (mysqli_stmt_get_result($stmt) as $key => $value) {
+            echo htmlspecialchars($value["course"]);
         }
         ?>>
         <br>
@@ -74,13 +82,15 @@
                 id="about"
                 rows=10
                 cols=30><?php
-            $sql = "SELECT about FROM users WHERE id = 'testuser1'";
-            if ($result = mysqli_query($conn, $sql)) {
-                foreach ($result as $k => $v) {
-                    echo htmlspecialchars($v["about"]);
-                }
-                mysqli_free_result($result);
+            $stmt = $conn->prepare("SELECT about FROM users WHERE id = ?");
+
+            $stmt->bind_param("s", $id);
+            $stmt->execute();
+
+            foreach (mysqli_stmt_get_result($stmt) as $key => $value) {
+                echo htmlspecialchars($value["about"]);
             }
+
             ?></textarea>
         <br>
         <br>
@@ -91,14 +101,13 @@
                 id="askills">
             <?php
             echo "<option value=\"\">Select Skills</option>";
+            $stmt = $conn->prepare("SELECT skill FROM skills WHERE academic = 1");
 
-            $sql = "SELECT skill FROM skills WHERE academic = 1";
-            if ($result = mysqli_query($conn, $sql)) {
-                foreach ($result as $k => $v) {
-                    $a = htmlspecialchars($v["skill"]);
-                    echo "<option value=\"$a\">$a</option>";
-                }
-                mysqli_free_result($result);
+            $stmt->execute();
+
+            foreach (mysqli_stmt_get_result($stmt) as $k => $v) {
+                $a = htmlspecialchars($v["skill"]);
+                echo "<option value=\"$a\">$a</option>";
             }
             ?>
         </select>
@@ -106,18 +115,19 @@
         <br>
         <div id="academic-skills">
             <?php
-            $sql = "SELECT skills.skill
+            $stmt = $conn->prepare("SELECT skills.skill
                 FROM skills JOIN userskills u on skills.skill = u.skill 
-                WHERE academic = 1 AND userid = 'testuser1'";
-            if ($result = mysqli_query($conn, $sql)) {
-                foreach ($result as $k => $v) {
-                    $b = htmlspecialchars(implode($v));
-                    // Could combine all calls into one script. Only needs to be done if there is spare time
-                    echo "<script type=\"module\"> 
+                WHERE academic = 1 AND userid = ?");
+
+            $stmt->bind_param("s", $id);
+            $stmt->execute();
+
+            foreach (mysqli_stmt_get_result($stmt) as $k => $v) {
+                $b = htmlspecialchars(implode($v));
+                // Could combine all calls into one script. Only needs to be done if there is spare time
+                echo "<script type=\"module\"> 
                         import {createButton} from \"/Scripts/account-page-script.js\";
                         createButton(\"$b\", true); </script>";
-                }
-                mysqli_free_result($result);
             }
             ?>
         </div>
@@ -129,13 +139,13 @@
 
             <?php
             echo "<option value=\"\">Select Skills</option>";
-            $sql = "SELECT skill FROM skills WHERE academic = 0";
-            if ($result = mysqli_query($conn, $sql)) {
-                foreach ($result as $k => $v) {
-                    $a = htmlspecialchars($v["skill"]);
-                    echo "<option value=\"$a\">$a</option>";
-                }
-                mysqli_free_result($result);
+
+            $stmt = $conn->prepare("SELECT skill FROM skills WHERE academic = 0");
+            $stmt->execute();
+
+            foreach (mysqli_stmt_get_result($stmt) as $k => $v) {
+                $a = htmlspecialchars($v["skill"]);
+                echo "<option value=\"$a\">$a</option>";
             }
             ?>
         </select>
@@ -144,17 +154,19 @@
         <div id="non-academic-skills">
 
             <?php
-            $sql = "SELECT skills.skill
+            $stmt = $conn->prepare("SELECT skills.skill
                 FROM skills JOIN userskills u on skills.skill = u.skill 
-                WHERE academic = 0 AND userid = 'testuser1'";
-            if ($result = mysqli_query($conn, $sql)) {
-                foreach ($result as $k => $v) {
-                    $b = htmlspecialchars(implode($v));
-                    echo "<script type=\"module\"> 
+                WHERE academic = 0 AND userid = ?");
+
+            $stmt->bind_param("s", $id);
+            $stmt->execute();
+
+            foreach (mysqli_stmt_get_result($stmt) as $k => $v) {
+                $b = htmlspecialchars(implode($v));
+                // Could combine all calls into one script. Only needs to be done if there is spare time
+                echo "<script type=\"module\"> 
                         import {createButton} from \"/Scripts/account-page-script.js\";
                         createButton(\"$b\", false); </script>";
-                }
-                mysqli_free_result($result);
             }
             ?>
         </div>
@@ -169,19 +181,21 @@
                 id="changeavailability"
                 class="button">Change availability
         </button>
+
+        <div id="availability-popup" class="popup hidden">
+            <button name="by-day"
+                    id="daily"
+                    class="button popup">By Day
+            </button>
+            <br>
+            <button name="by-week"
+                    id="weekly"
+                    class="button popup">By Week
+            </button>
+        </div>
     </div>
 
-    <div id="availability-popup" class="popup hidden">
-        <button name="by-day"
-                id="daily"
-                class="button popup">By Day
-        </button>
-        <br>
-        <button name="by-week"
-                id="weekly"
-                class="button popup">By Week
-        </button>
-    </div>
+
     <div id="availability">
 
     </div>

@@ -279,6 +279,7 @@ weeklyButton.addEventListener("click", () => {
 
     const confirmDate = document.createElement("button");
     confirmDate.innerText = "Confirm Date";
+    confirmDate.setAttribute("id", "confirmDate");
 
     confirmDate.addEventListener("click", () => {
         if (currentTableDiv) {
@@ -306,6 +307,7 @@ weeklyButton.addEventListener("click", () => {
             getRecurringAvailability(datePicker.value, "testuser1").then((data) => insertRecurringAvailability(data));
 
             const confirm = document.createElement("button");
+            confirm.setAttribute("id", "confirmAvailability");
             confirm.innerText = "Confirm Availability";
             confirm.addEventListener("click", () => {
                 if (validateAvailability()) {

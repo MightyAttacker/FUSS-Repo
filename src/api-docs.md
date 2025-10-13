@@ -39,9 +39,9 @@
         * date: string
           * Will be between or equal to the ends
         * starttime: string
-          * Time with format HH:MM (Need to change code)
+          * Time with format HH:MM
         * endtime: string
-          * Time with format HH:MM (Need to change code)
+          * Time with format HH:MM
           * Will be later than starttime
         * reason: string
           * Will be either "manual" or "request"
@@ -59,7 +59,7 @@
       * endtime: string
         * HH:MM in 24 hour time
       * userid: string
-  * #### update-details
+  * #### update-user-details.php
     * about: string
     * course: string
     * askills

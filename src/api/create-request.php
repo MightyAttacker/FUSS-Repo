@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "../inc/dbconn.inc.php";
 
 $data = json_decode(file_get_contents('php://input'), true);
@@ -26,16 +27,20 @@ $notes = $data["notes"]; // TODO: Input sanitization
 $requester = $data["requester"]; // This is the person making the request // TODO: - make this work from session token
 $requestee = $data["requestee"]; // This is the person receiving the request // TODO: Input sanitization - validate user ID
 
-$cost = $data["cost"]; // TODO: Input validation - validate user has enough credits
+$cost = $data["cost"];
 
-$userCredits = 0;
-$stmt = $conn->prepare("SELECT credits FROM users WHERE id = ?");
+$stmt = $conn->prepare("SELECT credits FROM userdata WHERE id = ?");
 $stmt->bind_param("s", $requester);
-$stmt->bind_result($userCredits);
+$requester = 1;
 
 $stmt->execute();
 
-if (!preg_match("/^\d+$/m", $cost)) { // Cost must be an int
+
+foreach (mysqli_stmt_get_result($stmt) as $key => $value) { // Should only ever be 1 record
+    $userCredits = $value["credits"];
+}
+
+if (!preg_match("/^\d+$/m", $cost)) { // Cost must be an int - regex matches values with 1 or more digits
     http_response_code(400);
     die("Invalid cost");
 } elseif ($cost == 0) {
@@ -58,3 +63,9 @@ $stmt = $conn->prepare("INSERT INTO request (d,
 $stmt->bind_param("ssisss", $date, $time, $cost, $notes, $requester, $requestee);
 
 $stmt->execute();
+
+$stmt = $conn->prepare("UPDATE userdata SET credits = credits - ?, escrow = escrow + ? WHERE id = ?");
+$stmt->bind_param("iis", $cost, $cost, $requester);
+
+$stmt->execute();
+
