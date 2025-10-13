@@ -1,0 +1,306 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.login {
+    background-color: #002F60;
+    border: 5px;
+    color: #ffd300;
+    border-color: black;
+    border-style: ridge;
+    text-align: center;
+}
+
+/* --- Banner --- */
+#topBanner {
+    background-color: #002F60;
+    color: #000000;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 130px; /* fixed consistent height */
+    position: sticky;
+    top: 0;
+    z-index: 10; /* ensure it's above the sidebar */
+}
+
+#flindersLogo {
+    display: block;
+    float: left;
+}
+
+#imgLogo {
+    height: 120px;
+    width: 400px;
+}
+
+#title {
+    width: 90%;
+    text-align: center;
+    color: #ffD300;
+    padding-top: 80px;
+}
+
+#UserDetails {
+    position: absolute;
+    top: 100px;
+    right: 106px;
+    color: #ffD300;
+}
+
+#logoutButton {
+    position: absolute;
+    right: 10px;
+    top: 106px;
+    align-items: center;
+}
+
+#logButton {
+    background-color: #ffD300;
+    padding: 10px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #002F60;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#logButton:hover {
+    background-color: #555555;
+    color: white;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+  list-style-type: none;
+  margin-left: -10px;
+  margin-top: -0px;
+  padding: 0;
+  width: 200px;
+  background-color: #002F60;
+  height: 100vh;
+  position: fixed;
+  overflow: auto;
+}
+
+.sidebar a {
+    display: block;
+    color: #ffD300;
+    padding: 15px 16px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.sidebar a:hover {
+    background-color: #555555;
+    color: white;
+}
+
+.sidebar .active {
+    background-color: #ffD300;
+    color: #002F60;
+}
+
+/* --- Main Container --- */
+.container {
+    margin-left: 220px; /* space for sidebar */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    padding: 20px;
+    gap: 20px;
+    min-height: calc(100vh - 130px);
+    background-color: #FFD300;
+}
+
+.container > div {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* --- Main Content (Other Pages) --- */
+.mainContent, .body {
+    margin-left: 220px;
+    min-height: calc(100vh - 130px);
+    padding: 20px;
+    background-color: #FFD300;
+}
+
+.mainContent > div, .body > div {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* --- Tables --- */
+table, th, td {
+    border: 1px solid grey;
+    width: 60%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #002F60;
+    color: white;
+}
+
+/* --- Status Indicators --- */
+.active {
+    color: green;
+    font-weight: bold;
+}
+
+.inactive {
+    color: red;
+    font-weight: bold;
+}
+
+h3 {
+    text-align: center;
+}
+
+/* --- Collapsible Buttons --- */
+.collapsible {
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.active, .collapsible:hover {
+    background-color: #555;
+    color: white;
+}
+
+/* --- Collapsible Symbols --- */
+.collapsible:after {
+    content: '\002B';
+    font-size: 13px;
+    float: right;
+    margin-left: 5px;
+}
+
+.collapsible.active:after {
+    content: "\2212";
+}
+
+/* --- Collapsible Content --- */
+.content {
+    padding: 18px 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+/* --- Students Table --- */
+#studentsTable, #studentsTable th, #studentsTable td {
+    border-collapse: collapse;
+    width: 100%;
+    border: none;
+    margin: 0;
+}
+
+#studentsTable td, #studentsTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    overflow-wrap: break-word;
+    word-break: keep-all;
+    width: 50px;
+    max-width: 80px;
+}
+
+#studentsTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#studentsTable th:first-child,
+#studentsTable td:first-child {
+    width: 80px;
+    max-width: 80px;
+    word-break: break-all;
+}
+
+#studentsTable tr:hover {
+    background-color: #ddd;
+}
+
+#studentsTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #002F60;
+    color: #ffD300;
+}
+
+/* --- Pagination --- */
+#studentsTable .pagination {
+    margin-top: 20px;
+}
+
+#studentsTable .pagination a {
+    margin: 0 5px;
+    padding: 5px 10px;
+    background: #eee;
+    text-decoration: none;
+    border-radius: 3px;
+    color: #333;
+}
+
+#studentsTable .pagination a.active {
+    background: #0078d4;
+    color: #fff;
+}
+
+/* --- Search Input --- */
+#searchInput {
+    width: 150px;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+
+/* --- Buttons --- */
+.button {
+    padding: 5px 12.5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffD300;
+    border: none;
+    border-radius: 5px;
+    background-color: #002F60;
+    cursor: pointer;
+}
+
+#logOutButton {
+    background-color: #ffD300;
+    padding: 10px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #002F60;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#newCredits {
+    width: 60px;
+}

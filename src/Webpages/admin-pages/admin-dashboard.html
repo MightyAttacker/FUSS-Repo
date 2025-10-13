@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="Author" content="Liam Maney" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body>
+  <div id="topBanner">
+    <div id="flindersLogo">
+      <img id="imgLogo" src="./images/Logo_Flinders_white.png" alt="Logo for Flinders University" id="flindersLogo">
+    </div>
+    <div id="title">
+      <header>
+        <h1>Flinders University Skill Share</h1>
+      </header>
+    </div>
+    <div id="logoutButton">
+      <input id="logButton" class="button" type="button" onclick="location.href='../loginPages/logout.php';"
+        value="Logout" />
+    </div>
+  </div>
+
+<div id="sideBar">
+    <ul class="sidebar">
+            <li><a class="active"href="admin-dashboard.html">Home</a></li>
+            <li><a href="view-students.php">View Students</a></li>
+            <li><a href="manage-skill-list.html">Manage Skill List</a></li>
+            <li><a href="../student-homepage.php">Student Homepage</a></li>
+        </ul>
+  </div>
+
+    <div class="container">
+        <div id="users">
+            <h3>Active users</h3>
+            <p>Total users: <span id="totalUsers"></span></p>
+            <p>Active users in the last 30 days: <span id="activeUsers"></span></p>
+        </div>
+    <div id="servicesSection">
+      <h3>Services</h3>
+      <table id="servicesTable">
+        <thead>
+          <tr>
+            <th>Service Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="servicesBody">
+        </tbody>
+      </table>
+    </div>
+    <div class="inlinebox">
+        <h3>FUSSCredit Distribution</h3>
+        <p>Total FUSSCredits in system: <span id="totalCredits"></span></p>
+        <table id="creditTable">
+            <thead>
+            <tr>
+            <th>User ID</th>
+            <th>Credits</th>
+            <th>%</th>
+        </tr>
+        </thead>
+        <tbody id="creditBody"></tbody>
+    </table>
+    </div>
+        <div class="skillSection">
+            <h3>Popular Skills</h3>
+                <table id="skillTable">
+        <thead>
+          <tr>
+            <th>Skill</th>
+            <th>#</th>
+          </tr>
+        </thead>
+        <tbody id="skillBody">
+        </tbody>
+      </table>
+        </div>
+    </div>
+<script>
+    fetch('admin-dashboard-data.php')
+    .then(response => response.json())
+    .then(data => {
+    // Update total users
+    document.getElementById('totalUsers').textContent = data.totalUsers;
+    document.getElementById('activeUsers').textContent = data.activeUsers;
+
+// Populate services table
+    const servicetbody = document.getElementById('servicesBody');
+
+    data.services.forEach(skills => {
+        const row = document.createElement('tr');
+
+        const nameCell = document.createElement('td');
+        nameCell.textContent = skills.skillName;
+        row.appendChild(nameCell);
+
+        const statusCell = document.createElement('td');
+        statusCell.textContent = skills.status;
+        statusCell.className = skills.status === 'active' ? 'active' : 'inactive';
+        row.appendChild(statusCell);
+
+        servicetbody.appendChild(row);
+    });
+// Populate FUSSCRedit table
+    const credittbody = document.getElementById('creditBody');
+    document.getElementById('totalCredits').textContent = data.totalCredits;
+
+    data.FUSScreditDistribution.forEach(user => {
+      const row = document.createElement('tr');
+
+      const idCell = document.createElement('td');
+      idCell.textContent = user.id;
+
+      const creditCell = document.createElement('td');
+      creditCell.textContent = user.credits;
+
+      const meterCell = document.createElement('td');
+      const meter = document.createElement('meter');
+      meter.min = 0;
+      meter.max = data.totalCredits;
+      meter.value = user.credits;
+      meter.style.width = '200px';
+      meterCell.appendChild(meter);
+
+      row.appendChild(idCell);
+      row.appendChild(creditCell);
+      row.appendChild(meterCell);
+
+      credittbody.appendChild(row);
+    });
+// Populate skills table
+    const skilltbody = document.getElementById('skillBody');
+
+    data.topSkills.forEach(skill => {
+        const row = document.createElement('tr');
+
+        const skillCell = document.createElement('td');
+        skillCell.textContent = skill.skillName;
+        row.appendChild(skillCell);
+
+        const countCell = document.createElement('td');
+        countCell.textContent = skill.count;
+        row.appendChild(countCell);
+
+        skilltbody.appendChild(row);
+    });
+          
+})
+</script>
+</body>
+</html>

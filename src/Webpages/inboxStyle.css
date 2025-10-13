@@ -1,0 +1,215 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+          
+}
+.login{
+    background-color: #002F60;
+    border: 5px;
+    color: #ffd300;
+    border-color: black;
+    border-style: ridge;
+    text-align: center;
+}
+
+#topBanner{
+    background-color: #002F60;
+    color: #000000;
+    padding: 10px 5px 10px 10px;
+    text-align: center;
+    align-items: center;
+    justify-content: left;
+    display: block;
+    margin-top: -15px;
+    margin-left: -10px;
+    width: 100%;
+    height: 100vh;
+    max-height: 130px;
+    
+}
+
+#flindersLogo{
+    display: block;
+    float: left;
+}
+
+#imgLogo{
+    height: 120px;
+    width: 400px;
+}
+
+#title{
+    width: 90%; 
+    text-align: center;    
+    color: #ffD300;
+    padding-top: 80px;
+
+}
+
+#UserDetails{
+  position: absolute;
+   top: 83px;
+   right: 106px;
+   color: #ffD300;
+}
+
+
+#logoutButton{
+    position: absolute;
+    right: 10px;
+    top: 106px;
+    align-items: center;
+}
+
+#logButton{
+    background-color: #ffD300;
+    padding: 10px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #002F60;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;  
+}
+#logButton:hover{
+    background-color: #555555;
+    color: white;
+}
+
+.sidebar {
+  list-style-type: none;
+  margin-left: -10px;
+  margin-top: -0px;
+  padding: 0;
+  width: 200px;
+  background-color: #002F60;
+  height: 100vh;
+  position: fixed;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: #ffD300;
+  padding: 15px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Change the link and background color on hover */
+.sidebar a:hover {
+  background-color: #555555;
+  color: white;
+}
+
+.sidebar .active {
+  background-color: #ffD300;
+  color: #002F60;
+}
+
+main{
+    position: relative;
+    margin-left: 200px;
+}
+#Header{
+    text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  max-width: 50px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+tr:hover {background-color: #ddd;}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #002F60;
+  color: #ffD300;
+}
+
+.button{
+    padding: 10px 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffD300;
+    border: none;
+    border-radius: 5px;
+    background-color: #002F60;
+    cursor: pointer;   
+}
+.currentMailbox{
+    text-align: center;
+    text-decoration: underline;
+    padding-top: 10px;
+
+}
+#outbox{
+    display: none;
+}
+#sendMessage{
+    display: none;
+}
+
+#messageForm{
+    justify-content: center;
+    font-weight: bold;
+    padding: 30px;
+    margin: auto;
+    width: 400px;
+    border: 4px solid #002F60;
+    border-radius: 5px;
+    display: flex;
+        
+}
+
+.form-card {
+
+    min-height: 250px;
+    text-align: left;
+
+}
+
+.form-item{
+
+    padding: 10px;
+    
+    border: 1px solid #373434;
+    border-radius: 5px;
+    display: block;
+    width: 300px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+#submitButtons{
+    margin-right: 100px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-section{
+    padding-bottom: 20px;
+}
+#charNum{
+    font-weight: normal;
+    font-size: 12px;
+    color: grey;
+    float: right;
+    padding-top: 5px;
+}
+#profileLink{
+    color: #ffD300;
+    text-decoration: none;
+}

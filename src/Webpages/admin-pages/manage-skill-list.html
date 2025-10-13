@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Author" content="Liam Maney">
+    <title>Admin Dashboard - Manage Skills</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <div id="topBanner">
+        <div id="flindersLogo">
+            <img id="imgLogo" src="./images/Logo_Flinders_white.png" alt="Logo for Flinders University">
+        </div>
+        <div id="title">
+            <header>
+                <h1>Flinders University Skill Share</h1>
+            </header>
+        </div>
+        <div id="logoutButton">
+            <input id="logButton" class="button" type="button"
+                   onclick="location.href='../loginPages/logout.php';" value="Logout">
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sideBar">
+        <ul class="sidebar">
+            <li><a href="admin-dashboard.html">Home</a></li>
+            <li><a href="view-students.php">View Students</a></li>
+            <li><a class="active" href="manage-skill-list.html">Manage Skill List</a></li>
+            <li><a href="../student-homepage.php">Student Homepage</a></li>
+        </ul>
+    </div>
+
+    <!-- Main content -->
+    <div class="mainContent">
+
+        <!-- Manage Skills -->
+        <button type="button" class="collapsible">Manage Skill List</button>
+        <div class="content">
+            <form id="addSkillForm">
+                <label for="skillName">Skill Name:</label>
+                <input type="text" id="skillName" name="skillName" required autocomplete="off">
+                <button type="submit">Add Skill</button>
+            </form>
+            <p id="skillMessage"></p>
+
+            <h3>Skills List</h3>
+            <table id="skillTable">
+                <thead>
+                    <tr>
+                        <th>Skill</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="skillBody"></tbody>
+            </table>
+        </div>
+
+        <!-- Manage Categories -->
+        <button type="button" class="collapsible">Manage Skill Categories</button>
+        <div class="content">
+            <form id="addCategoryForm">
+                <label for="categoryName">Category Name:</label>
+                <input type="text" id="categoryName" name="categoryName" required autocomplete="off">
+                <button type="submit">Add Category</button>
+            </form>
+            <p id="categoryMessage"></p>
+
+            <h3>Category List</h3>
+            <table id="categoryTable">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th># of Skills</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="categoryBody"></tbody>
+            </table>
+        </div>
+
+        <!-- Manage Degrees -->
+        <button type="button" class="collapsible">Manage Degree</button>
+        <div class="content">
+            <form id="addDegreeForm">
+                <label for="degreeName">Degree Name:</label>
+                <input type="text" id="degreeName" name="degreeName" required autocomplete="off">
+                <button type="submit">Add Degree</button>
+            </form>
+            <p id="degreeMessage"></p>
+
+            <h3>Degree List</h3>
+            <table id="degreeTable">
+                <thead>
+                    <tr>
+                        <th>Degree</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="degreeBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+<script>
+// --- Collapsible sections ---
+document.querySelectorAll('.collapsible').forEach(btn => {
+    btn.addEventListener('click', () => {
+        btn.classList.toggle('active');
+        const content = btn.nextElementSibling;
+        content.classList.toggle('show');
+    });
+});
+
+// --- Skills Section ---
+const skillForm = document.getElementById('addSkillForm');
+const skillMessage = document.getElementById('skillMessage');
+const skillBody = document.getElementById('skillBody');
+
+function loadSkills() {
+    fetch('skill-data.php?action=fetch')
+        .then(res => res.json())
+        .then(data => {
+            skillBody.innerHTML = '';
+            data.skills.forEach(skill => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${skill.skillName}</td>
+                    <td><button class="deleteSkill">Delete</button></td>
+                `;
+                row.querySelector('.deleteSkill').addEventListener('click', () => {
+                    if (confirm(`Are you sure you want to delete skill "${skill.skillName}"?`)) {
+                        fetch('skill-data.php', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                            body: `action=delete&skill=${encodeURIComponent(skill.skillName)}`
+                        })
+                        .then(res => res.json())
+                        .then(resp => {
+                            skillMessage.textContent = resp.message;
+                            loadSkills();
+                        });
+                    }
+                });
+                skillBody.appendChild(row);
+            });
+        });
+}
+
+skillForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const skillName = document.getElementById('skillName').value.trim();
+    if (!skillName) {
+        skillMessage.textContent = "Please enter a skill name.";
+        return;
+    }
+    fetch('skill-data.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `action=add&skillName=${encodeURIComponent(skillName)}`
+    })
+    .then(res => res.json())
+    .then(data => {
+        skillMessage.textContent = data.message;
+        if (data.success) skillForm.reset();
+        loadSkills();
+    });
+});
+loadSkills();
+
+// --- Categories Section ---
+const categoryForm = document.getElementById('addCategoryForm');
+const categoryMessage = document.getElementById('categoryMessage');
+const categoryBody = document.getElementById('categoryBody');
+
+function loadCategories() {
+    fetch('category-data.php?action=fetch')
+        .then(res => res.json())
+        .then(data => {
+            categoryBody.innerHTML = '';
+            data.categories.forEach(cat => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${cat.category}</td>
+                    <td>${cat.count}</td>
+                    <td><button class="deleteCat">Delete</button></td>
+                `;
+                row.querySelector('.deleteCat').addEventListener('click', () => {
+                    if (confirm(`Delete category "${cat.category}"?`)) {
+                        fetch('category-data.php', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                            body: `action=delete&category=${encodeURIComponent(cat.category)}`
+                        })
+                        .then(res => res.json())
+                        .then(resp => {
+                            categoryMessage.textContent = resp.message;
+                            loadCategories();
+                        });
+                    }
+                });
+                categoryBody.appendChild(row);
+            });
+        });
+}
+
+categoryForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const categoryName = document.getElementById('categoryName').value.trim();
+    if (!categoryName) {
+        categoryMessage.textContent = "Please enter a category name.";
+        return;
+    }
+    fetch('category-data.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `action=add&categoryName=${encodeURIComponent(categoryName)}`
+    })
+    .then(res => res.json())
+    .then(data => {
+        categoryMessage.textContent = data.message;
+        if (data.success) categoryForm.reset();
+        loadCategories();
+    });
+});
+loadCategories();
+
+// --- Degrees Section ---
+const degreeForm = document.getElementById('addDegreeForm');
+const degreeMessage = document.getElementById('degreeMessage');
+const degreeBody = document.getElementById('degreeBody');
+
+function loadDegree() {
+    fetch('degree-data.php?action=fetch')
+        .then(res => res.json())
+        .then(data => {
+            degreeBody.innerHTML = '';
+            data.degree.forEach(deg => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${deg.degree}</td>
+                    <td><button class="deleteDegree">Delete</button></td>
+                `;
+                row.querySelector('.deleteDegree').addEventListener('click', () => {
+                    if (confirm(`Delete degree "${deg.degree}"?`)) {
+                        fetch('degree-data.php', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                            body: `action=delete&degree=${encodeURIComponent(deg.degree)}`
+                        })
+                        .then(res => res.json())
+                        .then(resp => {
+                            degreeMessage.textContent = resp.message;
+                            loadDegree();
+                        });
+                    }
+                });
+                degreeBody.appendChild(row);
+            });
+        });
+}
+
+degreeForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const degreeName = document.getElementById('degreeName').value.trim();
+    if (!degreeName) {
+        degreeMessage.textContent = "Please enter a degree name.";
+        return;
+    }
+    fetch('degree-data.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `action=add&degreeName=${encodeURIComponent(degreeName)}`
+    })
+    .then(res => res.json())
+    .then(data => {
+        degreeMessage.textContent = data.message;
+        if (data.success) degreeForm.reset();
+        loadDegree();
+    });
+});
+loadDegree();
+</script>
+</body>
+</html>
