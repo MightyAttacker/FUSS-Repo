@@ -84,23 +84,26 @@ if (isset($_GET['search'])) {
     <script src="viewStudents.js"></script>
 </head>
 <body>
-    <div class="header">
-        <img id="logo" src="../admin-pages/images/Logo_Flinders_white.png" alt="Flinders University Logo">
-        <div class="userprofile">
-            <img id="userIcon" src="../<?php echo $imagePath ?>" alt="User Icon">
-            <p><?php echo 'Welcome ' . $firstName . '!' ?></p>
-            <a href="../loginPages/logout.php"><button id="logOutButton">Log out</button></a>
-        </div>
-        
+  <div id="topBanner">
+    <div id="flindersLogo">
+      <img id="imgLogo" src="./images/Logo_Flinders_white.png" alt="Logo for Flinders University" id="flindersLogo">
     </div>
+    <div id="title">
+      <header>
+        <h1>Flinders University Skill Share</h1>
+      </header>
+    </div>
+    <div id="logoutButton">
+      <input id="logButton" class="button" type="button" onclick="location.href='../loginPages/logout.php';"
+        value="Logout" />
+    </div>
+  </div>
 
     <div id="sideBar">
     <ul class="sidebar">
             <li><a href="admin-dashboard.html">Home</a></li>
-            <li><a href="profile.html">Profile</a></li>
             <li><a class="active" href="view-students.php">View Students</a></li>
             <li><a href="manage-skill-list.html">Manage Skill List</a></li>
-            <li><a href="view-reports.html">View Reports</a></li>
             <li><a href="../student-homepage.php">Student Homepage</a></li>
         </ul>
   </div>

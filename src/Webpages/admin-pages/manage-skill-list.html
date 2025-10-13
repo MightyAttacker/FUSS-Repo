@@ -8,11 +8,18 @@
 </head>
 <body>
     <!-- Header -->
-    <div class="header">
-        <img id="logo" src="../admin-pages/images/Logo_Flinders_white.png" alt="Flinders University Logo">
-        <div class="userprofile">
-            
-            <a href="../loginPages/logout.php"><button>Log out</button></a>
+    <div id="topBanner">
+        <div id="flindersLogo">
+            <img id="imgLogo" src="./images/Logo_Flinders_white.png" alt="Logo for Flinders University">
+        </div>
+        <div id="title">
+            <header>
+                <h1>Flinders University Skill Share</h1>
+            </header>
+        </div>
+        <div id="logoutButton">
+            <input id="logButton" class="button" type="button"
+                   onclick="location.href='../loginPages/logout.php';" value="Logout">
         </div>
     </div>
 
@@ -21,7 +28,7 @@
         <ul class="sidebar">
             <li><a href="admin-dashboard.html">Home</a></li>
             <li><a href="view-students.php">View Students</a></li>
-            <li><a class="active" href="manage-skill-list.html">Manage Skill List</a></li>           
+            <li><a class="active" href="manage-skill-list.html">Manage Skill List</a></li>
             <li><a href="../student-homepage.php">Student Homepage</a></li>
         </ul>
     </div>
@@ -37,7 +44,7 @@
                 <input type="text" id="skillName" name="skillName" required autocomplete="off">
                 <button type="submit">Add Skill</button>
             </form>
-            <p id="message"></p>
+            <p id="skillMessage"></p>
 
             <h3>Skills List</h3>
             <table id="skillTable">
@@ -66,7 +73,7 @@
                 <thead>
                     <tr>
                         <th>Category</th>
-                        <th># of skills</th>
+                        <th># of Skills</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -95,45 +102,45 @@
                 <tbody id="degreeBody"></tbody>
             </table>
         </div>
-
     </div>
 
 <script>
-/* Collapsible sections */
+// --- Collapsible sections ---
 document.querySelectorAll('.collapsible').forEach(btn => {
     btn.addEventListener('click', () => {
         btn.classList.toggle('active');
         const content = btn.nextElementSibling;
-        content.classList.toggle('show'); // Use CSS class
+        content.classList.toggle('show');
     });
 });
 
-        function loadSkills() {
-            fetch('skill-data.php?action=fetch')
-                .then(res => res.json())
-                .then(data => {
-                    skillBody.innerHTML = '';
-                    data.skills.forEach(skills => {
-                        const row = document.createElement('tr');
+// --- Skills Section ---
+const skillForm = document.getElementById('addSkillForm');
+const skillMessage = document.getElementById('skillMessage');
+const skillBody = document.getElementById('skillBody');
 
-                        row.innerHTML = `
-                            <td>${skills.skillName}</td>
-                            <td><button class="deleteSkill">Delete</button></td>
-                        `;
-                        //delete skill
-                        row.querySelector('.deleteSkill').addEventListener('click', () => {
-                            if(confirm(`Are you sure you want to delete skill "${skills.skillName}"?`)) {
-                                fetch('skill-data.php', {
-                                    method: 'POST',
-                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                                    body: `action=delete&skill=${encodeURIComponent(skills.skillName)}`
-                                })
-                                .then(res => res.json())
-                                .then(resp => {
-                                    skillMessage.textContent = resp.message;
-                                    loadSkills();
-                                });
-                            }
+function loadSkills() {
+    fetch('skill-data.php?action=fetch')
+        .then(res => res.json())
+        .then(data => {
+            skillBody.innerHTML = '';
+            data.skills.forEach(skill => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${skill.skillName}</td>
+                    <td><button class="deleteSkill">Delete</button></td>
+                `;
+                row.querySelector('.deleteSkill').addEventListener('click', () => {
+                    if (confirm(`Are you sure you want to delete skill "${skill.skillName}"?`)) {
+                        fetch('skill-data.php', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                            body: `action=delete&skill=${encodeURIComponent(skill.skillName)}`
+                        })
+                        .then(res => res.json())
+                        .then(resp => {
+                            skillMessage.textContent = resp.message;
+                            loadSkills();
                         });
                     }
                 });
@@ -142,46 +149,53 @@ document.querySelectorAll('.collapsible').forEach(btn => {
         });
 }
 
-skillForm.addEventListener('submit', e=>{
+skillForm.addEventListener('submit', e => {
     e.preventDefault();
     const skillName = document.getElementById('skillName').value.trim();
-    if(!skillName) { skillMessage.textContent="Please enter a skill name."; return; }
-    fetch('skill-data.php',{
-        method:'POST',
-        headers:{'Content-Type':'application/x-www-form-urlencoded'},
-        body:`action=add&skillName=${encodeURIComponent(skillName)}`
+    if (!skillName) {
+        skillMessage.textContent = "Please enter a skill name.";
+        return;
+    }
+    fetch('skill-data.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `action=add&skillName=${encodeURIComponent(skillName)}`
     })
-    .then(res=>res.json())
-    .then(data=>{
+    .then(res => res.json())
+    .then(data => {
         skillMessage.textContent = data.message;
-        if(data.success) skillForm.reset();
+        if (data.success) skillForm.reset();
         loadSkills();
     });
 });
 loadSkills();
 
-/* Categories Section */
+// --- Categories Section ---
 const categoryForm = document.getElementById('addCategoryForm');
 const categoryMessage = document.getElementById('categoryMessage');
 const categoryBody = document.getElementById('categoryBody');
 
 function loadCategories() {
     fetch('category-data.php?action=fetch')
-        .then(res=>res.json())
-        .then(data=>{
+        .then(res => res.json())
+        .then(data => {
             categoryBody.innerHTML = '';
-            data.categories.forEach(cat=>{
+            data.categories.forEach(cat => {
                 const row = document.createElement('tr');
-                row.innerHTML = `<td>${cat.category}</td><td>${cat.count}</td><td><button class="deleteCat">Delete</button></td>`;
-                row.querySelector('.deleteCat').addEventListener('click', ()=>{
-                    if(confirm(`Delete category "${cat.category}"?`)) {
-                        fetch('category-data.php',{
-                            method:'POST',
-                            headers:{'Content-Type':'application/x-www-form-urlencoded'},
-                            body:`action=delete&category=${encodeURIComponent(cat.category)}`
+                row.innerHTML = `
+                    <td>${cat.category}</td>
+                    <td>${cat.count}</td>
+                    <td><button class="deleteCat">Delete</button></td>
+                `;
+                row.querySelector('.deleteCat').addEventListener('click', () => {
+                    if (confirm(`Delete category "${cat.category}"?`)) {
+                        fetch('category-data.php', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                            body: `action=delete&category=${encodeURIComponent(cat.category)}`
                         })
-                        .then(res=>res.json())
-                        .then(resp=>{
+                        .then(res => res.json())
+                        .then(resp => {
                             categoryMessage.textContent = resp.message;
                             loadCategories();
                         });
@@ -192,46 +206,52 @@ function loadCategories() {
         });
 }
 
-categoryForm.addEventListener('submit', e=>{
+categoryForm.addEventListener('submit', e => {
     e.preventDefault();
     const categoryName = document.getElementById('categoryName').value.trim();
-    if(!categoryName) { categoryMessage.textContent="Please enter a category name."; return; }
-    fetch('category-data.php',{
-        method:'POST',
-        headers:{'Content-Type':'application/x-www-form-urlencoded'},
-        body:`action=add&categoryName=${encodeURIComponent(categoryName)}`
+    if (!categoryName) {
+        categoryMessage.textContent = "Please enter a category name.";
+        return;
+    }
+    fetch('category-data.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `action=add&categoryName=${encodeURIComponent(categoryName)}`
     })
-    .then(res=>res.json())
-    .then(data=>{
+    .then(res => res.json())
+    .then(data => {
         categoryMessage.textContent = data.message;
-        if(data.success) categoryForm.reset();
+        if (data.success) categoryForm.reset();
         loadCategories();
     });
 });
 loadCategories();
 
-/* Degrees Section */
+// --- Degrees Section ---
 const degreeForm = document.getElementById('addDegreeForm');
 const degreeMessage = document.getElementById('degreeMessage');
 const degreeBody = document.getElementById('degreeBody');
 
 function loadDegree() {
     fetch('degree-data.php?action=fetch')
-        .then(res=>res.json())
-        .then(data=>{
+        .then(res => res.json())
+        .then(data => {
             degreeBody.innerHTML = '';
-            data.degree.forEach(degree=>{
+            data.degree.forEach(deg => {
                 const row = document.createElement('tr');
-                row.innerHTML = `<td>${degree.degree}</td><td><button class="deleteDegree">Delete</button></td>`;
-                row.querySelector('.deleteDegree').addEventListener('click', ()=>{
-                    if(confirm(`Delete degree "${degree.degree}"?`)) {
-                        fetch('degree-data.php',{
-                            method:'POST',
-                            headers:{'Content-Type':'application/x-www-form-urlencoded'},
-                            body:`action=delete&degree=${encodeURIComponent(degree.degree)}`
+                row.innerHTML = `
+                    <td>${deg.degree}</td>
+                    <td><button class="deleteDegree">Delete</button></td>
+                `;
+                row.querySelector('.deleteDegree').addEventListener('click', () => {
+                    if (confirm(`Delete degree "${deg.degree}"?`)) {
+                        fetch('degree-data.php', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                            body: `action=delete&degree=${encodeURIComponent(deg.degree)}`
                         })
-                        .then(res=>res.json())
-                        .then(resp=>{
+                        .then(res => res.json())
+                        .then(resp => {
                             degreeMessage.textContent = resp.message;
                             loadDegree();
                         });
@@ -242,19 +262,22 @@ function loadDegree() {
         });
 }
 
-degreeForm.addEventListener('submit', e=>{
+degreeForm.addEventListener('submit', e => {
     e.preventDefault();
     const degreeName = document.getElementById('degreeName').value.trim();
-    if(!degreeName){ degreeMessage.textContent="Please enter a degree name."; return; }
-    fetch('degree-data.php',{
-        method:'POST',
-        headers:{'Content-Type':'application/x-www-form-urlencoded'},
-        body:`action=add&degreeName=${encodeURIComponent(degreeName)}`
+    if (!degreeName) {
+        degreeMessage.textContent = "Please enter a degree name.";
+        return;
+    }
+    fetch('degree-data.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `action=add&degreeName=${encodeURIComponent(degreeName)}`
     })
-    .then(res=>res.json())
-    .then(data=>{
+    .then(res => res.json())
+    .then(data => {
         degreeMessage.textContent = data.message;
-        if(data.success) degreeForm.reset();
+        if (data.success) degreeForm.reset();
         loadDegree();
     });
 });
