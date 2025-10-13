@@ -172,7 +172,7 @@ $getUserBioStmt->close();
             <li> <a href="./PeerFeedback.php">Peer Reviews</a> </li>
             <li> <a class="active" href="./studentProfile.php">My Profile</a> </li>
             <li> <a href="./creditHistory.php">Credit History</a> </li>
-            <?php if ($getUserAdmin == 1) echo '<li> <a href="./admin-pages/admin-dashboard.html">Admin Dashboard</a> </li>' ?>
+            <?php if ($isAdmin == 1) echo '<li> <a href="./admin-pages/admin-dashboard.html">Admin Dashboard</a> </li>' ?>
     </ul>
   </div>
 
@@ -202,7 +202,7 @@ $getUserBioStmt->close();
                                     <h3 id="name" class="profileItem"> Name: <?php echo $firstName . " " . $lastName ?>
                                     </h3>
                                     <button type="button" class="collapsible" onclick="">Edit Name</button>
-                                    <div class="content" style="display:<?php echo ($isAdmin == 1) ? 'block' : 'none'; ?>">
+                                    <div class="content" >
 
                                         <label for="firstName">First Name:</label>
                                         <input type="text" id="firstName" name="firstName"
@@ -220,7 +220,7 @@ $getUserBioStmt->close();
                                     <h3 id="adademicYear" class="profileItem"> Academic Year: <?php echo $userYear ?>
                                     </h3>
                                     <button type="button" class="collapsible" onclick="">Edit Academic Year</button>
-                                    <div class="content" style="display:<?php echo ($isAdmin == 1) ? 'block' : 'none'; ?>">
+                                    <div class="content" >
                                         <label for="academicYear">Academic Year:</label>
 
                                         <input type="number" id="academicYear" name="academicYear" min="1" max="10"
@@ -228,21 +228,6 @@ $getUserBioStmt->close();
 
                                         <button href="updateProfile.php" type="submit" class="button"
                                             name="updateYear">Update Year</button>
-                                    </div>
-                                </form>
-                                <form action="updateProfile.php" method="post" id="editAvailabilityForm">
-                                    <h3 id="availability" class="profileItem"> General Availability: <?php echo $userAvailability ?>
-                                    </h3>
-                                    <button type="button" class="collapsible" onclick="">Edit General Availability</button>
-                                    <div class="content">
-                                        <label for="academicYear">General Availability:</label>
-
-                                        <textarea id="availability" name="availability" rows="4" cols="25" maxlength="255"
-                                            onkeyup="limitText(this,255)"
-                                            value="<?php echo htmlspecialchars($userAvailability); ?>" required></textarea>
-
-                                        <button href="updateProfile.php" type="submit" class="button"
-                                            name="updateAvailability">Update Availability</button>
                                     </div>
                                 </form>
                             </div>
@@ -270,7 +255,7 @@ $getUserBioStmt->close();
                                     <h3 id="college" class="profileItem"> College: <?php echo $userCollege ?></h3>
 
                                     <button type="button" class="collapsible" onclick="" >Edit College</button>
-                                    <div class="content" style="display:<?php echo ($isAdmin == 1) ? 'block' : 'none'; ?>">
+                                    <div class="content" >
                                         <label for="college">College:</label>
 
                                         <input type="text" id="college" name="college"
@@ -285,7 +270,7 @@ $getUserBioStmt->close();
                                     <h3 id="BioTitle" class="profileItem"> Bio</h3>
                                     <p id="bioText" class="profileItem"> <?php echo $userBio ?> </p>
                                     <button type="button" class="collapsible" onclick="" >Edit Bio</button>
-                                    <div class="content" style="display:<?php echo ($isAdmin == 1) ? 'block' : 'none'; ?>">
+                                    <div class="content" >
                                         <label for="bio">Bio:</label><span id="charNum"></span>
 
                                         <textarea id="bio" name="bio" rows="4" cols="25" maxlength="255"
@@ -312,7 +297,7 @@ $getUserBioStmt->close();
                                 <?php
                                 $userAcademicSkills = [];
                                 // Fetch the user's academic skills from the database
-                                $getAcademicSkillsStmt = $conn->prepare('SELECT userSkills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=1 AND userskills.id=?');
+                                $getAcademicSkillsStmt = $conn->prepare('SELECT userskills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=1 AND userskills.id=?');
                                 $getAcademicSkillsStmt->bind_param('i', $id);
                                 $getAcademicSkillsStmt->execute();
                                 $academicSkills = $getAcademicSkillsStmt->get_result();
@@ -390,7 +375,7 @@ $getUserBioStmt->close();
                                 <?php
                                 $userOtherSkills = [];
                                 // Fetch the user's other skills from the database
-                                $getOtherSkillsStmt = $conn->prepare('SELECT userSkills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=0 AND userskills.id=?');
+                                $getOtherSkillsStmt = $conn->prepare('SELECT userskills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=0 AND userskills.id=?');
                                 $getOtherSkillsStmt->bind_param('i', $id);
                                 $getOtherSkillsStmt->execute();
                                 $otherSkills = $getOtherSkillsStmt->get_result();
@@ -462,7 +447,7 @@ $getUserBioStmt->close();
                                 <?php
                                 $userRequestedSkills = [];
                                 // Fetch the user's requested skills from the database
-                                $getRequestedSkillsStmt = $conn->prepare('SELECT skillName FROM userRequestedSkills WHERE id=?');
+                                $getRequestedSkillsStmt = $conn->prepare('SELECT skillName FROM userrequestedskills WHERE id=?');
                                 $getRequestedSkillsStmt->bind_param('i', $id);
                                 $getRequestedSkillsStmt->execute();
                                 $requestedSkills = $getRequestedSkillsStmt->get_result();

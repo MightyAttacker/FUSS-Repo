@@ -178,11 +178,11 @@ if (isset($_GET['search'])) {
                 <button class="button" type="submit">Update</button>
             </form>
           </td>';
-                    echo '<td>' . htmlspecialchars($student['last_active']) . '</td>';
+                    echo '<td>' . htmlspecialchars($student['last_active'] ?? '') . '</td>';
                            
                     echo '<td><a href="../studentProfile.php?id=' . $student['id'] . '">View Profile</a></td>';
                     echo '<td>'. htmlspecialchars($student['adminType']) . '</td>';
-                    echo '<td>'. htmlspecialchars($student['accountStatus']) . " " . htmlspecialchars($student['SuspendedUntil']). '</td>';
+                    echo '<td>'. htmlspecialchars($student['accountStatus'] ?? '') . " " . htmlspecialchars($student['SuspendedUntil'] ?? ''). '</td>';
                     echo '<td> 
             <form action="suspendUser.php" method="post" style="display:inline;">
                 <input type="date" id="suspendDate" name="suspendDate">

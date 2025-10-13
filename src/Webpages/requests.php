@@ -117,7 +117,7 @@ $getUserAdminStmt->close();
           DATE_FORMAT(proposedDate, '%T %d/%m/%Y') AS formattedProposedDate, 
           DATE_FORMAT(created,'%T %d/%m/%Y') AS formattedCreated 
           FROM user_requestbox 
-          INNER JOIN requestBox ON requestBox.id = user_requestbox.requestbox_id 
+          INNER JOIN requestbox ON requestbox.id = user_requestbox.requestbox_id 
           INNER JOIN userdata ON userdata.id = user_requestbox.user
           WHERE user_requestbox.user =? AND user_requestbox.requestBoxType = 'In' 
           ORDER BY created DESC;");
@@ -206,7 +206,7 @@ $getUserAdminStmt->close();
            DATE_FORMAT(proposedDate, '%T %d/%m/%Y') AS formattedProposedDate, 
            DATE_FORMAT(created,'%T %d/%m/%Y') AS formattedCreated 
            FROM user_requestbox 
-           INNER JOIN requestBox ON requestBox.id = user_requestbox.requestbox_id 
+           INNER JOIN requestbox ON requestbox.id = user_requestbox.requestbox_id 
            INNER JOIN userdata ON userdata.id = user_requestbox.user
            WHERE user_requestbox.user =? AND user_requestbox.requestBoxType = 'Out' 
            ORDER BY created DESC;");

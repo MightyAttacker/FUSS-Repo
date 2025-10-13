@@ -185,7 +185,7 @@ $getUserAdminStmt->close();
 
           <?php
           // Fetch the user's academic skills from the database
-          $getAcademicSkillsStmt = $conn->prepare('SELECT userSkills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=1 AND userskills.id=?');
+          $getAcademicSkillsStmt = $conn->prepare('SELECT userskills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=1 AND userskills.id=?');
           $getAcademicSkillsStmt->bind_param('i', $uid);
           $getAcademicSkillsStmt->execute();
           $academicSkills = $getAcademicSkillsStmt->get_result();
@@ -205,7 +205,7 @@ $getUserAdminStmt->close();
 
           <?php
           // Fetch the user's other skills from the database
-          $getOtherSkillsStmt = $conn->prepare('SELECT userSkills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=0 AND userskills.id=?');
+          $getOtherSkillsStmt = $conn->prepare('SELECT userskills.skillName FROM userskills INNER JOIN skills ON userskills.skillName = skills.skillName WHERE skills.academic=0 AND userskills.id=?');
           $getOtherSkillsStmt->bind_param('i', $uid);
           $getOtherSkillsStmt->execute();
           $otherSkills = $getOtherSkillsStmt->get_result();
@@ -224,7 +224,7 @@ $getUserAdminStmt->close();
           <h3> Skills Requested: </h3>
           <?php
           // Fetch the user's other skills from the database
-          $getRequestedSkillsStmt = $conn->prepare('SELECT skillName FROM userRequestedSkills WHERE id=?');
+          $getRequestedSkillsStmt = $conn->prepare('SELECT skillName FROM userrequestedskills WHERE id=?');
           $getRequestedSkillsStmt->bind_param('i', $uid);
           $getRequestedSkillsStmt->execute();
           $requestedSkills = $getRequestedSkillsStmt->get_result();
