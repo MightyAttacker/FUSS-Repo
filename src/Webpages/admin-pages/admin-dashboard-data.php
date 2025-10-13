@@ -1,63 +1,84 @@
 <?php
+session_start();
 include '../../inc/dbconn.inc.php';
 header('Content-Type: application/json');
 
+// Make sure user is logged in
+if (!isset($_SESSION['id'])) {
+    echo json_encode(['error' => 'User not logged in']);
+    exit();
+}
 
+$id = $_SESSION['id'];
 
-// Initialize response array
+// --- Fetch logged-in user info ---
+$getUserStmt = $conn->prepare('SELECT firstName, credits, admin FROM userdata WHERE id = ?');
+$getUserStmt->bind_param('i', $id);
+$getUserStmt->execute();
+$result = $getUserStmt->get_result();
+$userData = $result->fetch_assoc();
+$getUserStmt->close();
+
+$loggedFirstName = $userData['firstName'];
+$loggedUserCredits = $userData['credits'];
+$isAdmin = $userData['admin'];
+
+// --- Initialize response ---
 $response = [
-    'totalUsers' => null,
-    'activeUsers' => null,
+    'loggedFirstName' => $loggedFirstName,
+    'loggedUserCredits' => $loggedUserCredits,
+    'isAdmin' => $isAdmin,
+    'totalUsers' => 0,
+    'activeUsers' => 0,
     'services' => [],
-    'totalCredits' => null,
+    'totalCredits' => 0,
     'FUSScreditDistribution' => [],
     'topSkills' => []
 ];
 
-// Get total users
+// --- Total users ---
 $totalResult = mysqli_query($conn, "SELECT COUNT(*) AS total FROM userdata");
 if ($totalResult) {
-    $totalRow = mysqli_fetch_assoc($totalResult);
-    $response['totalUsers'] = $totalRow['total'];
+    $response['totalUsers'] = (int)mysqli_fetch_assoc($totalResult)['total'];
 }
 
-// Get active users in last 30 days
+// --- Active users last 30 days ---
 $activeResult = mysqli_query($conn, "SELECT COUNT(*) AS active FROM userdata WHERE last_active >= CURDATE() - INTERVAL 30 DAY");
 if ($activeResult) {
-    $activeRow = mysqli_fetch_assoc($activeResult);
-    $response['activeUsers'] = $activeRow['active'];
+    $response['activeUsers'] = (int)mysqli_fetch_assoc($activeResult)['active'];
 }
-// get services and their statuses
-$services = [];
-$servicesResult = mysqli_query($conn, "SELECT skillName, status FROM skills LIMIT 10");
-while($row = mysqli_fetch_assoc($servicesResult)) {
-  $services[] = $row;
-}
- $response['services'] = $services;
 
- //FUSScredit Distribution
+// --- Services (limit 10) ---
+$servicesResult = mysqli_query($conn, "SELECT skillName, status FROM skills LIMIT 10");
+while ($row = mysqli_fetch_assoc($servicesResult)) {
+    $response['services'][] = $row;
+}
+
+// --- FUSS Credit Distribution ---
 $creditDistribution = [];
 $distributionResult = mysqli_query($conn, "SELECT id, credits FROM userdata ORDER BY credits DESC");
 $totalCreditsResult = mysqli_query($conn, "SELECT SUM(credits) AS total FROM userdata");
 
 $totalCreditsRow = mysqli_fetch_assoc($totalCreditsResult);
-$totalCredits = $totalCreditsRow['total'];
-
-while($row = mysqli_fetch_assoc($distributionResult)) {
-    $creditDistribution[] = $row;
-}
-
+$totalCredits = (int)$totalCreditsRow['total'];
 $response['totalCredits'] = $totalCredits;
+
+while ($row = mysqli_fetch_assoc($distributionResult)) {
+    $creditDistribution[] = [
+        'id' => $row['id'],
+        'credits' => (int)$row['credits']
+    ];
+}
 $response['FUSScreditDistribution'] = $creditDistribution;
 
-//get top 5 skills and their counts
-$skills = [];
+// --- Top 5 Skills ---
 $skillsResult = mysqli_query($conn, "SELECT skillName, COUNT(*) AS count FROM userskills GROUP BY skillName ORDER BY count DESC LIMIT 5");
-while($row = mysqli_fetch_assoc($skillsResult)) {
-    $skills[] = $row;
+while ($row = mysqli_fetch_assoc($skillsResult)) {
+    $response['topSkills'][] = [
+        'skillName' => $row['skillName'],
+        'count' => (int)$row['count']
+    ];
 }
-$response['topSkills'] = $skills;
 
-// Return JSON response
-echo json_encode($response);
-?>
+// --- Return JSON ---
+echo json_encode($response, JSON_PRETTY_PRINT);
