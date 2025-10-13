@@ -9,7 +9,7 @@ FETCH SKILLS
 */
 if(isset($_GET['action']) && $_GET['action'] === 'fetch') {
     $skills = [];
-    $result = mysqli_query($conn, "SELECT skill, academic FROM skills ORDER BY skill ASC");
+    $result = mysqli_query($conn, "SELECT skillName FROM skills ORDER BY skillName ASC");
     while($row = mysqli_fetch_assoc($result)) {
         $skills[] = $row;
     }
@@ -34,8 +34,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['skillName'])) {
     if($count > 0) {
         $response['message'] = "Error: Skill already exists.";
     } else {
-        $stmt = $conn->prepare("INSERT INTO skills (skill) VALUES ?");
-        $stmt->bind_param("si", $skillName);
+        $stmt = $conn->prepare("INSERT INTO skills (skillName) VALUES ?");
+        $stmt->bind_param("s", $skillName);
         if($stmt->execute()) {
             $response['success'] = true;
             $response['message'] = "Skill added successfully.";
@@ -57,7 +57,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['skillName'])) {
 if(isset($_POST['action']) && $_POST['action'] === 'delete' && !empty($_POST['skill'])) {
     $skillToDelete = trim($_POST['skill']);
 
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM userskills WHERE skill = ?");
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM userskills WHERE skillName = ?");
     $stmt->bind_param("s", $skillToDelete);
     $stmt->execute();
     $stmt->bind_result($count);
@@ -67,7 +67,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'delete' && !empty($_POST['sk
     if($count > 0) {
         $response['message'] = "Error: Skill is in use and cannot be deleted.";
     } else {
-        $stmt = $conn->prepare("DELETE FROM skills WHERE skill = ?");
+        $stmt = $conn->prepare("DELETE FROM skills WHERE skillName = ?");
         $stmt->bind_param("s", $skillToDelete);
         if($stmt->execute()) {
             $response['success'] = true;

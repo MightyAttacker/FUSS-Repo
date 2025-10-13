@@ -29,7 +29,7 @@ if ($activeResult) {
 }
 // get services and their statuses
 $services = [];
-$servicesResult = mysqli_query($conn, "SELECT skills FROM services");
+$servicesResult = mysqli_query($conn, "SELECT skillName, status FROM skills LIMIT 10");
 while($row = mysqli_fetch_assoc($servicesResult)) {
   $services[] = $row;
 }
