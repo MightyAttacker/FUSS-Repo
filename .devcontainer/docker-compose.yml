@@ -8,7 +8,7 @@ services:
       - ../src:/var/www/html
       - ./apache-config.conf:/etc/apache2/sites-available/000-default.conf
     ports:
-      - "8010:80"
+      - "8080:80"
     depends_on:
       - db 
     environment:
@@ -26,9 +26,7 @@ services:
       MYSQL_DATABASE: web_dev_db
     volumes:
       - db_data:/var/lib/mysql
-    ports:
-      - "4000:3306"
-      - "5000:33060"
+     
     restart: always
 
 volumes:
