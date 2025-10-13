@@ -102,10 +102,8 @@ if (isset($_GET['search'])) {
     <div id="sideBar">
     <ul class="sidebar">
             <li><a href="admin-dashboard.html">Home</a></li>
-            <li><a href="profile.html">Profile</a></li>
             <li><a class="active" href="view-students.php">View Students</a></li>
             <li><a href="manage-skill-list.html">Manage Skill List</a></li>
-            <li><a href="view-reports.html">View Reports</a></li>
             <li><a href="../student-homepage.php">Student Homepage</a></li>
         </ul>
   </div>
