@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="Author" content="Liam Maney" />
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard - Profile</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+    <!-- Header -->
     <div class="header">
         <img id="logo" src="../admin-pages/images/Logo_Flinders_white.png" alt="Flinders University Logo">
         <div class="userprofile">
@@ -14,22 +15,29 @@
             <p>User name</p>
             <a href="../Webpages/Login Page/Login-Page.html"><button>Log out</button></a>
         </div>
-        
     </div>
 
-    <div class="navbarContainer">
-         <ul class="navbar">
+    <!-- Sidebar -->
+    <div id="sideBar">
+        <ul class="sidebar">
             <li><a href="admin-dashboard.html">Home</a></li>
             <li><a class="active" href="profile.html">Profile</a></li>
-            <li><a href="view-students.html">View Students</a></li>
+            <li><a href="view-students.php">View Students</a></li>
             <li><a href="manage-skill-list.html">Manage Skill List</a></li>
             <li><a href="view-reports.html">View Reports</a></li>
+            <li><a href="../student-homepage.php">Student Homepage</a></li>
         </ul>
     </div>
 
-    <div class="body">
-        <div>
-            <!-- look at assignment sheet and see what needs to be here-->
+    <!-- Main content -->
+    <div class="mainContent">
+        <h2>Profile Page</h2>
+        <p>Here you can display the admin profile information, edit details, or show relevant statistics.</p>
+        <!-- Example placeholder for profile details -->
+        <div class="profileInfo">
+            <p><strong>Name:</strong> User name</p>
+            <p><strong>Email:</strong> user@example.com</p>
+            <p><strong>Role:</strong> Admin</p>
         </div>
     </div>
 </body>
