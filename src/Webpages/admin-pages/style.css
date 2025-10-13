@@ -29,34 +29,35 @@ html,body{
     height:50px;
     width:50px;
 }
-.navbarContainer{
-    float:left;
-    width:220px;
-    background-color: #002F60;
-    min-height:100vh;
+.sidebar {
+  list-style-type: none;
+  margin-left: -10px;
+  margin-top: -0px;
+  padding: 0;
+  width: 200px;
+  background-color: #002F60;
+  height: 100vh;
+  position: fixed;
+  overflow: auto;
 }
-/* navigation bar formating*/
-.navbar{
-    list-style: none;
-    margin: 0;
-    padding: 0px;
+
+.sidebar a {
+  display: block;
+  color: #ffD300;
+  padding: 15px 16px;
+  text-decoration: none;
+  font-weight: bold;
 }
-/* show which page your currently on*/
-li a.active{
-    background-color: #FFD300;
-    color: black;
+
+/* Change the link and background color on hover */
+.sidebar a:hover {
+  background-color: #555555;
+  color: white;
 }
-/* for every list item thats a hyperlink*/
-li a{
-    display: block; /* makes the whole area of the list item clickable*/
-    color: white;
-    padding: 10px 16px;
-    text-decoration: none;
-}
-/* change colour when hovering over*/
-li a:hover{
-    background-color: #FFD300;
-    color:black;
+
+.sidebar .active {
+  background-color: #ffD300;
+  color: #002F60;
 }
 /* container holding each graph*/
 .container{
