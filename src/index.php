@@ -2,7 +2,7 @@
 
 require_once "./inc/dbconn.inc.php";
 
-echo "<h1>COMP2030 Assignment Dev Environment Setup</h1><h2>Connected successfully to MySQL database!</h2>";
+echo "<h1>COMP2030 Assignment Dev Environment Setup</h1><h2>Connected successfully to MySQL database!</h2> <a href='src/Webpages/loginPages/studentLoginPage.php'> Go Here </a>";
 
 // Create a table if it doesn't exist
 $sql = "CREATE TABLE IF NOT EXISTS messages (

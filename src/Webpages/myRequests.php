@@ -116,8 +116,8 @@ $getUserAdminStmt->close();
             requestbox.credits, 
             DATE_FORMAT(proposedDate, '%T %d/%m/%Y') AS formattedProposedDate 
             FROM user_requestbox 
-            INNER JOIN requestBox ON requestBox.id = user_requestbox.requestbox_id 
-            INNER JOIN userdata ON requestBox.requester = userdata.id 
+            INNER JOIN requestbox ON requestbox.id = user_requestbox.requestbox_id 
+            INNER JOIN userdata ON requestbox.requester = userdata.id 
             WHERE user_requestbox.user =? AND user_requestbox.requestBoxType = 'In' AND requestbox.requesteeAgreed = 1 AND requestbox.requesterAgreed = 1 
             ORDER BY created DESC;");
             $getRequestsInstmt->bind_param("i", $id);
@@ -176,8 +176,8 @@ $getUserAdminStmt->close();
         requesterConfirmed,
          DATE_FORMAT(proposedDate, '%T %d/%m/%Y') AS formattedProposedDate 
          FROM user_requestbox 
-         INNER JOIN requestBox ON requestBox.id = user_requestbox.requestbox_id 
-         INNER JOIN userdata ON requestBox.requester = userdata.id 
+         INNER JOIN requestbox ON requestbox.id = user_requestbox.requestbox_id 
+         INNER JOIN userdata ON requestbox.requester = userdata.id 
          WHERE user_requestbox.user =? AND user_requestbox.requestBoxType = 'Out' AND requestbox.requesteeAgreed = 1 AND requestbox.requesterAgreed = 1 
          ORDER BY created DESC;");
                     $getRequestsOutStmt->bind_param("i", $id);
