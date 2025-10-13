@@ -31,7 +31,7 @@
         <li><a class="active" href="#Requests"> Make A Request</a></li>
         <li><a href="#ViewRequests">View My Requests</a></li>
         <li><a href="#BrowseRequests">Browse Requests</a></li>
-        <li><a href="account.php">Manage Profile</a></li>
+        <li><a href="changeAvailability.php">Manage Profile</a></li>
         <li><a href="#History">History</a></li>
     </ul>
 </div>
