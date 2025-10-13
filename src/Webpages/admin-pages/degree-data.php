@@ -11,10 +11,10 @@ $response = ['success' => false, 'message' => '', 'categories' => []];
 */
 if (isset($_GET['action']) && $_GET['action'] === 'fetch') {
     $degree = [];
-    $result = mysqli_query($conn, "SELECT `degree name` FROM degree"); // backticks for space
+    $result = mysqli_query($conn, "SELECT `degreeName` FROM degree"); // backticks for space
     while ($row = mysqli_fetch_assoc($result)) {
         $degree[] = [
-            'degree' => $row['degree name'], // match the column
+            'degree' => $row['degreeName'], // match the column
         ];
     }
     $response['degree'] = $degree;
@@ -31,11 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $degreeName = preg_replace('/[^a-zA-Z0-9_]/', '_', trim($_POST['degreeName']));
 
     // Prevent duplicate columns
-    $check = mysqli_query($conn, "SELECT * FROM degree WHERE `degree name` LIKE '$degreeName'");
+    $check = mysqli_query($conn, "SELECT * FROM degree WHERE `degreeName` LIKE '$degreeName'");
     if (mysqli_num_rows($check) > 0) {
         $response['message'] = "Error: Degree already exists.";
     } else {
-        $sql = "INSERT INTO degree (`degree name`) VALUES ('$degreeName')";
+        $sql = "INSERT INTO degree (`degreeName`) VALUES ('$degreeName')";
         if (mysqli_query($conn, $sql)) {
             $response['success'] = true;
             $response['message'] = "Degree added successfully.";
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     if ($degree === 'degree') {
         $response['message'] = "Error: Cannot delete primary column 'degree'.";
     } else {
-        $query = "DELETE FROM degree where `degree name` = '$degree'";
+        $query = "DELETE FROM degree where `degreeName` = '$degree'";
         if (mysqli_query($conn, $query)) {
             $response['success'] = true;
             $response['message'] = "Degree deleted successfully.";

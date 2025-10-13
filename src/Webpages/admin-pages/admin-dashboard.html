@@ -86,16 +86,16 @@
 // Populate services table
     const servicetbody = document.getElementById('servicesBody');
 
-    data.services.forEach(service => {
+    data.services.forEach(skills => {
         const row = document.createElement('tr');
 
         const nameCell = document.createElement('td');
-        nameCell.textContent = service.service_name;
+        nameCell.textContent = skills.skillName;
         row.appendChild(nameCell);
 
         const statusCell = document.createElement('td');
-        statusCell.textContent = service.status;
-        statusCell.className = service.status === 'active' ? 'active' : 'inactive';
+        statusCell.textContent = skills.status;
+        statusCell.className = skills.status === 'active' ? 'active' : 'inactive';
         row.appendChild(statusCell);
 
         servicetbody.appendChild(row);
@@ -134,7 +134,7 @@
         const row = document.createElement('tr');
 
         const skillCell = document.createElement('td');
-        skillCell.textContent = skill.skill;
+        skillCell.textContent = skill.skillName;
         row.appendChild(skillCell);
 
         const countCell = document.createElement('td');

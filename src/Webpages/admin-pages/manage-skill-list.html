@@ -111,30 +111,32 @@ document.querySelectorAll('.collapsible').forEach(btn => {
     });
 });
 
-/* Skills Section */
-const skillForm = document.getElementById('addSkillForm');
-const skillMessage = document.getElementById('message');
-const skillBody = document.getElementById('skillBody');
+        function loadSkills() {
+            fetch('skill-data.php?action=fetch')
+                .then(res => res.json())
+                .then(data => {
+                    skillBody.innerHTML = '';
+                    data.skills.forEach(skills => {
+                        const row = document.createElement('tr');
 
-function loadSkills() {
-    fetch('skill-data.php?action=fetch')
-        .then(res => res.json())
-        .then(data => {
-            skillBody.innerHTML = '';
-            data.skills.forEach(skill => {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td>${skill.skill}</td><td><button class="deleteSkill">Delete</button></td>`;
-                row.querySelector('.deleteSkill').addEventListener('click', () => {
-                    if(confirm(`Delete skill "${skill.skill}"?`)) {
-                        fetch('skill-data.php', {
-                            method:'POST',
-                            headers:{'Content-Type':'application/x-www-form-urlencoded'},
-                            body:`action=delete&skill=${encodeURIComponent(skill.skill)}`
-                        })
-                        .then(res=>res.json())
-                        .then(resp=>{
-                            skillMessage.textContent = resp.message;
-                            loadSkills();
+                        row.innerHTML = `
+                            <td>${skills.skillName}</td>
+                            <td><button class="deleteSkill">Delete</button></td>
+                        `;
+                        //delete skill
+                        row.querySelector('.deleteSkill').addEventListener('click', () => {
+                            if(confirm(`Are you sure you want to delete skill "${skills.skillName}"?`)) {
+                                fetch('skill-data.php', {
+                                    method: 'POST',
+                                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                                    body: `action=delete&skill=${encodeURIComponent(skills.skillName)}`
+                                })
+                                .then(res => res.json())
+                                .then(resp => {
+                                    skillMessage.textContent = resp.message;
+                                    loadSkills();
+                                });
+                            }
                         });
                     }
                 });
