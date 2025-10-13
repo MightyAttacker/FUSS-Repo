@@ -2,7 +2,7 @@
 
 require_once "./inc/dbconn.inc.php";
 
-echo "<h1>COMP2030 Assignment Dev Environment Setup</h1><h2>Connected successfully to MySQL database!</h2> <a href='src/Webpages/loginPages/studentLoginPage.php'> Go Here </a> <p> to get codespace preview my link was https://special-space-giggle-pjqrqg7g6x6vf7p5x-8000.app.github.dev/src/Webpages/loginPages/studentLoginPage.php </p>";
+echo "<h1>COMP2030 Assignment Dev Environment Setup</h1><h2>Connected successfully to MySQL database!</h2> <a href='src/Webpages/loginPages/studentLoginPage.php'> Go Here </a> <p> to get codespace preview my link was https://special-space-giggle-pjqrqg7g6x6vf7p5x-8000.app.github.dev/src/Webpages/loginPages/studentLoginPage.php after running 'php -S localhost:8000 -t .' in terminal </p>";
 
 // Create a table if it doesn't exist
 $sql = "CREATE TABLE IF NOT EXISTS messages (

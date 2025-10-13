@@ -1,6 +1,16 @@
 <?php
 session_start();
+include '../inc/dbconn.inc.php';
 $id = $_SESSION["id"];
+$getUserAdmin = 0;
+$getUserAdminStmt = $conn->prepare('SELECT admin FROM userdata WHERE id=?');
+$getUserAdminStmt->bind_param('i', $id);
+$getUserAdminStmt->execute();
+$getUserAdmin = $getUserAdminStmt->get_result();
+  if ($row = $getUserAdmin->fetch_assoc()) {
+    $getUserAdmin = $row['admin'];
+  }
+$getUserAdminStmt->close();
 
 ?>
 <!DOCTYPE html>
@@ -17,10 +27,10 @@ $id = $_SESSION["id"];
     <title>My Account</title>
     <?php echo "<div id=\"data\" class='hidden'>" . $id . "</div>"; ?>
 
-    <script type="module" src="/Scripts/account-page-script.js" defer></script>
-    <script type="module" src="/Scripts/account-page-availability.js" defer></script>
-    <script type="module" src="/Scripts/account-page-submit.js" defer></script>
-    <link rel="stylesheet" href="/Styles/account-page-styles.css">
+    <script type="module" src="../Scripts/account-page-script.js" defer></script>
+    <script type="module" src="../Scripts/account-page-availability.js" defer></script>
+    <script type="module" src="../Scripts/account-page-submit.js" defer></script>
+    <link rel="stylesheet" href="../Styles/account-page-styles.css">
     <link rel="icon" href="data:,">
 
 </head>
@@ -37,17 +47,21 @@ $id = $_SESSION["id"];
     </div>
     <div id="logoutButton">
         <input id="logButton" class="button" type="button"
-               onclick="location.href='../studentLoginPage/studentLoginPage.html';" value="Logout"/>
+               onclick="location.href='../studentLoginPage/logout.php';" value="Logout"/>
     </div>
 </div>
 <div id="sidebar">
     <ul class="sidebar">
-        <li><a href="#home">Home</a></li>
-        <li><a class="active" href="#Requests"> Make A Request</a></li>
-        <li><a href="#ViewRequests">View My Requests</a></li>
-        <li><a href="#BrowseRequests">Browse Requests</a></li>
-        <li><a href="changeAvailability.php">Manage Profile</a></li>
-        <li><a href="#History">History</a></li>
+        <li> <a  href="./student-homepage.php">Home</a> </li>
+            <li> <a href="./inbox.php"> Inbox</a> </li>
+            <li> <a href="./browsePage.php"> Browse Offered Skills</a> </li>
+            <li> <a href="./requests.php"> Make A Request</a> </li>
+            <li> <a href="./myRequests.php">View My Requests</a> </li>
+            <li> <a href="./PeerFeedback.php">Peer Reviews</a> </li>
+            <li> <a href="./studentProfile.php">My Profile</a> </li>
+            <li> <a class="active" href="./changeAvailability.php">Change Availability</a> </li>
+            <li> <a href="./creditHistory.php">Credit History</a> </li>
+            <?php if ($getUserAdmin == 1) echo '<li> <a href="./admin-pages/admin-dashboard.html">Admin Dashboard</a> </li>' ?>
     </ul>
 </div>
 <h2 id="title">Change availability</h2>
