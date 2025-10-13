@@ -18,8 +18,9 @@ let timesToSubmit = []; // Will hold the objects representing the availability f
 let currentStartDate = ""; // Will store the start date since the date picker can change without confirming
 let currentEndDate = "";
 let currentTableDiv;
-const baseurl = "http://localhost:8010";
-
+const baseurl = "http://" + document.location.host;
+console.log(baseurl);
+const id = document.getElementById("data").innerText;
 // TODO: Move these to separate file
 class dailyRecurringAvailability {
     constructor(userid, dayindex, starttime, endtime) {
@@ -155,7 +156,7 @@ function validateAvailability(recurring = true) {
                 retval = false;
             } else {
                 if (recurring) {
-                    timesToSubmit.push(new dailyRecurringAvailability("testuser1", day, start.value, end.value));
+                    timesToSubmit.push(new dailyRecurringAvailability(id , day, start.value, end.value));
                 } else {
                     let t = new dailyAvailability(((d) => {
                         d.setDate(d.getDate() + day);
@@ -227,7 +228,7 @@ function submitDailyAvailability() {
     if (currentStartDate === "" || currentEndDate === "") {
         return false;
     }
-    const temp = new dailyAvailabilityCollection("testuser1", currentStartDate, currentEndDate, timesToSubmit);
+    const temp = new dailyAvailabilityCollection(id, currentStartDate, currentEndDate, timesToSubmit);
     // Below taken from https://www.index.dev/blog/javascript-post-requests-send-data-variables
     fetch("/api/update-daily-availability.php", {
         method: "POST",
@@ -304,7 +305,7 @@ weeklyButton.addEventListener("click", () => {
                 createButtonDay(buttonRow, day, temp);
             });
 
-            getRecurringAvailability(datePicker.value, "testuser1").then((data) => insertRecurringAvailability(data));
+            getRecurringAvailability(datePicker.value, id).then((data) => insertRecurringAvailability(data));
 
             const confirm = document.createElement("button");
             confirm.setAttribute("id", "confirmAvailability");
@@ -387,7 +388,7 @@ dailyButton.addEventListener("click", () => {
                 current.setDate(current.getDate() + 1);
             }
 
-            getDailyAvailability(currentStartDate, currentEndDate, "testuser1").then((data) => {
+            getDailyAvailability(currentStartDate, currentEndDate, id).then((data) => {
                 console.log(data);
                 for (let i = 0; i < data["days"].length; i++) {
                     createTimeSelector(document.getElementById(data["days"][i]["date"]), data["days"][i]["starttime"], data["days"][i]["endtime"]);

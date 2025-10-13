@@ -1,21 +1,22 @@
 <?php
 session_start();
+$id = $_SESSION["id"];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <?php
-    if (isset($_SESSION["id"])) {
-        $id = $_SESSION["id"];
-    }
-    $id = "testuser1";
+
     require_once "../inc/dbconn.inc.php";
     ?>
     <meta charset="UTF-8">
     <meta name="author" content="Thomas Wachmer">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Account</title>
+    <?php echo "<div id=\"data\" class='hidden'>" . $id . "</div>"; ?>
+
     <script type="module" src="/Scripts/account-page-script.js" defer></script>
     <script type="module" src="/Scripts/account-page-availability.js" defer></script>
     <script type="module" src="/Scripts/account-page-submit.js" defer></script>

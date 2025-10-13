@@ -31,7 +31,7 @@ foreach ($data as $day) { // TODO: find out about transactions
     }
 }
 
-$k = []; // TODO: Find better name for this
+$k = [];
 
 $stmt = $conn->prepare("DELETE FROM availability WHERE userid = ? AND d BETWEEN ? AND ?");
 $stmt->bind_param("sss", $userid, $startdate, $enddate);

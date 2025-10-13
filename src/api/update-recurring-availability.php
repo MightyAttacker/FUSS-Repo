@@ -56,7 +56,7 @@ foreach ($days as $day) { // Look into transactions to prevent double loop
     }
 }
 
-$users = array_unique(array_column($days, "userid")); // TODO: validate list of users using SELECT WHERE IN
+$users = array_unique(array_column($days, "userid"));
 
 
 $temp = [];
