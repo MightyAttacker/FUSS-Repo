@@ -69,8 +69,8 @@ $getUserCreditStmt->close();
       </header>
     </div>
     <div id="UserDetails">
-      <h4> <a id="profileLink" href="./studentProfile.php">
-          <?php echo "Hello, " . $user . "<br>" . "You have " . $userCredits . " Credits!" ?> </a></h4>
+      <h4>
+          <?php echo "Hello, " . $user . "<br>" . "You have " . $userCredits . " Credits!" ?> </h4>
 
     </div>
     <div id="logoutButton">
