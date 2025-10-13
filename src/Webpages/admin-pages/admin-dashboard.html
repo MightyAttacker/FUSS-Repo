@@ -22,9 +22,10 @@
          <ul class="navbar">
             <li><a class="active"href="admin-dashboard.html">Home</a></li>
             <li><a href="profile.html">Profile</a></li>
-            <li><a href="view-students.html">View Students</a></li>
+            <li><a href="view-students.php">View Students</a></li>
             <li><a href="manage-skill-list.html">Manage Skill List</a></li>
             <li><a href="view-reports.html">View Reports</a></li>
+            <li><a href="../student-homepage.php">Student Homepage</a></li>
         </ul>
     </div>
 
@@ -86,16 +87,16 @@
 // Populate services table
     const servicetbody = document.getElementById('servicesBody');
 
-    data.services.forEach(service => {
+    data.services.forEach(skills => {
         const row = document.createElement('tr');
 
         const nameCell = document.createElement('td');
-        nameCell.textContent = service.service_name;
+        nameCell.textContent = skills.skillName;
         row.appendChild(nameCell);
 
         const statusCell = document.createElement('td');
-        statusCell.textContent = service.status;
-        statusCell.className = service.status === 'active' ? 'active' : 'inactive';
+        statusCell.textContent = skills.status;
+        statusCell.className = skills.status === 'active' ? 'active' : 'inactive';
         row.appendChild(statusCell);
 
         servicetbody.appendChild(row);
@@ -134,7 +135,7 @@
         const row = document.createElement('tr');
 
         const skillCell = document.createElement('td');
-        skillCell.textContent = skill.skill;
+        skillCell.textContent = skill.skillName;
         row.appendChild(skillCell);
 
         const countCell = document.createElement('td');
