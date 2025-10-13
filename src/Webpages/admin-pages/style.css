@@ -1,129 +1,133 @@
-html,body{
-    height:100%;
-    margin: 0; /* remove default margin around edge of browser*/
+html, body {
+    height: 100%;
+    margin: 0;
     padding: 0;
     font-family: Helvetica, Arial, sans-serif;
 }
 
-.header{
-    background-color:#002F60;
-    display: flex; /* required for justify content*/
-    justify-content: space-between; /* evenly spaces everything within header*/
+/* Header */
+.header {
+    background-color: #002F60;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding:20px;
-    color:white;
+    padding: 20px;
+    color: white;
 }
-/* this encases just the usericon, username and logout button*/
-.userprofile{
-    display:flex;
-    align-items: center; /* display:flex and align item:right to make everything centered vertically*/
-    gap:15px; /* gap between the user icon, username and logout button*/
-     /* margin on right so log out button isnt on edge of screen*/
+
+/* User profile inside header */
+.userprofile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
-/* Flinder logo*/
-#logo{
-    width:200px;
+
+/* Flinders logo */
+#logo {
+    width: 200px;
 }
-/* User icon image*/
-#userIcon{
-    height:50px;
-    width:50px;
+
+/* User icon */
+#userIcon {
+    height: 50px;
+    width: 50px;
 }
+
+/* Sidebar */
 .sidebar {
-  list-style-type: none;
-  margin-left: -10px;
-  margin-top: -0px;
-  padding: 0;
-  width: 200px;
-  background-color: #002F60;
-  height: 100vh;
-  position: fixed;
-  overflow: auto;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #002F60;
+    height: 100vh;
+    position: fixed;
+    overflow: auto;
 }
 
 .sidebar a {
-  display: block;
-  color: #ffD300;
-  padding: 15px 16px;
-  text-decoration: none;
-  font-weight: bold;
+    display: block;
+    color: #ffD300;
+    padding: 15px 16px;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-/* Change the link and background color on hover */
 .sidebar a:hover {
-  background-color: #555555;
-  color: white;
+    background-color: #555555;
+    color: white;
 }
 
 .sidebar .active {
-  background-color: #ffD300;
-  color: #002F60;
+    background-color: #ffD300;
+    color: #002F60;
 }
-/* container holding each graph*/
-.container{
-    margin-left: 220px; /* prevent items from going behind navbar*/
-    display:grid;       /* setup grid layout*/
-    grid-template-columns: 1fr 1fr;   /* grid template: 2 columns wide*/
+
+/* Dashboard container (2-column grid) */
+.container {
+    margin-left: 220px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    padding:20px; /* gap between all other elements*/
-    gap:20px;   /* gap between each box on grid*/
-    height:100vh;   /* height of each item*/
+    padding: 20px;
+    gap: 20px;
+    height: 100vh;
     background-color: #FFD300;
 }
-/* formatting for divs within conatainer*/
-.container > div{
-    background-color:white;
-    padding:20px;
+
+.container > div {
+    background-color: white;
+    padding: 20px;
 }
-/* formatting for div used for the body of each page (every page except the dashboard*/
-.body{
-    margin-left:220px;
-    min-height:100vh;
+
+/* Main content for other pages (profile, manage skills, etc.) */
+.mainContent, .body {
+    margin-left: 220px; /* align next to sidebar */
+    min-height: 100vh;
+    padding: 20px;
     background-color: #FFD300;
-    padding:20px;
 }
-.body > div{
-    background-color:white;
-    text-align: left;
-    padding:20px;
-    min-height:100vh;
+
+.mainContent > div, .body > div {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
 }
-#users > a{
-    text-align:right;
-    padding-right:20px;
-    padding-bottom: 20px;
-}
-#services > a{
-    text-align:right;
-    padding-right:20px;
-    padding-bottom: 20px;
-}
-table,th,td {
-    border:1px solid grey;
+
+/* Tables */
+table, th, td {
+    border: 1px solid grey;
     width: 60%;
     margin: 20px auto;
 }
+
 th, td {
     padding: 10px;
     text-align: left;
 }
+
 th {
     background-color: #002F60;
-    color:white;
+    color: white;
 }
+
+/* Status indicators */
 .active {
     color: green;
     font-weight: bold;
 }
+
 .inactive {
     color: red;
     font-weight: bold;
 }
-h3{
+
+h3 {
     text-align: center;
 }
-/* collapsible button*/
-.collapsible{
+
+/* Collapsible buttons */
+.collapsible {
     cursor: pointer;
     padding: 10px;
     width: 100%;
@@ -133,85 +137,102 @@ h3{
     font-size: 15px;
     margin-top: 10px;
 }
-.active, .collapsible:hover{
+
+.active, .collapsible:hover {
     background-color: #555;
     color: white;
 }
-/* symbol on right of collapsible button */
-.collapsible:after{
-    content: '\002B'; /* Unicode character for "plus" sign (+)*/
+
+/* Collapsible symbols */
+.collapsible:after {
+    content: '\002B';
     font-size: 13px;
     float: right;
     margin-left: 5px;
 }
-.collapsible.active:after{
-    content: "\2212"; /* Unicode character for "minus" sign (-)*/
+
+.collapsible.active:after {
+    content: "\2212";
 }
-/* content within collapsible button*/
-.content{
+
+/* Collapsible content */
+.content {
     padding: 18px 18px;
     display: none;
     overflow: hidden;
     background-color: #f1f1f1;
 }
 
+/* Students Table */
 #studentsTable, #studentsTable th, #studentsTable td {
-  border-collapse: collapse;
-  width: 100%;
-  border: none;
-  margin: 0px;
+    border-collapse: collapse;
+    width: 100%;
+    border: none;
+    margin: 0;
 }
 
 #studentsTable td, #studentsTable th {
-  border: 1px solid #ddd;
-  padding: 8px;
-  overflow-wrap: break-word;
-  word-break: keep-all;
-  width: 50px;
-  max-width: 80px;
+    border: 1px solid #ddd;
+    padding: 8px;
+    overflow-wrap: break-word;
+    word-break: keep-all;
+    width: 50px;
+    max-width: 80px;
 }
 
-#studentsTable tr:nth-child(even){background-color: #f2f2f2;}
+#studentsTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
 #studentsTable th:first-child,
 #studentsTable td:first-child {
-  width: 80px;      /* or whatever width you want */
-  max-width: 80px;
-  word-break: break-all;
+    width: 80px;
+    max-width: 80px;
+    word-break: break-all;
 }
 
-#studentsTable tr:hover {background-color: #ddd;}
+#studentsTable tr:hover {
+    background-color: #ddd;
+}
 
 #studentsTable th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #002F60;
-  color: #ffD300;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #002F60;
+    color: #ffD300;
 }
 
+/* Pagination */
 #studentsTable .pagination {
-  margin-top: 20px;
+    margin-top: 20px;
 }
+
 #studentsTable .pagination a {
-  margin: 0 5px;
-  padding: 5px 10px;
-  background: #eee;
-  text-decoration: none;
-  border-radius: 3px;
-  color: #333;
+    margin: 0 5px;
+    padding: 5px 10px;
+    background: #eee;
+    text-decoration: none;
+    border-radius: 3px;
+    color: #333;
 }
-#studentsTable.pagination a.active {
-  background: #0078d4;
-  color: #fff;
+
+#studentsTable .pagination a.active {
+    background: #0078d4;
+    color: #fff;
 }
+
+/* Search Input */
 #searchInput {
-  width: 150px; 
-  font-size: 16px; /* Increase font-size */
-  padding: 12px 20px 12px 40px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
+    width: 150px;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
 }
-.button{
+
+/* Buttons */
+.button {
     padding: 5px 12.5px;
     font-weight: bold;
     text-transform: uppercase;
@@ -219,9 +240,10 @@ h3{
     border: none;
     border-radius: 5px;
     background-color: #002F60;
-    cursor: pointer;   
+    cursor: pointer;
 }
-#logOutButton{
+
+#logOutButton {
     background-color: #ffD300;
     padding: 10px 10px;
     font-weight: bold;
@@ -229,8 +251,9 @@ h3{
     color: #002F60;
     border: none;
     border-radius: 5px;
-    cursor: pointer;  
+    cursor: pointer;
 }
-#newCredits{
-    width:60px;
+
+#newCredits {
+    width: 60px;
 }
