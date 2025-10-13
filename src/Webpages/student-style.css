@@ -279,9 +279,9 @@ body {
     margin: 0 2px;
 }
 
-.creditsContainer .star.filled,
+.creditsContainer .star.filled,    
 .creditsContainer .star.half {
-    color: #ffD300; /* Gold for filled/half stars */
+   color: #002F60; /* Dark blue for filled stars */
 }
 
 .creditsContainer .rating-value {

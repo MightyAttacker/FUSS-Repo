@@ -30,12 +30,13 @@ $email       = $userData['email'] ?? '';
 $imagePath   = $userData['imagePath'] ?? '';
 
 $getRatingStmt = $conn->prepare('
-    SELECT AVG(pr.rating) AS avgRating
-    FROM product_reviews pr
-    INNER JOIN requestbox rb ON pr.product_id = rb.id
-    WHERE rb.requester = ?
+    SELECT AVG(reviews.rating) AS avgRating
+    FROM reviews
+    INNER JOIN requestbox ON reviews.id = requestbox.id
+    WHERE (requestbox.requestee = ? OR requestbox.requester = ?)
+      AND reviews.user != ?
 ');
-$getRatingStmt->bind_param('i', $id);
+$getRatingStmt->bind_param('iii', $id, $id, $id);
 $getRatingStmt->execute();
 $getRatingResult = $getRatingStmt->get_result();
 $ratingRow = $getRatingResult->fetch_assoc();
