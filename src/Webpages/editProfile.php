@@ -260,7 +260,7 @@ $getUserBioStmt->close();
                                         <label for="college">College:</label>
 
                                         <input type="text" id="college" name="college"
-                                            value="<?php echo htmlspecialchars($userCollege); ?>" required><br> <br>
+                                            value="<?php echo $userCollege; ?>" required><br> <br>
 
                                         <button href="updateProfile.php" type="submit" class="button"
                                             name="updateCollege">Update

@@ -63,9 +63,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="loginStyle.css">
+    <link rel="stylesheet" href="loginStyle.css" type="text/css">
     <meta name="author" content="Jayden">
-    <script src="login.js"> </script>
+    <script src="login.js" type="text/javascript"> </script>
     <title>FUSS Login Page</title>
 </head>
 
