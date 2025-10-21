@@ -44,6 +44,7 @@ if ($isAdmin == 1 && isset($_GET['id']) && is_numeric($_GET['id'])) {
 $stmt = $conn->prepare("SELECT email, firstName, lastName, imagePath, imageName, academicYear, availability, credits, college, bio
                               FROM userdata 
                               WHERE id=?");
+
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $stmt->bind_result($email, $firstName, $lastName, $imagePath, $imageAlt, $userYear, $userAvailability, $userCredits, $userCollege, $userBio);

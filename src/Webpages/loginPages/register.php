@@ -35,11 +35,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = "Email ID already exists";
   } else {
     // Prepare and bind
-    $stmt = $conn->prepare("INSERT INTO userdata (email, firstName, lastName, password) VALUES (?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO userdata (email, firstName, lastName, password, credits) VALUES (?, ?, ?, ?, 10)");
     $stmt->bind_param("ssss", $email, $firstName, $lastName, $hashed_password);
 
     if ($stmt->execute()) {
       $message = "Account created successfully";
+      header("location: studentLoginPage.php");
     } else {
       $message = "Error: " . $stmt->error;
     }
