@@ -190,9 +190,8 @@ $getUserBioStmt->close();
                         <label for="imageUpload">
                             <h3>Select Image:</h3>
                         </label>
-                        <input type="file" name="imageUpload" id="imageUpload" accept="image/*" required>
-
-                        <input class="button" type="submit" value="Upload Image" name="submit" id="picUpload">
+                        <input type="file" name="imageUpload" id="imageUpload" accept="image/*" onchange="this.form.submit()"required>
+                        
                     </form>
 
                     <div id="InfoSection">

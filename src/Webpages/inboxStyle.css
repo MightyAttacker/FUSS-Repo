@@ -216,3 +216,26 @@ th {
 textarea{
     font-size: 14px;
 }
+#subject{
+    font-size: 14px;
+}
+#user{
+    font-size: 16px;
+}
+#message{
+    text-align: center;
+    color: #ffD300;
+    background-color: #002F60;
+    border: 1px solid #002F60;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.selectBox{
+    padding: 10px;
+    border: 1px solid #373434;
+    border-radius: 5px;
+    display: block;
+    width: 300px;
+    box-sizing: border-box;
+    font-size: 16px;
+}

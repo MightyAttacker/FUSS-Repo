@@ -58,6 +58,19 @@ $getUserCreditStmt->close();
   <link rel="stylesheet" href="inboxStyle.css">
   <meta name="author" content="Jayden">
   <script src="inbox.js"> </script>
+  <?php $box = isset($_GET['box']) ? $_GET['box'] : ''; ?>
+  <script>
+    var box = "<?php echo $box; ?>";
+    window.onload = function() {
+      if (box === "outbox") {
+        showOutbox();
+      } else if (box === "sendMessage") {
+        showMessage();
+      } else {
+        showInbox();
+      }
+    };
+  </script>
   <title>FUSS Messages Page</title>
 </head>
 
@@ -136,6 +149,11 @@ $getUserCreditStmt->close();
       </div>
       <div id="sendMessage">
         <h3 class="currentMailbox">Sending Message</h3>
+        <?php
+         $error = isset($_GET['error']) ? $_GET['error'] : '';
+         if ($error): ?> 
+        <div id="message"> <?php echo $error; ?> </div>
+        <?php endif; ?>
         <form action="../inc/sendMessage.inc.php" method="post" id="messageForm">
           <div class="form-card">
           <div class="form-section">
@@ -162,12 +180,12 @@ $getUserCreditStmt->close();
         </div>
           <div class="form-section">
           <label for="subject">Subject:</label><br>
-          <input class=".form-item" type="text" id="Subject" name="Subject" required><br>
+          <input class=".form-item" type="text" id="subject" name="subject" required><br>
           </div>
           <div class="form-section">
           <label for="message">Message:</label><span id="charNum"></span>
           <br>
-          <textarea id="message" name="message" rows="4" cols="50" maxlength="255" onkeyup="limitText(this,255)" required></textarea>
+          <textarea id="messageArea" name="message" rows="4" cols="50" maxlength="255" onkeyup="limitText(this,255)" required></textarea>
           <br>
           </div>
           <input id="submitButtons" class="button" type="submit" value="Send" href="../inc/sendMessage.inc.php"> 
@@ -176,6 +194,10 @@ $getUserCreditStmt->close();
       </div>
       <div id="outbox">
         <h3 class="currentMailbox">Outbox</h3>
+        <?php $message = isset($_GET['message']) ? $_GET['message'] : ''; ?>
+        <?php if ($message): ?> 
+        <div id="message"> <?php echo $message; ?> </div>
+        <?php endif; ?>
         <table id="outboxTable">
           <tr>
             <th>To</th>
