@@ -1,6 +1,5 @@
 <?php
 
-
 session_start();
 
 if (!isset($_SESSION['id'])) {
@@ -119,7 +118,7 @@ $getUserAdminStmt->close();
           DATE_FORMAT(created,'%T %d/%m/%Y') AS formattedCreated 
           FROM user_requestbox 
           INNER JOIN requestbox ON requestbox.id = user_requestbox.requestbox_id 
-          INNER JOIN userdata ON userdata.id = user_requestbox.user
+          INNER JOIN userdata ON userdata.id = requestbox.requester
           WHERE user_requestbox.user =? AND user_requestbox.requestBoxType = 'In' 
           ORDER BY created DESC;");
           $getRequestsInstmt->bind_param("i", $id);
@@ -128,7 +127,7 @@ $getUserAdminStmt->close();
            if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>". $row["requesterFirstName"] . $row["requesterLastName"] ."</td>";
+                echo "<td>". $row["requesterFirstName"] . " " . $row["requesterLastName"] ."</td>";
                 echo "<td>". $row["skillName"] . "</td>";
                 echo "<td>". $row["credits"] . "</td>";
                 echo "<td>". $row["message"] . "</td>";                 
@@ -167,9 +166,9 @@ $getUserAdminStmt->close();
                   <label for="creditsOffered"> How Many Credits?</label>
             <input class="form-item" type="number" id="creditsOffered" name="creditsOffered" min="1" max="<?php echo $userCredits ?>" required><br>
           <div class="form-section">
-          <label for="message">Message:</label><span id="charNum"></span>
+          <label for="sendMessage">Message:</label><span id="charNum"></span>
           <br>
-          <textarea id="message" name="message" rows="4" cols="50" maxlength="255" onkeyup="limitText(this,255)" required></textarea>
+          <textarea id="messageArea" name="message" rows="4" cols="50" maxlength="255" onkeyup="limitText(this,255)" required></textarea>
           <br>
           </div>
           <div class="form-section">
@@ -180,8 +179,9 @@ $getUserAdminStmt->close();
           <input id="submitButtons" class="button" type="submit" value="Send" href="requestSend.php"> 
           <input id="submitButtons" class="button" type="reset" value="Clear">
           </div>
+          </div>
+          </form>
       </div>
-                </div>
       <div id="outbox">
         <h3 class="currentMailbox">Outbox</h3>
         <table id="outboxTable">
@@ -208,7 +208,7 @@ $getUserAdminStmt->close();
            DATE_FORMAT(created,'%T %d/%m/%Y') AS formattedCreated 
            FROM user_requestbox 
            INNER JOIN requestbox ON requestbox.id = user_requestbox.requestbox_id 
-           INNER JOIN userdata ON userdata.id = user_requestbox.user
+           INNER JOIN userdata ON userdata.id = requestbox.requestee
            WHERE user_requestbox.user =? AND user_requestbox.requestBoxType = 'Out' 
            ORDER BY created DESC;");
           $getRequestsOutStmt->bind_param("i", $id);
@@ -217,7 +217,7 @@ $getUserAdminStmt->close();
            if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>". $row["requesteeFirstName"] . $row["requesteeLastName"] . "</td>";
+                echo "<td>". $row["requesteeFirstName"] . " " . $row["requesteeLastName"] . "</td>";
                 echo "<td>". $row["skillName"] . "</td>";
                 echo "<td>". $row["credits"] . "</td>";
                 echo "<td>". $row["message"] . "</td>"; 
@@ -225,7 +225,7 @@ $getUserAdminStmt->close();
                 echo "<td>". $row["formattedCreated"]. "</td>";
                if ($row['requesterAgreed'] == 0){
                 echo '<td> 
-                <form action="agreeRequest.php" method="post" style="display:inline;">
+              <form action="agreeRequest.php" method="post" style="display:inline;">
             <input type="hidden" name="requestbox_id" value="' . $row['requestbox_id'] . '">
             <input type="hidden" name="agreeType" value="requester">
             <button class="button" type="submit">Agree</button>
