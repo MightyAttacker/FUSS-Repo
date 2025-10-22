@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Collect and sanitize input data
     $message = test_input($_POST["message"]);
     $user = test_input($_POST["user"]);
-    $skillName = test_input($_POST["SkillName"]);
+    $skillName = test_input($_POST["skillName"]);
     $credits = test_input($_POST["creditsOffered"]);
     $proposedDate = test_input($_POST["proposedDateTime"]);
 

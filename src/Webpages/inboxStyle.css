@@ -230,3 +230,12 @@ textarea{
     border-radius: 5px;
     font-weight: bold;
 }
+.selectBox{
+    padding: 10px;
+    border: 1px solid #373434;
+    border-radius: 5px;
+    display: block;
+    width: 300px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
