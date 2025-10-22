@@ -41,19 +41,15 @@ if ($isAdmin == 1 && isset($_GET['id']) && is_numeric($_GET['id'])) {
 }
 
 
-// Fetch the user's email
-$getEmailstmt = $conn->prepare('SELECT email FROM userdata WHERE id=?');
-$getEmailstmt->bind_param('i', $id);
-$getEmailstmt->execute();
-$email = $getEmailstmt->get_result()->fetch_assoc()['email'];
-$getEmailstmt->close();
+$stmt = $conn->prepare("SELECT email, firstName, lastName, imagePath, imageName, academicYear, availability, credits, college, bio
+                              FROM userdata 
+                              WHERE id=?");
 
-// Fetch the user's first name
-$getfirstNamestmt = $conn->prepare('SELECT firstName FROM userdata WHERE id=?');
-$getfirstNamestmt->bind_param('i', $id);
-$getfirstNamestmt->execute();
-$firstName = $getfirstNamestmt->get_result()->fetch_assoc()['firstName'];
-$getfirstNamestmt->close();
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$stmt->bind_result($email, $firstName, $lastName, $imagePath, $imageAlt, $userYear, $userAvailability, $userCredits, $userCollege, $userBio);
+$stmt->fetch();
+$stmt->free_result();
 
 // Fetch the logged user's first name
 $getloggedFirstNamestmt = $conn->prepare('SELECT firstName FROM userdata WHERE id=?');
@@ -62,68 +58,12 @@ $getloggedFirstNamestmt->execute();
 $loggedFirstName = $getloggedFirstNamestmt->get_result()->fetch_assoc()['firstName'];
 $getloggedFirstNamestmt->close();
 
-// Fetch the user's last name
-$getlastNamestmt = $conn->prepare('SELECT lastName FROM userdata WHERE id=?');
-$getlastNamestmt->bind_param('i', $id);
-$getlastNamestmt->execute();
-$lastName = $getlastNamestmt->get_result()->fetch_assoc()['lastName'];
-$getlastNamestmt->close();
-
-// Fetch the user's profile image and name for alt text
-$getUserImageStmt = $conn->prepare('SELECT imagePath FROM userdata WHERE id=?');
-$getUserImageStmt->bind_param('i', $id);
-$getUserImageStmt->execute();
-$imagePath = $getUserImageStmt->get_result()->fetch_assoc()['imagePath'];
-$getUserImageStmt->close();
-
-$getUserImageAltStmt = $conn->prepare('SELECT imageName FROM userdata WHERE id=?');
-$getUserImageAltStmt->bind_param('i', $id);
-$getUserImageAltStmt->execute();
-$imageAlt = $getUserImageAltStmt->get_result()->fetch_assoc()['imageName'];
-$getUserImageAltStmt->close();
-
-// Fetch the user's academic year
-$getUserYearStmt = $conn->prepare('SELECT academicYear FROM userdata WHERE id=?');
-$getUserYearStmt->bind_param('i', $id);
-$getUserYearStmt->execute();
-$userYear = $getUserYearStmt->get_result()->fetch_assoc()['academicYear'];
-$getUserYearStmt->close();
-
-//Fetch User's Availablity
-$getUserAvailabilityStmt = $conn->prepare('SELECT availability FROM userdata WHERE id=?');
-$getUserAvailabilityStmt->bind_param('i', $id);
-$getUserAvailabilityStmt->execute();
-$userAvailability = $getUserAvailabilityStmt->get_result()->fetch_assoc()['availability'];
-$getUserAvailabilityStmt->close();
-
-// Fetch the user's FussCredits
-$getUserCreditStmt = $conn->prepare('SELECT credits FROM userdata WHERE id=?');
-$getUserCreditStmt->bind_param('i', $id);
-$getUserCreditStmt->execute();
-$userCredits = $getUserCreditStmt->get_result()->fetch_assoc()['credits'];
-$getUserCreditStmt->close();
-
 // Fetch the logged in user's FussCredits
 $getUserCreditStmt = $conn->prepare('SELECT credits FROM userdata WHERE id=?');
 $getUserCreditStmt->bind_param('i', $uid);
 $getUserCreditStmt->execute();
 $loggedUserCredits = $getUserCreditStmt->get_result()->fetch_assoc()['credits'];
 $getUserCreditStmt->close();
-
-
-// Fetch the User's College
-$getUserCollegeStmt = $conn->prepare('SELECT college FROM userdata WHERE id=?');
-$getUserCollegeStmt->bind_param('i', $id);
-$getUserCollegeStmt->execute();
-$userCollege = $getUserCollegeStmt->get_result()->fetch_assoc()['college'];
-$getUserCollegeStmt->close();
-
-// Fetch the User's Bio
-$getUserBioStmt = $conn->prepare('SELECT bio FROM userdata WHERE id=?');
-$getUserBioStmt->bind_param('i', $id);
-$getUserBioStmt->execute();
-$userBio = $getUserBioStmt->get_result()->fetch_assoc()['bio'];
-$getUserBioStmt->close();
 
 ?>
 
@@ -466,8 +406,8 @@ $getUserBioStmt->close();
                                 $getRequestedSkillsStmt->close();
                                 ?>
 
-                                <label for="requestedSKills">Add Requested Skills:</label>
-                                <select id="requestedSKills" name="requestedSKills" class="addList" onclick="">
+                                <label for="requestedSkills">Add Requested Skills:</label>
+                                <select id="requestedSkills" name="requestedSKills" class="addList" onclick="">
                                     <!-- fetch all skills from skills table -->
                                     <?php
                                     $getAllSkillsStmt = $conn->prepare('SELECT skillName FROM skills ORDER BY skillName ASC');
