@@ -17,6 +17,7 @@ if (!isset($_SESSION['id'])) {
 include '../inc/dbconn.inc.php';
 
 $id = $_SESSION['id'];
+
 $stmt2 = $conn->prepare('SELECT email FROM userdata WHERE id=?');
 $stmt2->bind_param('i', $id);
 $stmt2->execute();
@@ -44,7 +45,9 @@ $getUserCreditStmt->bind_param('i', $id);
 $getUserCreditStmt->execute();
 $userCredits = $getUserCreditStmt->get_result()->fetch_assoc()['credits'];
 $getUserCreditStmt->close();
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en-AU">
@@ -136,9 +139,27 @@ $getUserCreditStmt->close();
         <form action="../inc/sendMessage.inc.php" method="post" id="messageForm">
           <div class="form-card">
           <div class="form-section">
-          <label for="user">To </label><br>
-          <input class=".form-item" type="text" id="user" name="user" required><br>
-          </div>
+          <label for="user">To: </label> <br>
+          <select id="user" name="user" onclick="">
+          <?php
+            // Fetch a list of all users
+            $getAllUsersNamesStmt = $conn->prepare('SELECT firstName, lastName FROM userdata WHERE id != ? ORDER BY lastName ASC');
+            $getAllUsersNamesStmt->bind_param('i', $id);
+            $getAllUsersNamesStmt->execute();
+            $AllUsersNames = $getAllUsersNamesStmt->get_result();
+            if ($AllUsersNames->num_rows > 0) {
+                while ($row = $AllUsersNames->fetch_assoc()){
+                echo "<option value='" . htmlspecialchars($row['firstName']) ." " . htmlspecialchars($row['lastName']) . "'>" . htmlspecialchars($row['firstName']) . " " .htmlspecialchars($row['lastName'])  . "</option>";
+              } 
+            } else {
+              echo '<options value="">No Users Available</option>';
+            }
+            $getAllUsersNamesStmt ->close();
+          ?>
+          </select>
+          <br>
+
+        </div>
           <div class="form-section">
           <label for="subject">Subject:</label><br>
           <input class=".form-item" type="text" id="Subject" name="Subject" required><br>
