@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Collect and sanitize input data
     $message = test_input($_POST["message"]);
     $user = test_input($_POST["user"]);
-    $Subject = test_input($_POST["Subject"]);
+    $Subject = test_input($_POST["subject"]);
 
     // Split the name into first and last name
     $parts = explode(" ", $_POST["user"]);
@@ -63,10 +63,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userMailboxStmt2->bind_param("si", $sender, $mailbox_id);
     $userMailboxStmt2->execute();
     $userMailboxStmt2->close();
-    $message = "Success";
+    $message = "Message Sent Successfully";
     
   }
-  header ("Location: ../Webpages/inbox.php?$message");  
+  if ($message == "Message Sent Successfully"){
+    header ("Location: ../Webpages/inbox.php?message=".urlencode($message)."&box=outbox");
+  } else {
+    header ("Location: ../Webpages/inbox.php?error=".urlencode($message)."&box=sendMessage");
+  }
+    
   $conn->close();
   exit();
 }
