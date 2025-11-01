@@ -46,18 +46,22 @@ The tasks the participants will perform are;
 
 Each of these tasks were selected to reflect real-world workflows and to test the interactions between the interface and database.    
 
-     Methodology (e.g., pre-test demographics questionnaire, SUS, SEQ, think-alound protocol, observation, other post-test questionnaire).
-
 ### Methodology
 The methodology for the tests followed the same structure.
 
-1. A pre-test background questionnaire to gather relevant background information and previous experience.
-2. Think
-3. 
-4. 
-5. 
+1. A pre-test background questionnaire to gather relevant background information and previous experience and comfortability with websites.
+2. Think-aloud protocol so participants spoke through their actions and helped identify pain points during tasks. 
+3. During the tasks, participant will be observed to capture hesitations and navigational errors. 
+4. After each task two Single Ease Questions are asked to collect post-task ratings.
+5. Finally there will be a System Usabiity Scale questionnaire to collect the post-test ratings.
 
-     Metrics for success.
+### Metrics For Success
+
+Success was measured via:
+- <b>Task Completion Rate:</b> >=90% completion rate of tasks for the user without critical errors. 
+- <b>Average SEQ score:</b> >= 5 on the 7-point scale.    
+- <b>SUS score:</b> >= a 75 which would indicate a "good" or "B grade" system
+- <b>Qualitative feedback:</b> Positive feedback towards the website, with useful feedback for improvements. 
 
 ## Testing Summary and Analysis - Lachlan Klenk
 Following the usability testing plan, five participants completed a series of structured tasks on the university skill-share website. Participants ranged in age from 19–22 to 30+, and all were current university students. Each participant had varying levels of digital literacy and experience navigating online platforms. All participants were native English speakers, meaning the test did not capture accessibility or comprehension challenges that non-native speakers might encounter.
