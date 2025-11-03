@@ -98,6 +98,19 @@ These issues were prioritised due to their frequency across users and their pote
 
 
 
+## Iteration Description
+
+Four of the five of the above usability issues were addressed and fixed after testing had concluded.
+1. Automatic redirection after account creation
+    - Once the account has been created without issues, the user is redirected to the login screen where they can then use the details they just provided.
+    - If they use a password manager, the details should be automatically filled.
+2. Feedback for profile picture updates
+    - When users uploaded a new profile picture, it was not immediately obvious that they needed to press confirm to submit the change.
+    - We changed the website to make it automatically submit the image once it was uploaded.
+3. Autofilling contact names in messaging
+4. Small font sizes
+
+
 
 ## Appendix
 
