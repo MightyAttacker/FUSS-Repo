@@ -98,6 +98,27 @@ These issues were prioritised due to their frequency across users and their pote
 
 
 
+## Iteration Description
+
+Four of the five of the above usability issues were addressed and fixed after testing had concluded.
+1. **Automatic redirection after account creation**
+    - Once the account has been created without issues, the user is redirected to the login screen where they can then use the details they just provided.
+    - If they use a password manager, the details should be automatically filled.
+2. **Feedback for profile picture updates**
+    - When users uploaded a new profile picture, it was not immediately obvious that they needed to press confirm to submit the change.
+    - We changed the page to make it automatically submit the image once it was uploaded.
+3. **Autofilling contact names in messaging**
+    - When our testers were completing tasks 3 and 4 they found manually entering the user IDs to be error-prone and would be tedious if they had to do it repeatedly.
+    - To make this easier, we changed the user ID box from a text field to a dropdown with every user ID as an option. With a small number of users, it makes selecting much easier but the design would need to change once more people use the website.
+4. **Small font sizes**
+    - On the create requests page, some testers found the text was too small to comfortably read.
+    - To fix this, we increased the size of the problematic text to make it easy to read while not ruining the layout of the page.
+
+The other issue was not solved but is possible to fix.
+1. **Unclear hierarchy in the edit profile page**
+    - To make the edit profile page easier to understand, we would split it into 2 pages, one for profile details and one for skill selection.
+    - This would reduce the number of elements on the page and make it easier to parse.
+
 
 ## Appendix
 
