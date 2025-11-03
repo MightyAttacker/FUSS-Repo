@@ -103,13 +103,319 @@ These issues were prioritised due to their frequency across users and their pote
 
 ### Script:
 
+Hello, thank you for participating in our website test today. We will be asking for your feedback on our Flinders University Skill Share website, this will help us improve the usability and make it more user-friendly. Please follow the instructions on the user evaluation document provided, there will be 4 tasks to complete today. As you complete each task, please remember a couple of things;
+
+- We are not testing you, we are testing the website, there are no wrong answers, if a task confuses you or you cannot complete it, that's normal and incredibly helpful for us.
+
+- Please speak aloud your thought processes as you use the website as this will help us know where the pain points of the website may be.
+
+
+First we have a background questionnaire, then after each task we will ask you 3 questions, how easy you found the task, how confident are you that you completed the task and lastly any other comments/feedback. Finally, after completing the tasks there will be 10 questions about the system. 
+We expect the process will only take 15 minutes.
+
+Do you have any questions before we begin? All right, begin please.
+
+### Tasks Document Given to Participants
+
+Task 1: Create an Account and Login
+1.  Locate the create an account button
+2.  Create a new account with the following details
+    - Email: smith@flinders.edu.au
+    - First Name: Adam
+    - Last Name: Smith
+    - Password: Password1!
+3. Return to the student login page
+4. Log in to the account you just created
+	
+Task 2: Edit your Profile
+1. Navigate to your profile
+2. Locate the edit profile button
+3. Change the following items
+    - Profile pic to the image named Profilepic located on the desktop
+    - Edit the name to Fred Flintstone
+    - College to Information Technology
+    - Academic Skills Offered add Basic HTML, Expert JavaScript
+    - Add House Moving in Other Skills
+    - Remove Basic HTML from Academic Skills
+4. Go back to your profile
+5. Return to the dashboard
+
+
+<b><u>FLIP THE PAGE FOR THE NEXT TWO TASKS </u></b> 
+
+Task 3: Send a Message
+1. Locate the inbox
+2. Send a Message;
+    - To: Bob Test
+    - Subject: Hello
+    - Message: Hello, how are you Bob?
+3. Locate the message in the outbox
+4. Return to the dashboard
+
+Task 4: Send a Request
+1. Locate the Make a Request page
+2. Send a request with the following details
+    - To Jess Putland
+    - Skill Name: Basic C++ Programming
+    - Credits: 4
+    - Message: I would like help with the skill above
+    - Proposed Date and Time:  1st of November 2025 @ 12:15pm
+3. Locate the Request in your sent requests
+4. Return to the dashboard
+5. Log out.
 
 
 
-### Survey and Interview Questions
+### Background Questionnaire:
+
+1. Is English your native langauage?
+
+2. Age Range (Under 18-18, 19-22, 23-26, 26-29, 30 and Over)
+
+3. Gender (Woman, Man, Non-binary, Prefer to self-describe, Prefer not to say)
+
+4. Highest level of education you have completed?
+
+5. Current Occupation?
+
+6. Do you currently own a laptop, desktop or both?
+
+7. In general, do you find websites easy to use?
+
+8. How much time do you typically spend online?
+
+### SEQS:
+
+1. Overall, I found the task? 1 Very Difficult 7 Easy
+
+2. How confident are you that you completed the task successful? 1 Not Confident 7 Very Confident
 
 
-### Transcripts
+### Data Captured:
 
+#### User 1:
 
-### Data Captured
+##### Background Questions
+| Question                                                                    | Answer           |
+| --------------------------------------------------------------------------- | ---------------- |
+|                                                                             |                  |
+| Is English your native langauage?                                           | Yes              |
+|                                                                             |                  |
+| Age Range (Under 18-18, 19-22, 23-26, 26-29, 30 and Over)                   | 23-26            |
+|                                                                             |                  |
+| Gender (Woman, Man, Non-binary, Prefer to self-describe, Prefer not to say) | Man              |
+|                                                                             |                  |
+| Highest level of education you have completed?                              | Advanced Diploma |
+|                                                                             |                  |
+| Current Occupation?                                                         | Student          |
+|                                                                             |                  |
+| Do you currently own a laptop, desktop or both?                             | Both             |
+|                                                                             |                  |
+| In general, do you find websites easy to use?                               | Yes              |
+|                                                                             |                  |
+| How much time do you typically spend online?                                | 17               |
+
+##### Task Observations & Responses
+| Question                                                                                       | Task 1: Create an Account and Login                                        | Task 2: Edit your Profile                      | Task 3: Send another User a message | Task 4: Send another user a request  |
+| ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------- | ----------------------------------- | ------------------------------------ |
+|                                                                                                |                                                                            |                                                |                                     |                                      |
+| Observations:                                                                                  | Stayed on the create account screen after account creation, realised after |                                                | Auto complete on name might be good | Again auto fill for names and skills |
+| Overall, I found the task? 7 Easy 1 Very Difficult                                             | 7                                                                          | 5                                              | 7                                   | 7                                    |
+| How confident are you that you completed the task successful? 1 Not Confident 7 Very Confident | 7                                                                          | 7                                              | 7                                   | 7                                    |
+| Any other comments/feedback?                                                                   | Create account redirect to login                                           | skills and basic info should be seperate pages |                                     |                                      |
+##### SUS score
+| Question | Response | Total |
+| -------- | -------- | ----- |
+| 1        | 4        | 3     |
+| 2        | 2        | 3     |
+| 3        | 4        | 3     |
+| 4        | 1        | 4     |
+| 5        | 4        | 3     |
+| 6        | 3        | 2     |
+| 7        | 3        | 2     |
+| 8        | 1        | 4     |
+| 9        | 5        | 4     |
+| 10       | 1        | 4     |
+|          |          |       |
+| Score    |          | 80    |
+#### User 2:
+
+##### Background Questions
+| Question                                                                    | Answer           |
+| --------------------------------------------------------------------------- | ---------------- |
+|                                                                             |                  |
+| Is English your native langauage?                                           | Yes              |
+|                                                                             |                  |
+| Age Range (Under 18-18, 19-22, 23-26, 26-29, 30 and Over)                   | 19-22            |
+|                                                                             |                  |
+| Gender (Woman, Man, Non-binary, Prefer to self-describe, Prefer not to say) | Man              |
+|                                                                             |                  |
+| Highest level of education you have completed?                              | High School      |
+|                                                                             |                  |
+| Current Occupation?                                                         | Student          |
+|                                                                             |                  |
+| Do you currently own a laptop, desktop or both?                             | Laptop           |
+|                                                                             |                  |
+| In general, do you find websites easy to use?                               | Most of the time |
+|                                                                             |                  |
+| How much time do you typically spend online?                                | 8 hrs            |
+
+##### Task Observations & Responses
+| Question                                                                                       | Task 1: Create an Account and Login | Task 2: Edit your Profile                                                                                                  | Task 3: Send another User a message                 | Task 4: Send another user a request                                       |
+| ---------------------------------------------------------------------------------------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------- |
+|                                                                                                |                                     |                                                                                                                            |                                                     |                                                                           |
+| Observations:                                                                                  | Show password button was useful     | The profile picture doesn't auto upload after choosing it, field reset after changing a different field, dashboard vs home | Didn't link inbox title to send a message intially, | Increase font size in message box, user was squinting at screen to read,  |
+| Overall, I found the task? 7 Easy 1 Very Difficult                                             | 7                                   | 6                                                                                                                          | 7                                                   | 7                                                                         |
+| How confident are you that you completed the task successful? 1 Not Confident 7 Very Confident | 7                                   | 7                                                                                                                          | 7                                                   | 7                                                                         |
+| Any other comments/feedback?                                                                   | Liked the show password button      |                                                                                                                            |                                                     | Manually typin in skill is hard, maybe have an autocomplete/selection box |
+##### SUS score
+| Question | Response | Total |
+| -------- | -------- | ----- |
+| 1        | 4        | 3     |
+| 2        | 2        | 3     |
+| 3        | 4        | 3     |
+| 4        | 1        | 4     |
+| 5        | 4        | 3     |
+| 6        | 1        | 4     |
+| 7        | 3        | 2     |
+| 8        | 2        | 3     |
+| 9        | 4        | 3     |
+| 10       | 1        | 4     |
+|          |          |       |
+| Score    |          | 80    |
+#### User 3:
+
+##### Background Questions
+| Question                                                                    | Answer          |
+| --------------------------------------------------------------------------- | --------------- |
+|                                                                             |                 |
+| Is English your native langauage?                                           | Yes             |
+|                                                                             |                 |
+| Age Range (Under 18-18, 19-22, 23-26, 26-29, 30 and Over)                   | 30 and over     |
+|                                                                             |                 |
+| Gender (Woman, Man, Non-binary, Prefer to self-describe, Prefer not to say) | Non-binary      |
+|                                                                             |                 |
+| Highest level of education you have completed?                              | Bachelors       |
+|                                                                             |                 |
+| Current Occupation?                                                         | Casual academic |
+|                                                                             |                 |
+| Do you currently own a laptop, desktop or both?                             | Both            |
+|                                                                             |                 |
+| In general, do you find websites easy to use?                               | No              |
+|                                                                             |                 |
+| How much time do you typically spend online?                                | 5hrs            |
+
+##### Task Observations & Responses
+| Question                                                                                       | Task 1: Create an Account and Login | Task 2: Edit your Profile                                                                                                                                                          | Task 3: Send another User a message | Task 4: Send another user a request |
+| ---------------------------------------------------------------------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ----------------------------------- |
+|                                                                                                |                                     |                                                                                                                                                                                    |                                     |                                     |
+| Observations:                                                                                  |                                     | Choose then upload of picture confusing, image upload as webp error not immeditaely visible, not immediately apparant on academic skills, also took a while to locate the section, |                                     |                                     |
+| Overall, I found the task? 7 Easy 1 Very Difficult                                             | 7                                   | 5                                                                                                                                                                                  | 7                                   | 7                                   |
+| How confident are you that you completed the task successful? 1 Not Confident 7 Very Confident | 7                                   | 6                                                                                                                                                                                  | 7                                   | 6                                   |
+| Any other comments/feedback?                                                                   | Smooth                              |                                                                                                                                                                                    |                                     |                                     |
+
+##### SUS score
+| Question | Response | Total |
+| -------- | -------- | ----- |
+| 1        | 5        | 4     |
+| 2        | 1        | 4     |
+| 3        | 5        | 4     |
+| 4        | 1        | 4     |
+| 5        | 5        | 4     |
+| 6        | 1        | 4     |
+| 7        | 5        | 4     |
+| 8        | 1        | 4     |
+| 9        | 5        | 4     |
+| 10       | 1        | 4     |
+|          |          |       |
+| Score    |          | 100   |
+#### User 4:
+
+##### Background Questions
+| Question                                                                    | Answer      |
+| --------------------------------------------------------------------------- | ----------- |
+|                                                                             |             |
+| Is English your native langauage?                                           | Yes         |
+|                                                                             |             |
+| Age Range (Under 18-18, 19-22, 23-26, 26-29, 30 and Over)                   | 19-22       |
+|                                                                             |             |
+| Gender (Woman, Man, Non-binary, Prefer to self-describe, Prefer not to say) | Man         |
+|                                                                             |             |
+| Highest level of education you have completed?                              | High School |
+|                                                                             |             |
+| Current Occupation?                                                         | Student     |
+|                                                                             |             |
+| Do you currently own a laptop, desktop or both?                             | Laptop      |
+|                                                                             |             |
+| In general, do you find websites easy to use?                               | Yes         |
+|                                                                             |             |
+| How much time do you typically spend online?                                | 7hrs        |
+##### Task Observations & Responses
+| Question                                                                                       | Task 1: Create an Account and Login | Task 2: Edit your Profile                                                                                   | Task 3: Send another User a message                             | Task 4: Send another user a request                                          |
+| ---------------------------------------------------------------------------------------------- | ----------------------------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+|                                                                                                |                                     |                                                                                                             |                                                                 |                                                                              |
+| Observations:                                                                                  |                                     | Image not uploading after selection, maybe increase text size, said the adding skills was straight forward. | Wasn't sure emssage was sent, maybe have a confirmation message | Sent requests and send requests are confusing                                |
+| Overall, I found the task? 7 Easy 1 Very Difficult                                             | 6                                   | 6                                                                                                           | 7                                                               | 6                                                                            |
+| How confident are you that you completed the task successful? 1 Not Confident 7 Very Confident | 7                                   | 6                                                                                                           | 5                                                               | 5                                                                            |
+| Any other comments/feedback?                                                                   |                                     | Auto upload the file, skills could be exploded                                                              | Once sent message should go to outbox.                          | Skills could be a list, Calander nice, Should go to outbox for confirmation. |
+##### SUS score
+| Question | Response | Total |
+| -------- | -------- | ----- |
+| 1        | 5        | 4     |
+| 2        | 1        | 4     |
+| 3        | 5        | 4     |
+| 4        | 1        | 4     |
+| 5        | 5        | 4     |
+| 6        | 1        | 4     |
+| 7        | 5        | 4     |
+| 8        | 1        | 4     |
+| 9        | 4        | 3     |
+| 10       | 1        | 4     |
+|          |          |       |
+| Score    |          | 97.5  |
+#### User 5:
+
+##### Background Questions
+| Question                                                                    | Answer           |
+| --------------------------------------------------------------------------- | ---------------- |
+|                                                                             |                  |
+| Is English your native langauage?                                           | Yes              |
+|                                                                             |                  |
+| Age Range (Under 18-18, 19-22, 23-26, 26-29, 30 and Over)                   | 26-29            |
+|                                                                             |                  |
+| Gender (Woman, Man, Non-binary, Prefer to self-describe, Prefer not to say) | Man              |
+|                                                                             |                  |
+| Highest level of education you have completed?                              | Bachelors Degree |
+|                                                                             |                  |
+| Current Occupation?                                                         | IT Consultant    |
+|                                                                             |                  |
+| Do you currently own a laptop, desktop or both?                             | Both             |
+|                                                                             |                  |
+| In general, do you find websites easy to use?                               | Yes              |
+|                                                                             |                  |
+| How much time do you typically spend online?                                | 8hrs             |
+##### Task Observations & Responses
+| Question                                                                                       | Task 1: Create an Account and Login      | Task 2: Edit your Profile                                                                  | Task 3: Send another User a message          | Task 4: Send another user a request |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------ | -------------------------------------------- | ----------------------------------- |
+|                                                                                                |                                          |                                                                                            |                                              |                                     |
+| Observations:                                                                                  | Used the valdation feature for flinders, | Didn't press the update buttons after altering fields, losing all data when adding skills, |                                              |                                     |
+| Overall, I found the task? 7 Easy 1 Very Difficult                                             | 7                                        | 5                                                                                          | 6                                            | 7                                   |
+| How confident are you that you completed the task successful? 1 Not Confident 7 Very Confident | 7                                        | 6                                                                                          | 7                                            | 7                                   |
+| Any other comments/feedback?                                                                   |                                          | One button to update all fields, or seperate the updates to different pages                | change URL message to on screen for failures |                                     |
+
+##### SUS score
+| Question | Response | Total |
+| -------- | -------- | ----- |
+| 1        | 4        | 3     |
+| 2        | 2        | 3     |
+| 3        | 4        | 3     |
+| 4        | 1        | 4     |
+| 5        | 4        | 3     |
+| 6        | 1        | 4     |
+| 7        | 4        | 3     |
+| 8        | 2        | 3     |
+| 9        | 5        | 4     |
+| 10       | 1        | 4     |
+|          |          |       |
+| Score    |          | 85    |
+
