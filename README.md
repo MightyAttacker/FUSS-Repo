@@ -1,7 +1,7 @@
 ## Flinders Skillshare Platform
 
 A full-stack PHP/MySQL web platform letting Flinders students offer 
-and request peer-to-peer skill-sharing sessions. Built as a 9-person 
+and request peer-to-peer skill-sharing sessions. Built as a 
 team project for COMP2030, including a full UX research phase 
 (personas, storyboards, wireframes) before development.
 
